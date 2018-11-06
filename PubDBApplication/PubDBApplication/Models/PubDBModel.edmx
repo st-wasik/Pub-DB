@@ -1,0 +1,647 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PubDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Adress">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="nr" Type="int" Nullable="false" />
+          <Property Name="street" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="city" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="post code" Type="varchar" MaxLength="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Magazines">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Magazines Stock">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="magazine id" Type="int" Nullable="false" />
+          <Property Name="product id" Type="int" Nullable="false" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Order Details">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="order id" Type="int" Nullable="false" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+          <Property Name="product id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="magazine id" Type="int" Nullable="false" />
+          <Property Name="pub id" Type="int" />
+          <Property Name="producent id" Type="int" />
+          <Property Name="Incoming/Outcoming" Type="int" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="date" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Producents">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="adress id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="producent id" Type="int" Nullable="false" />
+          <Property Name="price" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pubs">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="adress id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Table">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Magazines__magaz__33D4B598">
+          <End Role="Magazines" Type="Self.Magazines" Multiplicity="1" />
+          <End Role="Magazines Stock" Type="Self.Magazines Stock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Magazines">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Magazines Stock">
+              <PropertyRef Name="magazine id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Magazines__produ__34C8D9D1">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="Magazines Stock" Type="Self.Magazines Stock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Magazines Stock">
+              <PropertyRef Name="product id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order Det__order__35BCFE0A">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="Order Details" Type="Self.Order Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Order Details">
+              <PropertyRef Name="order id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order Det__produ__36B12243">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="Order Details" Type="Self.Order Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Order Details">
+              <PropertyRef Name="product id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__magazine__37A5467C">
+          <End Role="Magazines" Type="Self.Magazines" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Magazines">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="magazine id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__producen__398D8EEE">
+          <End Role="Producents" Type="Self.Producents" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producents">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="producent id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__pub id__38996AB5">
+          <End Role="Pubs" Type="Self.Pubs" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pubs">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="pub id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Producent__adres__3A81B327">
+          <End Role="Adress" Type="Self.Adress" Multiplicity="1" />
+          <End Role="Producents" Type="Self.Producents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Adress">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Producents">
+              <PropertyRef Name="adress id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Products__produc__3B75D760">
+          <End Role="Producents" Type="Self.Producents" Multiplicity="1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producents">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="producent id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pubs__adress id__3C69FB99">
+          <End Role="Adress" Type="Self.Adress" Multiplicity="1" />
+          <End Role="Pubs" Type="Self.Pubs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Adress">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Pubs">
+              <PropertyRef Name="adress id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PubDBModelStoreContainer">
+          <EntitySet Name="Adress" EntityType="Self.Adress" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Magazines" EntityType="Self.Magazines" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Magazines Stock" EntityType="Self.Magazines Stock" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order Details" EntityType="Self.Order Details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Producents" EntityType="Self.Producents" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pubs" EntityType="Self.Pubs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Table" EntityType="Self.Table" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Magazines__magaz__33D4B598" Association="Self.FK__Magazines__magaz__33D4B598">
+            <End Role="Magazines" EntitySet="Magazines" />
+            <End Role="Magazines Stock" EntitySet="Magazines Stock" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Magazines__produ__34C8D9D1" Association="Self.FK__Magazines__produ__34C8D9D1">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Magazines Stock" EntitySet="Magazines Stock" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order Det__order__35BCFE0A" Association="Self.FK__Order Det__order__35BCFE0A">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Order Details" EntitySet="Order Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order Det__produ__36B12243" Association="Self.FK__Order Det__produ__36B12243">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Order Details" EntitySet="Order Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__magazine__37A5467C" Association="Self.FK__Orders__magazine__37A5467C">
+            <End Role="Magazines" EntitySet="Magazines" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__producen__398D8EEE" Association="Self.FK__Orders__producen__398D8EEE">
+            <End Role="Producents" EntitySet="Producents" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__pub id__38996AB5" Association="Self.FK__Orders__pub id__38996AB5">
+            <End Role="Pubs" EntitySet="Pubs" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Producent__adres__3A81B327" Association="Self.FK__Producent__adres__3A81B327">
+            <End Role="Adress" EntitySet="Adress" />
+            <End Role="Producents" EntitySet="Producents" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Products__produc__3B75D760" Association="Self.FK__Products__produc__3B75D760">
+            <End Role="Producents" EntitySet="Producents" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pubs__adress id__3C69FB99" Association="Self.FK__Pubs__adress id__3C69FB99">
+            <End Role="Adress" EntitySet="Adress" />
+            <End Role="Pubs" EntitySet="Pubs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PubDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Adress">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nr" Type="Int32" Nullable="false" />
+          <Property Name="street" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="city" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="post_code" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Producents" Relationship="Self.FK__Producent__adres__3A81B327" FromRole="Adress" ToRole="Producents" />
+          <NavigationProperty Name="Pubs" Relationship="Self.FK__Pubs__adress_id__3C69FB99" FromRole="Adress" ToRole="Pubs" />
+        </EntityType>
+        <EntityType Name="Magazines">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Magazines_Stock" Relationship="Self.FK__Magazines__magaz__33D4B598" FromRole="Magazines" ToRole="Magazines_Stock" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__magazine__37A5467C" FromRole="Magazines" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Magazines_Stock">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="magazine_id" Type="Int32" Nullable="false" />
+          <Property Name="product_id" Type="Int32" Nullable="false" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Magazines" Relationship="Self.FK__Magazines__magaz__33D4B598" FromRole="Magazines_Stock" ToRole="Magazines" />
+          <NavigationProperty Name="Products" Relationship="Self.FK__Magazines__produ__34C8D9D1" FromRole="Magazines_Stock" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="Order_Details">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="order_id" Type="Int32" Nullable="false" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <Property Name="product_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Order_Det__order__35BCFE0A" FromRole="Order_Details" ToRole="Orders" />
+          <NavigationProperty Name="Products" Relationship="Self.FK__Order_Det__produ__36B12243" FromRole="Order_Details" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="magazine_id" Type="Int32" Nullable="false" />
+          <Property Name="pub_id" Type="Int32" />
+          <Property Name="producent_id" Type="Int32" />
+          <Property Name="Incoming_Outcoming" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Magazines" Relationship="Self.FK__Orders__magazine__37A5467C" FromRole="Orders" ToRole="Magazines" />
+          <NavigationProperty Name="Order_Details" Relationship="Self.FK__Order_Det__order__35BCFE0A" FromRole="Orders" ToRole="Order_Details" />
+          <NavigationProperty Name="Producents" Relationship="Self.FK__Orders__producen__398D8EEE" FromRole="Orders" ToRole="Producents" />
+          <NavigationProperty Name="Pubs" Relationship="Self.FK__Orders__pub_id__38996AB5" FromRole="Orders" ToRole="Pubs" />
+        </EntityType>
+        <EntityType Name="Producents">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="adress_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Adress" Relationship="Self.FK__Producent__adres__3A81B327" FromRole="Producents" ToRole="Adress" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__producen__398D8EEE" FromRole="Producents" ToRole="Orders" />
+          <NavigationProperty Name="Products" Relationship="Self.FK__Products__produc__3B75D760" FromRole="Producents" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="producent_id" Type="Int32" Nullable="false" />
+          <Property Name="price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="Magazines_Stock" Relationship="Self.FK__Magazines__produ__34C8D9D1" FromRole="Products" ToRole="Magazines_Stock" />
+          <NavigationProperty Name="Order_Details" Relationship="Self.FK__Order_Det__produ__36B12243" FromRole="Products" ToRole="Order_Details" />
+          <NavigationProperty Name="Producents" Relationship="Self.FK__Products__produc__3B75D760" FromRole="Products" ToRole="Producents" />
+        </EntityType>
+        <EntityType Name="Pubs">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="adress_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Adress" Relationship="Self.FK__Pubs__adress_id__3C69FB99" FromRole="Pubs" ToRole="Adress" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__pub_id__38996AB5" FromRole="Pubs" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Table">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Producent__adres__3A81B327">
+          <End Role="Adress" Type="Self.Adress" Multiplicity="1" />
+          <End Role="Producents" Type="Self.Producents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Adress">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Producents">
+              <PropertyRef Name="adress_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pubs__adress_id__3C69FB99">
+          <End Role="Adress" Type="Self.Adress" Multiplicity="1" />
+          <End Role="Pubs" Type="Self.Pubs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Adress">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Pubs">
+              <PropertyRef Name="adress_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Magazines__magaz__33D4B598">
+          <End Role="Magazines" Type="Self.Magazines" Multiplicity="1" />
+          <End Role="Magazines_Stock" Type="Self.Magazines_Stock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Magazines">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Magazines_Stock">
+              <PropertyRef Name="magazine_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__magazine__37A5467C">
+          <End Role="Magazines" Type="Self.Magazines" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Magazines">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="magazine_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Magazines__produ__34C8D9D1">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="Magazines_Stock" Type="Self.Magazines_Stock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Magazines_Stock">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order_Det__order__35BCFE0A">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="Order_Details" Type="Self.Order_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Order_Details">
+              <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order_Det__produ__36B12243">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="Order_Details" Type="Self.Order_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Order_Details">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__producen__398D8EEE">
+          <End Role="Producents" Type="Self.Producents" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producents">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="producent_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__pub_id__38996AB5">
+          <End Role="Pubs" Type="Self.Pubs" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pubs">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="pub_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Products__produc__3B75D760">
+          <End Role="Producents" Type="Self.Producents" Multiplicity="1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producents">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="producent_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PubDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Adress" EntityType="Self.Adress" />
+          <EntitySet Name="Magazines" EntityType="Self.Magazines" />
+          <EntitySet Name="Magazines_Stock" EntityType="Self.Magazines_Stock" />
+          <EntitySet Name="Order_Details" EntityType="Self.Order_Details" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" />
+          <EntitySet Name="Producents" EntityType="Self.Producents" />
+          <EntitySet Name="Products" EntityType="Self.Products" />
+          <EntitySet Name="Pubs" EntityType="Self.Pubs" />
+          <EntitySet Name="Table" EntityType="Self.Table" />
+          <AssociationSet Name="FK__Producent__adres__3A81B327" Association="Self.FK__Producent__adres__3A81B327">
+            <End Role="Adress" EntitySet="Adress" />
+            <End Role="Producents" EntitySet="Producents" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pubs__adress_id__3C69FB99" Association="Self.FK__Pubs__adress_id__3C69FB99">
+            <End Role="Adress" EntitySet="Adress" />
+            <End Role="Pubs" EntitySet="Pubs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Magazines__magaz__33D4B598" Association="Self.FK__Magazines__magaz__33D4B598">
+            <End Role="Magazines" EntitySet="Magazines" />
+            <End Role="Magazines_Stock" EntitySet="Magazines_Stock" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__magazine__37A5467C" Association="Self.FK__Orders__magazine__37A5467C">
+            <End Role="Magazines" EntitySet="Magazines" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Magazines__produ__34C8D9D1" Association="Self.FK__Magazines__produ__34C8D9D1">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Magazines_Stock" EntitySet="Magazines_Stock" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order_Det__order__35BCFE0A" Association="Self.FK__Order_Det__order__35BCFE0A">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Order_Details" EntitySet="Order_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order_Det__produ__36B12243" Association="Self.FK__Order_Det__produ__36B12243">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Order_Details" EntitySet="Order_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__producen__398D8EEE" Association="Self.FK__Orders__producen__398D8EEE">
+            <End Role="Producents" EntitySet="Producents" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__pub_id__38996AB5" Association="Self.FK__Orders__pub_id__38996AB5">
+            <End Role="Pubs" EntitySet="Pubs" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Products__produc__3B75D760" Association="Self.FK__Products__produc__3B75D760">
+            <End Role="Producents" EntitySet="Producents" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PubDBModelStoreContainer" CdmEntityContainer="PubDBEntities">
+          <EntitySetMapping Name="Adress">
+            <EntityTypeMapping TypeName="PubDBModel.Adress">
+              <MappingFragment StoreEntitySet="Adress">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nr" ColumnName="nr" />
+                <ScalarProperty Name="street" ColumnName="street" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="post_code" ColumnName="post code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Magazines">
+            <EntityTypeMapping TypeName="PubDBModel.Magazines">
+              <MappingFragment StoreEntitySet="Magazines">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Magazines_Stock">
+            <EntityTypeMapping TypeName="PubDBModel.Magazines_Stock">
+              <MappingFragment StoreEntitySet="Magazines Stock">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="magazine_id" ColumnName="magazine id" />
+                <ScalarProperty Name="product_id" ColumnName="product id" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Order_Details">
+            <EntityTypeMapping TypeName="PubDBModel.Order_Details">
+              <MappingFragment StoreEntitySet="Order Details">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="order_id" ColumnName="order id" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="product_id" ColumnName="product id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="PubDBModel.Orders">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="magazine_id" ColumnName="magazine id" />
+                <ScalarProperty Name="pub_id" ColumnName="pub id" />
+                <ScalarProperty Name="producent_id" ColumnName="producent id" />
+                <ScalarProperty Name="Incoming_Outcoming" ColumnName="Incoming/Outcoming" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="date" ColumnName="date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Producents">
+            <EntityTypeMapping TypeName="PubDBModel.Producents">
+              <MappingFragment StoreEntitySet="Producents">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="adress_id" ColumnName="adress id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="PubDBModel.Products">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="producent_id" ColumnName="producent id" />
+                <ScalarProperty Name="price" ColumnName="price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pubs">
+            <EntityTypeMapping TypeName="PubDBModel.Pubs">
+              <MappingFragment StoreEntitySet="Pubs">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="adress_id" ColumnName="adress id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Table">
+            <EntityTypeMapping TypeName="PubDBModel.Table">
+              <MappingFragment StoreEntitySet="Table">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
