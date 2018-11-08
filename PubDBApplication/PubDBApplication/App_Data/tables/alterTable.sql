@@ -3,11 +3,13 @@ add check(building_no>0);
 
 alter table Pubs
 add unique(name),
-e-mail varchar(50) not null unique;
+e-mail varchar(50) unique,
+telephone_no varchar(12) unique;
 
 alter table Producers
 add unique(name),
-e-mail varchar(50) not null unique;
+e-mail varchar(50) unique,
+telephone_no varchar(12) unique;
 
 alter table Products
 add unique(name),
