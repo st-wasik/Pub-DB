@@ -17,21 +17,21 @@ namespace PubDBApplication.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Orders()
         {
-            this.Order_Details = new HashSet<Order_Details>();
+            this.OrderDetails = new HashSet<OrderDetails>();
         }
     
         public int id { get; set; }
-        public int magazine_id { get; set; }
+        public int warehouse_id { get; set; }
         public Nullable<int> pub_id { get; set; }
-        public Nullable<int> producent_id { get; set; }
+        public Nullable<int> producer_id { get; set; }
         public int Incoming_Outcoming { get; set; }
         public string status { get; set; }
         public System.DateTime date { get; set; }
     
-        public virtual Magazines Magazines { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order_Details> Order_Details { get; set; }
-        public virtual Producents Producents { get; set; }
+        public virtual ICollection<OrderDetails> OrderDetails { get; set; }
+        public virtual Producers Producers { get; set; }
         public virtual Pubs Pubs { get; set; }
+        public virtual Warehouses Warehouses { get; set; }
     }
 }

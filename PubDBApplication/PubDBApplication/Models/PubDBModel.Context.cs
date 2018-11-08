@@ -25,14 +25,13 @@ namespace PubDBApplication.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Adress> Adress { get; set; }
-        public virtual DbSet<Magazines> Magazines { get; set; }
-        public virtual DbSet<Magazines_Stock> Magazines_Stock { get; set; }
-        public virtual DbSet<Order_Details> Order_Details { get; set; }
+        public virtual DbSet<Address> Address { get; set; }
+        public virtual DbSet<OrderDetails> OrderDetails { get; set; }
         public virtual DbSet<Orders> Orders { get; set; }
-        public virtual DbSet<Producents> Producents { get; set; }
+        public virtual DbSet<Producers> Producers { get; set; }
         public virtual DbSet<Products> Products { get; set; }
         public virtual DbSet<Pubs> Pubs { get; set; }
-        public virtual DbSet<Table> Table { get; set; }
+        public virtual DbSet<Warehouses> Warehouses { get; set; }
+        public virtual DbSet<WarehousesStock> WarehousesStock { get; set; }
     }
 }

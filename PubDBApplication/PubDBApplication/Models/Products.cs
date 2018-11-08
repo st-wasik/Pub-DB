@@ -17,19 +17,21 @@ namespace PubDBApplication.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Products()
         {
-            this.Magazines_Stock = new HashSet<Magazines_Stock>();
-            this.Order_Details = new HashSet<Order_Details>();
+            this.OrderDetails = new HashSet<OrderDetails>();
+            this.WarehousesStock = new HashSet<WarehousesStock>();
         }
     
         public int id { get; set; }
         public string name { get; set; }
-        public int producent_id { get; set; }
+        public int producer_id { get; set; }
         public decimal price { get; set; }
+        public int alcohol_percentage { get; set; }
+        public float volume { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Magazines_Stock> Magazines_Stock { get; set; }
+        public virtual ICollection<OrderDetails> OrderDetails { get; set; }
+        public virtual Producers Producers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order_Details> Order_Details { get; set; }
-        public virtual Producents Producents { get; set; }
+        public virtual ICollection<WarehousesStock> WarehousesStock { get; set; }
     }
 }
