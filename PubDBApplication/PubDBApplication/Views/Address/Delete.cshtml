@@ -8,19 +8,18 @@
 <h2>Delete</h2>
 
 <h3>Are you sure you want to delete this?</h3>
-<!--<div> -->
+<div> 
     <h4>Address</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.building_no)
         </dt>
-        @foreach (var item in model)
-        {
+
         <dd>
-            @Html.DisplayFor(modelItem => item.building_no)
+            @Html.DisplayFor(model => model.building_no)
         </dd>
-        }
+        
         <dt>
             @Html.DisplayNameFor(model => model.street)
         </dt>
@@ -56,4 +55,4 @@
             @Html.ActionLink("Back to List", "Index")
         </div>
     }
-<!--</div> -->
+</div>
