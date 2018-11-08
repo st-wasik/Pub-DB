@@ -1,6 +1,6 @@
 ﻿create table Address
 (
-id int primary key identity (1,1),
+id int primary key identity (1,1), 
 building_no int not null,
 street varchar(30) not null,
 city varchar(30) not null,
