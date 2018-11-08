@@ -12,7 +12,8 @@ create table Pubs
 id int primary key identity (1,1),
 name varchar(30) not null unique,
 adress_id int references Address(id) not null,
-e-mail varchar(50) not null unique
+e-mail varchar(50) unique,
+telephone_no varchar(12) unique
 );
 
 create table Producers
@@ -20,7 +21,8 @@ create table Producers
 id int primary key identity (1,1),
 name varchar(30) not null unique,
 adress_id int references Address(id) not null,
-e-mail varchar(50) not null unique
+e-mail varchar(50) unique,
+telephone_no varchar(12) unique
 );
 
 create table Products
