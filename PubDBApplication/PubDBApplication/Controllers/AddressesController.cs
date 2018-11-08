@@ -109,9 +109,26 @@ namespace PubDBApplication.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            ViewBag.Exception = null;
+            string msg = null;
+
             Address address = db.Address.Find(id);
             db.Address.Remove(address);
-            db.SaveChanges();
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                if (e.InnerException == null)
+                    msg = "Invalid data";
+                else
+                    msg = e.InnerException.InnerException.Message;
+
+                ViewBag.Exception = msg;
+                return View(address);
+            }
+
             return RedirectToAction("Index");
         }
 
