@@ -50,8 +50,26 @@ namespace PubDBApplication.Controllers
         {
             if (ModelState.IsValid)
             {
+                ViewBag.Exception = null;
+                string msg = null;
+
                 db.Address.Add(address);
-                db.SaveChanges();
+
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    if (e.InnerException == null)
+                        msg = "Invalid data";
+                    else
+                        msg = e.InnerException.InnerException.Message;
+
+                    ViewBag.Exception = msg;
+                    return View(address);
+                }
+
                 return RedirectToAction("Index");
             }
 
@@ -82,8 +100,23 @@ namespace PubDBApplication.Controllers
         {
             if (ModelState.IsValid)
             {
+                ViewBag.Exception = null;
+                string msg = null;
                 db.Entry(address).State = EntityState.Modified;
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    if (e.InnerException == null)
+                        msg = "Invalid data";
+                    else
+                        msg = e.InnerException.InnerException.Message;
+
+                    ViewBag.Exception = msg;
+                    return View(address);
+                }
                 return RedirectToAction("Index");
             }
             return View(address);

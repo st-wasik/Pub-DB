@@ -39,7 +39,7 @@ namespace PubDBApplication.Controllers
         // GET: Producers/Create
         public ActionResult Create()
         {
-            ViewBag.adress_id = new SelectList(db.Address, "id", "street");
+            ViewBag.adress_id = new SelectList(db.Address, "id", "id");
             return View();
         }
 
@@ -52,8 +52,25 @@ namespace PubDBApplication.Controllers
         {
             if (ModelState.IsValid)
             {
+                ViewBag.Exception = null;
+                string msg = null;
+
                 db.Producers.Add(producers);
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    if (e.InnerException == null)
+                        msg = "Invalid data";
+                    else
+                        msg = e.InnerException.InnerException.Message;
+
+                    ViewBag.Exception = msg;
+                    ViewBag.adress_id = new SelectList(db.Address, "id", "id");
+                    return View(producers);
+                }
                 return RedirectToAction("Index");
             }
 
@@ -84,10 +101,26 @@ namespace PubDBApplication.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id,name,adress_id")] Producers producers)
         {
+            ViewBag.Exception = null;
+            string msg = null;
             if (ModelState.IsValid)
             {
                 db.Entry(producers).State = EntityState.Modified;
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    if (e.InnerException == null)
+                        msg = "Invalid data";
+                    else
+                        msg = e.InnerException.InnerException.Message;
+
+                    ViewBag.Exception = msg;
+                    ViewBag.adress_id = new SelectList(db.Address, "id", "street", producers.adress_id);
+                    return View(producers);
+                }
                 return RedirectToAction("Index");
             }
             ViewBag.adress_id = new SelectList(db.Address, "id", "street", producers.adress_id);
@@ -114,9 +147,24 @@ namespace PubDBApplication.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            ViewBag.Exception = null;
+            string msg = null;
             Producers producers = db.Producers.Find(id);
             db.Producers.Remove(producers);
-            db.SaveChanges();
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                if (e.InnerException == null)
+                    msg = "Invalid data";
+                else
+                    msg = e.InnerException.InnerException.Message;
+
+                ViewBag.Exception = msg;
+                return View(producers);
+            }
             return RedirectToAction("Index");
         }
 
