@@ -11,3 +11,13 @@ select building_no, street, city, postal_code
 from inserted;
 insert into Pubs(name,adress_id) select name, (select a.id from Address a where a.street = inserted.street) from inserted;
 end
+
+
+create procedure createRaport @Id int
+AS
+if(@Id<1)
+begin
+RAISERROR('NIE MOZNA PODAC ID MNIEJSZEGO NIZ 1',16,1)
+return
+end
+SELECT * FROM OrderDetails od JOIN Orders o on od.order_id = o.id WHERE o.pub_id=@Id;
