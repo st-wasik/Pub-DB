@@ -6,7 +6,8 @@ create or replace trigger trig1 on AddingToPubs
 instead of insert
 as
 begin
-insert into AddingToPubs
-select name,building_no, street, city, postal_code
+insert into Address 
+select building_no, street, city, postal_code
 from inserted;
+insert into Pubs(name,adress_id) select name, (select a.id from Address a where a.street = inserted.street) from inserted;
 end
