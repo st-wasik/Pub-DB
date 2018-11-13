@@ -21,3 +21,17 @@ RAISERROR('NIE MOZNA PODAC ID MNIEJSZEGO NIZ 1',16,1)
 return
 end
 SELECT * FROM OrderDetails od JOIN Orders o on od.order_id = o.id WHERE o.pub_id=@Id;
+
+create trigger Address_build_no
+ON Address
+INSTEAD OF insert
+AS
+BEGIN
+if((SELECT building_no FROM inserted)<1)
+BEGIN
+RAISERROR('NUMER BUDYNKU NIE MOZE BYC MNIEJSZY NIZ 1',16,1);
+rollback;
+return
+END
+insert into Address(building_no,street,city,postal_code) select building_no,street,city,postal_code from inserted;
+END
