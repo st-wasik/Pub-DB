@@ -24,7 +24,7 @@ namespace PubDBApplication.Models
         public int warehouse_id { get; set; }
         public Nullable<int> pub_id { get; set; }
         public Nullable<int> producer_id { get; set; }
-        public int Incoming_Outcoming { get; set; }
+        public string Incoming_Outcoming { get; set; }
         public string status { get; set; }
         public System.DateTime date { get; set; }
     

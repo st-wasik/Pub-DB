@@ -33,5 +33,12 @@ namespace PubDBApplication.Models
         public virtual DbSet<Pubs> Pubs { get; set; }
         public virtual DbSet<Warehouses> Warehouses { get; set; }
         public virtual DbSet<WarehousesStock> WarehousesStock { get; set; }
+        public virtual DbSet<AddingToPubs> AddingToPubs { get; set; }
+        public virtual DbSet<OrderDetailsView> OrderDetailsView { get; set; }
+        public virtual DbSet<OrdersView> OrdersView { get; set; }
+        public virtual DbSet<ProducersView> ProducersView { get; set; }
+        public virtual DbSet<ProductsView> ProductsView { get; set; }
+        public virtual DbSet<PubsView> PubsView { get; set; }
+        public virtual DbSet<WarehousesStockView> WarehousesStockView { get; set; }
     }
 }

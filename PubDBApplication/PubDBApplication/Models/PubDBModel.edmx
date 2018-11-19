@@ -32,7 +32,7 @@
           <Property Name="warehouse_id" Type="int" Nullable="false" />
           <Property Name="pub_id" Type="int" />
           <Property Name="producer_id" Type="int" />
-          <Property Name="Incoming/Outcoming" Type="int" Nullable="false" />
+          <Property Name="Incoming/Outcoming" Type="varchar" MaxLength="15" />
           <Property Name="status" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="date" Type="date" Nullable="false" />
         </EntityType>
@@ -43,6 +43,8 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="adress_id" Type="int" Nullable="false" />
+          <Property Name="e-mail" Type="varchar" MaxLength="50" />
+          <Property Name="telephone_no" Type="varchar" MaxLength="12" />
         </EntityType>
         <EntityType Name="Products">
           <Key>
@@ -62,6 +64,8 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="adress_id" Type="int" Nullable="false" />
+          <Property Name="e-mail" Type="varchar" MaxLength="50" />
+          <Property Name="telephone_no" Type="varchar" MaxLength="12" />
         </EntityType>
         <EntityType Name="Warehouses">
           <Key>
@@ -77,6 +81,124 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="warehouse_id" Type="int" Nullable="false" />
           <Property Name="product_id" Type="int" Nullable="false" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICATION\PUBDBAPPLICATION\APP_DATA\PUBDB.MDF.dbo.AddingToPubs' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="AddingToPubs">
+          <Key>
+            <PropertyRef Name="name" />
+            <PropertyRef Name="building_no" />
+            <PropertyRef Name="street" />
+            <PropertyRef Name="city" />
+          </Key>
+          <Property Name="name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="building_no" Type="int" Nullable="false" />
+          <Property Name="street" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="city" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="postal_code" Type="varchar" MaxLength="6" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICATION\PUBDBAPPLICATION\APP_DATA\PUBDB.MDF.dbo.OrderDetailsView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="OrderDetailsView">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="order_id" />
+            <PropertyRef Name="quantity" />
+            <PropertyRef Name="product_name" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="order_id" Type="int" Nullable="false" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+          <Property Name="product_name" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICATION\PUBDBAPPLICATION\APP_DATA\PUBDB.MDF.dbo.OrdersView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="OrdersView">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="warehouse_name" />
+            <PropertyRef Name="pub_name" />
+            <PropertyRef Name="producer_name" />
+            <PropertyRef Name="status" />
+            <PropertyRef Name="date" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="warehouse_name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="pub_name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="producer_name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Incoming/Outcoming" Type="varchar" MaxLength="15" />
+          <Property Name="status" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="date" Type="date" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICATION\PUBDBAPPLICATION\APP_DATA\PUBDB.MDF.dbo.ProducersView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ProducersView">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="street" />
+            <PropertyRef Name="building_no" />
+            <PropertyRef Name="city" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="e-mail" Type="varchar" MaxLength="50" />
+          <Property Name="telephone_no" Type="varchar" MaxLength="12" />
+          <Property Name="street" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="building_no" Type="int" Nullable="false" />
+          <Property Name="postal_code" Type="varchar" MaxLength="6" />
+          <Property Name="city" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICATION\PUBDBAPPLICATION\APP_DATA\PUBDB.MDF.dbo.ProductsView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ProductsView">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="producer_name" />
+            <PropertyRef Name="price" />
+            <PropertyRef Name="alcohol_percentage" />
+            <PropertyRef Name="volume" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="producer_name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="price" Type="money" Nullable="false" />
+          <Property Name="alcohol_percentage" Type="int" Nullable="false" />
+          <Property Name="volume" Type="real" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICATION\PUBDBAPPLICATION\APP_DATA\PUBDB.MDF.dbo.PubsView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="PubsView">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="street" />
+            <PropertyRef Name="building_no" />
+            <PropertyRef Name="city" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="e-mail" Type="varchar" MaxLength="50" />
+          <Property Name="telephone_no" Type="varchar" MaxLength="12" />
+          <Property Name="street" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="building_no" Type="int" Nullable="false" />
+          <Property Name="postal_code" Type="varchar" MaxLength="6" />
+          <Property Name="city" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICATION\PUBDBAPPLICATION\APP_DATA\PUBDB.MDF.dbo.WarehousesStockView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="WarehousesStockView">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="warehouse_name" />
+            <PropertyRef Name="product_name" />
+            <PropertyRef Name="quantity" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="warehouse_name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="product_name" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="quantity" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK__OrderDeta__order__3A4CA8FD">
@@ -208,6 +330,76 @@
           <EntitySet Name="Pubs" EntityType="Self.Pubs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Warehouses" EntityType="Self.Warehouses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WarehousesStock" EntityType="Self.WarehousesStock" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AddingToPubs" EntityType="Self.AddingToPubs" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [AddingToPubs].[name] AS [name], 
+    [AddingToPubs].[building_no] AS [building_no], 
+    [AddingToPubs].[street] AS [street], 
+    [AddingToPubs].[city] AS [city], 
+    [AddingToPubs].[postal_code] AS [postal_code]
+    FROM [dbo].[AddingToPubs] AS [AddingToPubs]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="OrderDetailsView" EntityType="Self.OrderDetailsView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [OrderDetailsView].[id] AS [id], 
+    [OrderDetailsView].[order_id] AS [order_id], 
+    [OrderDetailsView].[quantity] AS [quantity], 
+    [OrderDetailsView].[product_name] AS [product_name]
+    FROM [dbo].[OrderDetailsView] AS [OrderDetailsView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="OrdersView" EntityType="Self.OrdersView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [OrdersView].[id] AS [id], 
+    [OrdersView].[warehouse_name] AS [warehouse_name], 
+    [OrdersView].[pub_name] AS [pub_name], 
+    [OrdersView].[producer_name] AS [producer_name], 
+    [OrdersView].[Incoming/Outcoming] AS [Incoming/Outcoming], 
+    [OrdersView].[status] AS [status], 
+    [OrdersView].[date] AS [date]
+    FROM [dbo].[OrdersView] AS [OrdersView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ProducersView" EntityType="Self.ProducersView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ProducersView].[id] AS [id], 
+    [ProducersView].[name] AS [name], 
+    [ProducersView].[e-mail] AS [e-mail], 
+    [ProducersView].[telephone_no] AS [telephone_no], 
+    [ProducersView].[street] AS [street], 
+    [ProducersView].[building_no] AS [building_no], 
+    [ProducersView].[postal_code] AS [postal_code], 
+    [ProducersView].[city] AS [city]
+    FROM [dbo].[ProducersView] AS [ProducersView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ProductsView" EntityType="Self.ProductsView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ProductsView].[id] AS [id], 
+    [ProductsView].[name] AS [name], 
+    [ProductsView].[producer_name] AS [producer_name], 
+    [ProductsView].[price] AS [price], 
+    [ProductsView].[alcohol_percentage] AS [alcohol_percentage], 
+    [ProductsView].[volume] AS [volume]
+    FROM [dbo].[ProductsView] AS [ProductsView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="PubsView" EntityType="Self.PubsView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [PubsView].[id] AS [id], 
+    [PubsView].[name] AS [name], 
+    [PubsView].[e-mail] AS [e-mail], 
+    [PubsView].[telephone_no] AS [telephone_no], 
+    [PubsView].[street] AS [street], 
+    [PubsView].[building_no] AS [building_no], 
+    [PubsView].[postal_code] AS [postal_code], 
+    [PubsView].[city] AS [city]
+    FROM [dbo].[PubsView] AS [PubsView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="WarehousesStockView" EntityType="Self.WarehousesStockView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [WarehousesStockView].[id] AS [id], 
+    [WarehousesStockView].[warehouse_name] AS [warehouse_name], 
+    [WarehousesStockView].[product_name] AS [product_name], 
+    [WarehousesStockView].[quantity] AS [quantity]
+    FROM [dbo].[WarehousesStockView] AS [WarehousesStockView]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK__OrderDeta__order__3A4CA8FD" Association="Self.FK__OrderDeta__order__3A4CA8FD">
             <End Role="Orders" EntitySet="Orders" />
             <End Role="OrderDetails" EntitySet="OrderDetails" />
@@ -284,7 +476,7 @@
           <Property Name="warehouse_id" Type="Int32" Nullable="false" />
           <Property Name="pub_id" Type="Int32" />
           <Property Name="producer_id" Type="Int32" />
-          <Property Name="Incoming_Outcoming" Type="Int32" Nullable="false" />
+          <Property Name="Incoming_Outcoming" Type="String" />
           <Property Name="status" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="OrderDetails" Relationship="Self.FK__OrderDeta__order__3A4CA8FD" FromRole="Orders" ToRole="OrderDetails" />
@@ -302,6 +494,8 @@
           <NavigationProperty Name="Address" Relationship="Self.FK__Producers__adres__2DE6D218" FromRole="Producers" ToRole="Address" />
           <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__producer__37703C52" FromRole="Producers" ToRole="Orders" />
           <NavigationProperty Name="Products" Relationship="Self.FK__Products__produc__30C33EC3" FromRole="Producers" ToRole="Products" />
+          <Property Name="e_mail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="telephone_no" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Products">
           <Key>
@@ -326,6 +520,8 @@
           <Property Name="adress_id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Address" Relationship="Self.FK__Pubs__adress_id__2B0A656D" FromRole="Pubs" ToRole="Address" />
           <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__pub_id__367C1819" FromRole="Pubs" ToRole="Orders" />
+          <Property Name="e_mail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="telephone_no" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Warehouses">
           <Key>
@@ -516,7 +712,118 @@
             <End Role="Warehouses" EntitySet="Warehouses" />
             <End Role="WarehousesStock" EntitySet="WarehousesStock" />
           </AssociationSet>
+          <EntitySet Name="AddingToPubs" EntityType="PubDBModel.AddingToPubs" />
+          <EntitySet Name="OrderDetailsView" EntityType="PubDBModel.OrderDetailsView" />
+          <EntitySet Name="OrdersView" EntityType="PubDBModel.OrdersView" />
+          <EntitySet Name="ProducersView" EntityType="PubDBModel.ProducersView" />
+          <EntitySet Name="ProductsView" EntityType="PubDBModel.ProductsView" />
+          <EntitySet Name="PubsView" EntityType="PubDBModel.PubsView" />
+          <EntitySet Name="WarehousesStockView" EntityType="PubDBModel.WarehousesStockView" />
         </EntityContainer>
+        <EntityType Name="AddingToPubs">
+          <Key>
+            <PropertyRef Name="name" />
+            <PropertyRef Name="building_no" />
+            <PropertyRef Name="street" />
+            <PropertyRef Name="city" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="building_no" Type="Int32" Nullable="false" />
+          <Property Name="street" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="city" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="postal_code" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="OrderDetailsView">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="order_id" />
+            <PropertyRef Name="quantity" />
+            <PropertyRef Name="product_name" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="order_id" Type="Int32" Nullable="false" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <Property Name="product_name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="OrdersView">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="warehouse_name" />
+            <PropertyRef Name="pub_name" />
+            <PropertyRef Name="producer_name" />
+            <PropertyRef Name="status" />
+            <PropertyRef Name="date" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="warehouse_name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="pub_name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="producer_name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Incoming_Outcoming" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityType Name="ProducersView">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="street" />
+            <PropertyRef Name="building_no" />
+            <PropertyRef Name="city" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="e_mail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="telephone_no" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="street" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="building_no" Type="Int32" Nullable="false" />
+          <Property Name="postal_code" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="city" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ProductsView">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="producer_name" />
+            <PropertyRef Name="price" />
+            <PropertyRef Name="alcohol_percentage" />
+            <PropertyRef Name="volume" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="producer_name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="price" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="alcohol_percentage" Type="Int32" Nullable="false" />
+          <Property Name="volume" Type="Single" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PubsView">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="street" />
+            <PropertyRef Name="building_no" />
+            <PropertyRef Name="city" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="e_mail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="telephone_no" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="street" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="building_no" Type="Int32" Nullable="false" />
+          <Property Name="postal_code" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="city" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="WarehousesStockView">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="warehouse_name" />
+            <PropertyRef Name="product_name" />
+            <PropertyRef Name="quantity" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="warehouse_name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="product_name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -560,6 +867,8 @@
           <EntitySetMapping Name="Producers">
             <EntityTypeMapping TypeName="PubDBModel.Producers">
               <MappingFragment StoreEntitySet="Producers">
+                <ScalarProperty Name="telephone_no" ColumnName="telephone_no" />
+                <ScalarProperty Name="e_mail" ColumnName="e-mail" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="adress_id" ColumnName="adress_id" />
@@ -581,6 +890,8 @@
           <EntitySetMapping Name="Pubs">
             <EntityTypeMapping TypeName="PubDBModel.Pubs">
               <MappingFragment StoreEntitySet="Pubs">
+                <ScalarProperty Name="telephone_no" ColumnName="telephone_no" />
+                <ScalarProperty Name="e_mail" ColumnName="e-mail" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="adress_id" ColumnName="adress_id" />
@@ -602,6 +913,90 @@
                 <ScalarProperty Name="warehouse_id" ColumnName="warehouse_id" />
                 <ScalarProperty Name="product_id" ColumnName="product_id" />
                 <ScalarProperty Name="quantity" ColumnName="quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AddingToPubs">
+            <EntityTypeMapping TypeName="PubDBModel.AddingToPubs">
+              <MappingFragment StoreEntitySet="AddingToPubs">
+                <ScalarProperty Name="postal_code" ColumnName="postal_code" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="street" ColumnName="street" />
+                <ScalarProperty Name="building_no" ColumnName="building_no" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderDetailsView">
+            <EntityTypeMapping TypeName="PubDBModel.OrderDetailsView">
+              <MappingFragment StoreEntitySet="OrderDetailsView">
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrdersView">
+            <EntityTypeMapping TypeName="PubDBModel.OrdersView">
+              <MappingFragment StoreEntitySet="OrdersView">
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="Incoming_Outcoming" ColumnName="Incoming/Outcoming" />
+                <ScalarProperty Name="producer_name" ColumnName="producer_name" />
+                <ScalarProperty Name="pub_name" ColumnName="pub_name" />
+                <ScalarProperty Name="warehouse_name" ColumnName="warehouse_name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProducersView">
+            <EntityTypeMapping TypeName="PubDBModel.ProducersView">
+              <MappingFragment StoreEntitySet="ProducersView">
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="postal_code" ColumnName="postal_code" />
+                <ScalarProperty Name="building_no" ColumnName="building_no" />
+                <ScalarProperty Name="street" ColumnName="street" />
+                <ScalarProperty Name="telephone_no" ColumnName="telephone_no" />
+                <ScalarProperty Name="e_mail" ColumnName="e-mail" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductsView">
+            <EntityTypeMapping TypeName="PubDBModel.ProductsView">
+              <MappingFragment StoreEntitySet="ProductsView">
+                <ScalarProperty Name="volume" ColumnName="volume" />
+                <ScalarProperty Name="alcohol_percentage" ColumnName="alcohol_percentage" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="producer_name" ColumnName="producer_name" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PubsView">
+            <EntityTypeMapping TypeName="PubDBModel.PubsView">
+              <MappingFragment StoreEntitySet="PubsView">
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="postal_code" ColumnName="postal_code" />
+                <ScalarProperty Name="building_no" ColumnName="building_no" />
+                <ScalarProperty Name="street" ColumnName="street" />
+                <ScalarProperty Name="telephone_no" ColumnName="telephone_no" />
+                <ScalarProperty Name="e_mail" ColumnName="e-mail" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WarehousesStockView">
+            <EntityTypeMapping TypeName="PubDBModel.WarehousesStockView">
+              <MappingFragment StoreEntitySet="WarehousesStockView">
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="warehouse_name" ColumnName="warehouse_name" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

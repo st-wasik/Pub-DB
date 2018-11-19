@@ -158,9 +158,15 @@
     <Compile Include="Controllers\AddressesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProducersController.cs" />
+    <Compile Include="Controllers\ProducersViewsController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\ProductsViewsController.cs" />
+    <Compile Include="Controllers\PubsViewsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AddingToPubs.cs">
+      <DependentUpon>PubDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Address.cs">
       <DependentUpon>PubDBModel.tt</DependentUpon>
@@ -168,13 +174,25 @@
     <Compile Include="Models\OrderDetails.cs">
       <DependentUpon>PubDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\OrderDetailsView.cs">
+      <DependentUpon>PubDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Orders.cs">
+      <DependentUpon>PubDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OrdersView.cs">
       <DependentUpon>PubDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Producers.cs">
       <DependentUpon>PubDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProducersView.cs">
+      <DependentUpon>PubDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Products.cs">
+      <DependentUpon>PubDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductsView.cs">
       <DependentUpon>PubDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PubDBModel.Context.cs">
@@ -195,10 +213,16 @@
     <Compile Include="Models\Pubs.cs">
       <DependentUpon>PubDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PubsView.cs">
+      <DependentUpon>PubDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Warehouses.cs">
       <DependentUpon>PubDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\WarehousesStock.cs">
+      <DependentUpon>PubDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WarehousesStockView.cs">
       <DependentUpon>PubDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -280,6 +304,21 @@
     <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\ProductsViews\Create.cshtml" />
+    <Content Include="Views\ProductsViews\Delete.cshtml" />
+    <Content Include="Views\ProductsViews\Details.cshtml" />
+    <Content Include="Views\ProductsViews\Edit.cshtml" />
+    <Content Include="Views\ProductsViews\Index.cshtml" />
+    <Content Include="Views\ProducersViews\Create.cshtml" />
+    <Content Include="Views\ProducersViews\Delete.cshtml" />
+    <Content Include="Views\ProducersViews\Details.cshtml" />
+    <Content Include="Views\ProducersViews\Edit.cshtml" />
+    <Content Include="Views\ProducersViews\Index.cshtml" />
+    <Content Include="Views\PubsViews\Create.cshtml" />
+    <Content Include="Views\PubsViews\Delete.cshtml" />
+    <Content Include="Views\PubsViews\Details.cshtml" />
+    <Content Include="Views\PubsViews\Edit.cshtml" />
+    <Content Include="Views\PubsViews\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

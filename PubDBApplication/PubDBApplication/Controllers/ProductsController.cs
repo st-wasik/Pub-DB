@@ -52,8 +52,25 @@ namespace PubDBApplication.Controllers
         {
             if (ModelState.IsValid)
             {
+
+                ViewBag.Exception = null;
+                string msg = null;
                 db.Products.Add(products);
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    if (e.InnerException == null)
+                        msg = "Invalid data";
+                    else
+                        msg = e.InnerException.InnerException.Message;
+
+                    ViewBag.Exception = msg;
+                    ViewBag.producer_id = new SelectList(db.Producers, "id", "name");
+                    return View(products);
+                }
                 return RedirectToAction("Index");
             }
 
