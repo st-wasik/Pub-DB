@@ -1,10 +1,6 @@
-create view AddingToPubs
-AS
-SELECT p.name, a.building_no, a.street, a.city, a.postal_code FROM Pubs p join Address a on p.adress_id=a.id;
-
 create view ProducersView as
 select p.id, p.name, p.[e-mail], p.telephone_no, a.street, a.building_no, a.postal_code, a.city 
-from Producers p join [Address] a on p.adress_id = a.id
+from Producers p join Address a on p.adress_id = a.id
 
 create view PubsView as
 select p.id, p.name, p.[e-mail], p.telephone_no, a.street, a.building_no, a.postal_code, a.city 
@@ -24,7 +20,7 @@ create view OrderDetailsView as
 select o.id, o.order_id, o.quantity, p.name as product_name from OrderDetails o join Products p on o.product_id=p.id
 
 create view WarehousesStockView as
-select ws.id, w.name as warehouse_name, p.name as product_name, ws.quantity 4
+select ws.id, w.name as warehouse_name, p.name as product_name, ws.quantity
 from WarehousesStock ws join Warehouses w on ws.warehouse_id=w.id join
 	Products p on ws.product_id = p.id
 
