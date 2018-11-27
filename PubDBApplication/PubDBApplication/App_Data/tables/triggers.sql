@@ -40,7 +40,11 @@ create trigger RequiredData on Orders
 after insert
 as
 begin
-if((select 1 from Pubs p, Producers r where (p.id = inserted.pub_id and (p.[e-mail] is null or p.telephone_no is null)) or (r.id = inserted.producer_id and (r.[e-mail] is null or r.telephone_no is null)) == 1)
+if((
+select 1 from Pubs p, inserted where p.id = inserted.pub_id and p.[e-mail] is null and p.telephone_no is null
+union
+select 1 from Producers r, inserted where r.id = inserted.producer_id and r.[e-mail] is null and r.telephone_no is null
+)>0)
 begin
 RAISERROR('By zlozyc zamowienie potrzebny jest e-mail lub numer telefonu',16,1);
 rollback
