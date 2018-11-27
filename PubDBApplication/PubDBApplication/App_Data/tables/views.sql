@@ -17,7 +17,7 @@ from Orders o join Warehouses w on o.warehouse_id = w.id join
 	Producers pr on o.producer_id = pr.id
 
 create view OrderDetailsView as
-select o.id, o.order_id, o.quantity, p.name as product_name from OrderDetails o join Products p on o.product_id=p.id
+select o.id, o.order_id, o.quantity, p.name as product_name from OrderDetails o join Products p on o.product_id=p.id order by o.order_id,p.name
 
 create view WarehousesStockView as
 select ws.id, w.name as warehouse_name, p.name as product_name, ws.quantity
