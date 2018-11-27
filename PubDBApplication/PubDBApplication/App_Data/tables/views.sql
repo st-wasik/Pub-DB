@@ -11,13 +11,13 @@ select p.id, p.name, pr.name as producer_name, p.price, p.alcohol_percentage, p.
 from Products p join Producers pr on p.producer_id = pr.id
 
 create view OrdersView as
-select o.id, w.name as warehouse_name, pu.name as pub_name, pr.name as producer_name, o.[Incoming/Outcoming], o.status, o.date 
+select o.id, w.name as warehouse_name, pu.name as pub_name, pr.name as producer_name, o.[Incoming/Outcoming], o.status, o.date, dbo.totalPrice(o.id)
 from Orders o join Warehouses w on o.warehouse_id = w.id join 
 	Pubs pu on o.pub_id = pu.id join
 	Producers pr on o.producer_id = pr.id
 
 create view OrderDetailsView as
-select o.id, o.order_id, o.quantity, p.name as product_name from OrderDetails o join Products p on o.product_id=p.id order by o.order_id,p.name
+select o.id, o.order_id, o.quantity, p.name as product_name, ROUND(o.quantity*p.price,2) as partial_price from OrderDetails o join Products p on o.product_id=p.id
 
 create view WarehousesStockView as
 select ws.id, w.name as warehouse_name, p.name as product_name, ws.quantity

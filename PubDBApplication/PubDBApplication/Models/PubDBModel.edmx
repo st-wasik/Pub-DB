@@ -111,6 +111,7 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
           <Property Name="order_id" Type="int" Nullable="false" />
           <Property Name="quantity" Type="int" Nullable="false" />
           <Property Name="product_name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="partial_price" Type="money" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICATION\PUBDBAPPLICATION\APP_DATA\PUBDB.MDF.dbo.OrdersView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -130,6 +131,7 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
           <Property Name="Incoming/Outcoming" Type="varchar" MaxLength="15" />
           <Property Name="status" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="total" Type="money" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICATION\PUBDBAPPLICATION\APP_DATA\PUBDB.MDF.dbo.ProducersView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -321,6 +323,9 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="totalPrice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="money">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="PubDBModelStoreContainer">
           <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" Schema="dbo" store:Type="Tables" />
@@ -344,7 +349,8 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
     [OrderDetailsView].[id] AS [id], 
     [OrderDetailsView].[order_id] AS [order_id], 
     [OrderDetailsView].[quantity] AS [quantity], 
-    [OrderDetailsView].[product_name] AS [product_name]
+    [OrderDetailsView].[product_name] AS [product_name], 
+    [OrderDetailsView].[partial_price] AS [partial_price]
     FROM [dbo].[OrderDetailsView] AS [OrderDetailsView]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="OrdersView" EntityType="Self.OrdersView" store:Type="Views" store:Schema="dbo">
@@ -355,7 +361,8 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
     [OrdersView].[producer_name] AS [producer_name], 
     [OrdersView].[Incoming/Outcoming] AS [Incoming/Outcoming], 
     [OrdersView].[status] AS [status], 
-    [OrdersView].[date] AS [date]
+    [OrdersView].[date] AS [date], 
+    [OrdersView].[total] AS [total]
     FROM [dbo].[OrdersView] AS [OrdersView]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="ProducersView" EntityType="Self.ProducersView" store:Type="Views" store:Schema="dbo">
@@ -476,7 +483,7 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
           <Property Name="warehouse_id" Type="Int32" Nullable="false" />
           <Property Name="pub_id" Type="Int32" />
           <Property Name="producer_id" Type="Int32" />
-          <Property Name="Incoming_Outcoming" Type="String" />
+          <Property Name="Incoming_Outcoming" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
           <Property Name="status" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="OrderDetails" Relationship="Self.FK__OrderDeta__order__3A4CA8FD" FromRole="Orders" ToRole="OrderDetails" />
@@ -744,6 +751,7 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
           <Property Name="order_id" Type="Int32" Nullable="false" />
           <Property Name="quantity" Type="Int32" Nullable="false" />
           <Property Name="product_name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="partial_price" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
         <EntityType Name="OrdersView">
           <Key>
@@ -761,6 +769,7 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
           <Property Name="Incoming_Outcoming" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="status" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="total" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
         <EntityType Name="ProducersView">
           <Key>
@@ -930,6 +939,7 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
           <EntitySetMapping Name="OrderDetailsView">
             <EntityTypeMapping TypeName="PubDBModel.OrderDetailsView">
               <MappingFragment StoreEntitySet="OrderDetailsView">
+                <ScalarProperty Name="partial_price" ColumnName="partial_price" />
                 <ScalarProperty Name="product_name" ColumnName="product_name" />
                 <ScalarProperty Name="quantity" ColumnName="quantity" />
                 <ScalarProperty Name="order_id" ColumnName="order_id" />
@@ -940,6 +950,7 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
           <EntitySetMapping Name="OrdersView">
             <EntityTypeMapping TypeName="PubDBModel.OrdersView">
               <MappingFragment StoreEntitySet="OrdersView">
+                <ScalarProperty Name="total" ColumnName="total" />
                 <ScalarProperty Name="date" ColumnName="date" />
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="Incoming_Outcoming" ColumnName="Incoming/Outcoming" />

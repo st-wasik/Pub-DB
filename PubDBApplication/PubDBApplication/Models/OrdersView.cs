@@ -21,5 +21,6 @@ namespace PubDBApplication.Models
         public string Incoming_Outcoming { get; set; }
         public string status { get; set; }
         public System.DateTime date { get; set; }
+        public Nullable<decimal> total { get; set; }
     }
 }
