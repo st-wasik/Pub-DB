@@ -81,10 +81,30 @@ namespace PubDBApplication.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id,warehouse_name,pub_name,producer_name,Incoming_Outcoming,status,date")] OrdersView ordersView)
         {
+            ViewBag.Exception = null;
+            string msg = null;
             if (ModelState.IsValid)
             {
-                db.Entry(ordersView).State = EntityState.Modified;
-                db.SaveChanges();
+                //db.Entry(ordersView).State = EntityState.Modified;
+                try
+                {
+                    var entity = (from c in db.Orders where c.id == ordersView.id select c).First();
+                    entity.status = ordersView.status;
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    if (e.InnerException == null)
+                        msg = "Invalid data";
+                    else if (e.InnerException.InnerException == null)
+                        msg = e.InnerException.Message;
+                    else
+                        msg = e.InnerException.InnerException.Message;
+
+                    ViewBag.Exception = msg;
+                    return View(ordersView);
+                }
+
                 return RedirectToAction("Index");
             }
             return View(ordersView);
