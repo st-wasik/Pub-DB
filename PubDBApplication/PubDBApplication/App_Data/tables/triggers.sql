@@ -75,9 +75,9 @@ instead of insert
 as
 begin
 insert into Orders 
-select (select w.id from Warehouses w join inserted i on i.name = w.name),
-(select p.id from Pubs p join inserted i on i.name = p.name),
-(select r.id from Producers r join inserted i on i.name = r.name),
+select (select w.id from Warehouses w join inserted i on i.warehouse_name = w.name),
+(select p.id from Pubs p join inserted i on i.pub_name = p.name),
+(select r.id from Producers r join inserted i on i.producer_name = r.name),
 [Incoming/Outcoming],
 status,
 date
