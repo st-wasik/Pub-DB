@@ -58,5 +58,15 @@ begin
 return (select SUM(od.quantity*p.price) from OrderDetails od join Products p on od.product_id = p.id where od.order_id = @id)
 end
 
-
+create trigger MinPrice on Orders
+after update
+as
+begin
+if(totalPrice(select id from updated)<1000)
+begin
+RAISERROR('Zamowienie nie moze byc mniejsze niz 1000 zl',16,1);
+rollback;
+return
+end
+end
 
