@@ -70,3 +70,16 @@ return
 end
 end
 
+create trigger OrderInsert on OrdersView
+instead of insert
+as
+begin
+insert into Orders 
+select (select w.id from Warehouses w join inserted i on i.name = w.name),
+(select p.id from Pubs p join inserted i on i.name = p.name),
+(select r.id from Producers r join inserted i on i.name = r.name),
+[Incoming/Outcoming],
+status,
+date
+from inserted;
+end
