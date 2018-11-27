@@ -1,0 +1,23 @@
+Warehouses: wyświetlanie, new, edit, delete
+
+WarehousesStock: wyświetlanie
+
+Products: wyświetlanie, new, edit, delete
+
+Producers: wyświetlanie, new, edit, delete
+
+Orders: wyświetlanie, new, edit, details -> wyświetlanie wszystkich details dla order
+procedura na archiwizację
+
+OrderDetails: wyświetlanie
+
+Pubs: wyświetlanie, new, edit, delete
+
+Addresses: wyświetlanie, new, edit, delete
+
+
+
+
+
+
+Regex na kod pocztowy
