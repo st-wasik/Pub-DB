@@ -30,7 +30,7 @@ begin
 if((SELECT COUNT(*) FROM Address a WHERE where a.street = inserted.street and a.building_no = inserted.building_no and
 a.city = inserted.city and a.postal_code = inserted.postal_code)>1)
 begin
-PRINT N'Address already exists in DataBase';
+RAISERROR('Adres już istnieje w bazie danych',16,1);
 rollback;
 return
 end
