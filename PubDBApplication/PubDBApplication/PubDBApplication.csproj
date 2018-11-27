@@ -157,11 +157,14 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AddressesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrderDetailsViewsController.cs" />
+    <Compile Include="Controllers\OrdersViewsController.cs" />
     <Compile Include="Controllers\ProducersController.cs" />
     <Compile Include="Controllers\ProducersViewsController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ProductsViewsController.cs" />
     <Compile Include="Controllers\PubsViewsController.cs" />
+    <Compile Include="Controllers\WarehousesStockViewsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -287,22 +290,11 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Orders\Index.cshtml" />
-    <Content Include="Views\Producers\Create.cshtml" />
-    <Content Include="Views\Producers\Delete.cshtml" />
-    <Content Include="Views\Producers\Details.cshtml" />
-    <Content Include="Views\Producers\Edit.cshtml" />
-    <Content Include="Views\Producers\Index.cshtml" />
     <Content Include="Views\Addresses\Create.cshtml" />
     <Content Include="Views\Addresses\Delete.cshtml" />
     <Content Include="Views\Addresses\Details.cshtml" />
     <Content Include="Views\Addresses\Edit.cshtml" />
     <Content Include="Views\Addresses\Index.cshtml" />
-    <Content Include="Views\Products\Create.cshtml" />
-    <Content Include="Views\Products\Delete.cshtml" />
-    <Content Include="Views\Products\Details.cshtml" />
-    <Content Include="Views\Products\Edit.cshtml" />
-    <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\ProductsViews\Create.cshtml" />
     <Content Include="Views\ProductsViews\Delete.cshtml" />
@@ -319,6 +311,21 @@
     <Content Include="Views\PubsViews\Details.cshtml" />
     <Content Include="Views\PubsViews\Edit.cshtml" />
     <Content Include="Views\PubsViews\Index.cshtml" />
+    <Content Include="Views\OrderDetailsViews\Create.cshtml" />
+    <Content Include="Views\OrderDetailsViews\Delete.cshtml" />
+    <Content Include="Views\OrderDetailsViews\Details.cshtml" />
+    <Content Include="Views\OrderDetailsViews\Edit.cshtml" />
+    <Content Include="Views\OrderDetailsViews\Index.cshtml" />
+    <Content Include="Views\WarehousesStockViews\Create.cshtml" />
+    <Content Include="Views\WarehousesStockViews\Delete.cshtml" />
+    <Content Include="Views\WarehousesStockViews\Details.cshtml" />
+    <Content Include="Views\WarehousesStockViews\Edit.cshtml" />
+    <Content Include="Views\WarehousesStockViews\Index.cshtml" />
+    <Content Include="Views\OrdersViews\Create.cshtml" />
+    <Content Include="Views\OrdersViews\Delete.cshtml" />
+    <Content Include="Views\OrdersViews\Details.cshtml" />
+    <Content Include="Views\OrdersViews\Edit.cshtml" />
+    <Content Include="Views\OrdersViews\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
