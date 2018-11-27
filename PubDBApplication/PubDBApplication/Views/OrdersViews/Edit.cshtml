@@ -24,14 +24,14 @@
         @Html.HiddenFor(model => model.producer_name)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Incoming_Outcoming, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.status, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Incoming_Outcoming, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Incoming_Outcoming, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        @Html.HiddenFor(model => model.status)
+        @Html.HiddenFor(model => model.Incoming_Outcoming)
 
         @Html.HiddenFor(model => model.date)
 
