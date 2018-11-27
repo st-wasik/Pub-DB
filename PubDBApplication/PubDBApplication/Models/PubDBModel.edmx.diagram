@@ -23,7 +23,6 @@
         <AssociationConnector Association="PubDBModel.FK__Products__produc__30C33EC3" ManuallyRouted="false" />
         <AssociationConnector Association="PubDBModel.FK__Warehouse__produ__3F115E1A" ManuallyRouted="false" />
         <AssociationConnector Association="PubDBModel.FK__Warehouse__wareh__3E1D39E1" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="PubDBModel.AddingToPubs" Width="1.5" PointX="10.75" PointY="0.75" />
         <EntityTypeShape EntityType="PubDBModel.OrderDetailsView" Width="1.5" PointX="0.75" PointY="10.75" />
         <EntityTypeShape EntityType="PubDBModel.OrdersView" Width="1.5" PointX="2.75" PointY="10.75" />
         <EntityTypeShape EntityType="PubDBModel.ProducersView" Width="1.5" PointX="10.75" PointY="3.75" />

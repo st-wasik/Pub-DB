@@ -85,19 +85,6 @@
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICATION\PUBDBAPPLICATION\APP_DATA\PUBDB.MDF.dbo.AddingToPubs' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="AddingToPubs">
-          <Key>
-            <PropertyRef Name="name" />
-            <PropertyRef Name="building_no" />
-            <PropertyRef Name="street" />
-            <PropertyRef Name="city" />
-          </Key>
-          <Property Name="name" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="building_no" Type="int" Nullable="false" />
-          <Property Name="street" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="city" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="postal_code" Type="varchar" MaxLength="6" />
-        </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICATION\PUBDBAPPLICATION\APP_DATA\PUBDB.MDF.dbo.OrderDetailsView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="OrderDetailsView">
@@ -335,15 +322,6 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
           <EntitySet Name="Pubs" EntityType="Self.Pubs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Warehouses" EntityType="Self.Warehouses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WarehousesStock" EntityType="Self.WarehousesStock" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="AddingToPubs" EntityType="Self.AddingToPubs" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [AddingToPubs].[name] AS [name], 
-    [AddingToPubs].[building_no] AS [building_no], 
-    [AddingToPubs].[street] AS [street], 
-    [AddingToPubs].[city] AS [city], 
-    [AddingToPubs].[postal_code] AS [postal_code]
-    FROM [dbo].[AddingToPubs] AS [AddingToPubs]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="OrderDetailsView" EntityType="Self.OrderDetailsView" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [OrderDetailsView].[id] AS [id], 
@@ -719,7 +697,6 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
             <End Role="Warehouses" EntitySet="Warehouses" />
             <End Role="WarehousesStock" EntitySet="WarehousesStock" />
           </AssociationSet>
-          <EntitySet Name="AddingToPubs" EntityType="PubDBModel.AddingToPubs" />
           <EntitySet Name="OrderDetailsView" EntityType="PubDBModel.OrderDetailsView" />
           <EntitySet Name="OrdersView" EntityType="PubDBModel.OrdersView" />
           <EntitySet Name="ProducersView" EntityType="PubDBModel.ProducersView" />
@@ -727,19 +704,6 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
           <EntitySet Name="PubsView" EntityType="PubDBModel.PubsView" />
           <EntitySet Name="WarehousesStockView" EntityType="PubDBModel.WarehousesStockView" />
         </EntityContainer>
-        <EntityType Name="AddingToPubs">
-          <Key>
-            <PropertyRef Name="name" />
-            <PropertyRef Name="building_no" />
-            <PropertyRef Name="street" />
-            <PropertyRef Name="city" />
-          </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="building_no" Type="Int32" Nullable="false" />
-          <Property Name="street" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="city" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="postal_code" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="OrderDetailsView">
           <Key>
             <PropertyRef Name="id" />
@@ -922,17 +886,6 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
                 <ScalarProperty Name="warehouse_id" ColumnName="warehouse_id" />
                 <ScalarProperty Name="product_id" ColumnName="product_id" />
                 <ScalarProperty Name="quantity" ColumnName="quantity" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AddingToPubs">
-            <EntityTypeMapping TypeName="PubDBModel.AddingToPubs">
-              <MappingFragment StoreEntitySet="AddingToPubs">
-                <ScalarProperty Name="postal_code" ColumnName="postal_code" />
-                <ScalarProperty Name="city" ColumnName="city" />
-                <ScalarProperty Name="street" ColumnName="street" />
-                <ScalarProperty Name="building_no" ColumnName="building_no" />
-                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
