@@ -1,16 +1,11 @@
-create trigger InsertingToPubsView on PubsView
+create or alter trigger InsertingToPubsView on PubsView
 instead of insert
 as
 begin
-begin try
 insert into Address 
 select building_no, street, city, postal_code
 from inserted;
-end try
-begin catch
-select ERROR_MESSAGE() as Error_message;
-end catch
-insert into Pubs(name,adress_id) select name, (select a.id from Address a where a.street = inserted.street and a.building_no = inserted.building_no and
+insert into Pubs(name,adress_id,e-mail,telephone_no) select name, (select a.id from Address a where a.street = inserted.street and a.building_no = inserted.building_no and
 a.city = inserted.city and a.postal_code = inserted.postal_code) 
 from inserted;
 end
@@ -32,7 +27,7 @@ create trigger UniqueAddress on Address
 after insert
 as
 begin
-if((SELECT COUNT(*) FROM Address a WHERE where a.street = inserted.street and a.building_no = inserted.building_no and
+if((SELECT COUNT(*) FROM Address a, inserted WHERE a.street = inserted.street and a.building_no = inserted.building_no and
 a.city = inserted.city and a.postal_code = inserted.postal_code)>1)
 begin
 RAISERROR('Adres już istnieje w bazie danych',16,1);
@@ -45,7 +40,7 @@ create trigger RequiredData on Orders
 after insert
 as
 begin
-if((select 1 from Pubs p, Producers r where (p.id = inserted.pub_id and (p.[e-mail] = null or p.telephone_no = null) or (r.id = inserted.producer_id and (r.[e-mail] = null or r.telephone_no = null)) == 1)
+if((select 1 from Pubs p, Producers r where (p.id = inserted.pub_id and (p.[e-mail] is null or p.telephone_no is null)) or (r.id = inserted.producer_id and (r.[e-mail] is null or r.telephone_no is null)) == 1)
 begin
 RAISERROR('By zlozyc zamowienie potrzebny jest e-mail lub numer telefonu',16,1);
 rollback
