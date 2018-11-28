@@ -32,8 +32,6 @@
         <th>
             Amount
         </th>
-
-        <th></th>
     </tr>
 
 @foreach (var item in Model) {
@@ -51,16 +49,10 @@
             @Html.DisplayFor(modelItem => item.quantity)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.price
+            @Html.DisplayFor(modelItem => item.price)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.amount)
-        </td>
-
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
         </td>
     </tr>
 }

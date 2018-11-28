@@ -27,7 +27,7 @@ namespace PubDBApplication.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PubsView pubsView = db.PubsView.Find(id);
+            PubsView pubsView = db.PubsView.SingleOrDefault(m => m.id == id);
             if (pubsView == null)
             {
                 return HttpNotFound();
@@ -65,7 +65,7 @@ namespace PubDBApplication.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PubsView pubsView = db.PubsView.Find(id);
+            PubsView pubsView = db.PubsView.SingleOrDefault(m => m.id == id);
             if (pubsView == null)
             {
                 return HttpNotFound();

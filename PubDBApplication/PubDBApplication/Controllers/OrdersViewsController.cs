@@ -191,9 +191,27 @@ namespace PubDBApplication.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            ViewBag.Exception = null;
+            string msg = null;
             OrdersView ordersView = db.OrdersView.SingleOrDefault(m => m.id == id);
-            db.OrdersView.Remove(ordersView);
-            db.SaveChanges();
+            var entity = (from x in db.Orders where x.id == ordersView.id select x).First();
+
+            db.Orders.Remove(entity);
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                if (e.InnerException == null)
+                    msg = "Invalid data";
+                else
+                    msg = e.InnerException.InnerException.Message;
+
+                ViewBag.Exception = msg;
+                return View(ordersView);
+            }
+
             return RedirectToAction("Index");
         }
 

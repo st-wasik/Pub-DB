@@ -8,13 +8,13 @@ WarehousesStock:
 wyświetlanie
 
 Products: 
-wyświetlanie, 
+(v) wyświetlanie, 
 new, 
 edit, 
 delete
 
 Producers: 
-wyświetlanie, 
+(v) wyświetlanie, 
 new, 
 edit, 
 delete
@@ -24,13 +24,14 @@ Orders:
 new, 
 (v) submit, 
 (v) details -> wyświetlanie wszystkich details dla order
+(v) delete/cancel order
 
 
 OrderDetails: 
-wyświetlanie
+(v) wyświetlanie
 
 Pubs: 
-wyświetlanie, 
+(v) wyświetlanie, 
 new, 
 edit, 
 delete
@@ -51,6 +52,11 @@ edit: czy zmiana statusu nastąpiła z 'In Creation' na 'In Realization' LUB z '
 delete: usuń wszystkie OrderDetails należące do danego Orderu
 		nie można usunąć zamówienia jeśli status jest 'Completed'
 
+TRIGGER PRODUCTS: 
+insert: volume > 0, alko percentage >= 0, cena > 0
+edit: volume > 0, alko percentage >= 0, cena > 0
+
+		
 totalPrice musi zwracać 0 gdy nie ma żadnych OrderDetails bo się sypie trigger który z tego korzysta 
  
 procedura na archiwizację z Orders
