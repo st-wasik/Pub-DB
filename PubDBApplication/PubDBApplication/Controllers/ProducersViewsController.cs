@@ -27,7 +27,7 @@ namespace PubDBApplication.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProducersView producersView = db.ProducersView.SingleOrDefault(id);
+            ProducersView producersView = db.ProducersView.SingleOrDefault(m => m.id == id);
             if (producersView == null)
             {
                 return HttpNotFound();
