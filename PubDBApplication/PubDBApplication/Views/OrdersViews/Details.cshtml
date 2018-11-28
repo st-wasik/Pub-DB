@@ -8,12 +8,12 @@
 <h2>Details</h2>
 
 <div>
-    <h4>OrdersView</h4>
+    <h4>Orders</h4>
     <hr />
     <dl class="dl-horizontal">
 
         <dt>
-            @Html.DisplayNameFor(model => model.id)
+            ID
         </dt>
 
         <dd>
@@ -21,7 +21,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.warehouse_name)
+            Warehouse Name
         </dt>
 
         <dd>
@@ -29,7 +29,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.pub_name)
+            Pub Name
         </dt>
 
         <dd>
@@ -37,14 +37,15 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.producer_name)
+            Producer Name
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.producer_name)
         </dd>
+
         <dt>
-            @Html.DisplayNameFor(model => model.Incoming_Outcoming)
+            Incoming/Outcoming
         </dt>
 
         <dd>
@@ -52,7 +53,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.status)
+            Order Status
         </dt>
 
         <dd>
@@ -60,35 +61,57 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.date)
+            Date
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.date)
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.total)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.total)
-        </dd>
     </dl>
+
+    @if (Model.status.Equals("In Creation"))
+    {
+        <h4>This order is in the creation phase.</h4>
+        <p>
+            @Html.ActionLink("Add product to order", "Edit", new { id = Model.id }),
+            @Html.ActionLink("Submit order", "Submit", new { id = Model.id }) or
+            @Html.ActionLink("Cancel order", "Delete", new { id = Model.id })
+        </p>
+    }
+
+    @if (Model.status.Equals("In Realization"))
+    {
+        <h4>This order is in the realization phase.</h4>
+        @Html.ActionLink("Cancel order", "Delete", new { id = Model.id })
+    }
+
+    @if (Model.status.Equals("Completed"))
+    {
+        <h4>This order is completed.</h4>
+        <p>
+        </p>
+    }
+
+
 
     <table class="table">
         <tr>
             <th>
-                id
+                ID
+            </th>
+
+            <th>
+                Product
             </th>
             <th>
-                quantity
+                Price
             </th>
             <th>
-                product
+                Quantity
             </th>
+
             <th>
-                partial_price
+                Amount
             </th>
 
             <th></th>
@@ -96,34 +119,32 @@
 
         @foreach (var item in ViewBag.odView)
         {
-        <tr>
-            <td>
-                @item.id
-            </td>
+            <tr>
+                <td>
+                    @item.id
+                </td>
 
-            <td>
-                @item.quantity
-            </td>
+                <td>
+                    @item.product_name
+                </td>
 
-            <td>
-                @item.product_name
-            </td>
+                <td>
+                    @item.price.ToString("0.00")
+                </td>
+                <td>
+                    @item.quantity
+                </td>
+                <td>
+                    @item.amount.ToString("0.00")
+                </td>
 
-            <td>
-                @item.partial_price
-            </td>
-
-            <td />
-        </tr>
+                <td />
+            </tr>
         }
 
     </table>
-    <h3> TOTAL PRICE: @Html.DisplayFor(model => model.total)</h3>
-
-
-
+    <h3> <b> TOTAL PRICE: @Html.DisplayFor(model => model.total) </b></h3>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

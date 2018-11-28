@@ -1,23 +1,59 @@
-Warehouses: wyświetlanie, new, edit, delete
+Warehouses: 
+wyświetlanie, 
+new, 
+edit, 
+delete
 
-WarehousesStock: wyświetlanie
+WarehousesStock: 
+wyświetlanie
 
-Products: wyświetlanie, new, edit, delete
+Products: 
+wyświetlanie, 
+new, 
+edit, 
+delete
 
-Producers: wyświetlanie, new, edit, delete
+Producers: 
+wyświetlanie, 
+new, 
+edit, 
+delete
 
-Orders: wyświetlanie, new, edit, details -> wyświetlanie wszystkich details dla order
-procedura na archiwizację
-
-OrderDetails: wyświetlanie
-
-Pubs: wyświetlanie, new, edit, delete
-
-Addresses: wyświetlanie, new, edit, delete
+Orders: 
+(v) wyświetlanie, 
+new, 
+(v) submit, 
+(v) details -> wyświetlanie wszystkich details dla order
 
 
+OrderDetails: 
+wyświetlanie
+
+Pubs: 
+wyświetlanie, 
+new, 
+edit, 
+delete
+
+Addresses: 
+(v) wyświetlanie, 
+(v) new, 
+(v) edit, 
+(v) delete
 
 
+TRIGGER ADDRESS:
+edit: tak samo jak na insert - czy adres już nie istnieje
+
+TRIGGER ORDERS:
+insert: czy status jest 'In Creation', czy Incoming/Outcoming jest poprawny
+edit: czy zmiana statusu nastąpiła z 'In Creation' na 'In Realization' LUB z 'In Realization' na 'Completed'
+delete: usuń wszystkie OrderDetails należące do danego Orderu
+		nie można usunąć zamówienia jeśli status jest 'Completed'
+
+totalPrice musi zwracać 0 gdy nie ma żadnych OrderDetails bo się sypie trigger który z tego korzysta 
+ 
+procedura na archiwizację z Orders
 
 
 Regex na kod pocztowy

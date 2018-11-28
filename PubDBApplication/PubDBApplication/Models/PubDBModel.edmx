@@ -84,21 +84,21 @@
           <Property Name="quantity" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICATION\PUBDBAPPLICATION\APP_DATA\PUBDB.MDF.dbo.AddingToPubs' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <!--Errors Found During Generation:
 warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICATION\PUBDBAPPLICATION\APP_DATA\PUBDB.MDF.dbo.OrderDetailsView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="OrderDetailsView">
           <Key>
             <PropertyRef Name="id" />
             <PropertyRef Name="order_id" />
-            <PropertyRef Name="quantity" />
             <PropertyRef Name="product_name" />
+            <PropertyRef Name="quantity" />
+            <PropertyRef Name="price" />
           </Key>
           <Property Name="id" Type="int" Nullable="false" />
           <Property Name="order_id" Type="int" Nullable="false" />
-          <Property Name="quantity" Type="int" Nullable="false" />
           <Property Name="product_name" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="partial_price" Type="money" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+          <Property Name="price" Type="money" Nullable="false" />
+          <Property Name="amount" Type="money" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICATION\PUBDBAPPLICATION\APP_DATA\PUBDB.MDF.dbo.OrdersView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -326,9 +326,10 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
             <DefiningQuery>SELECT 
     [OrderDetailsView].[id] AS [id], 
     [OrderDetailsView].[order_id] AS [order_id], 
-    [OrderDetailsView].[quantity] AS [quantity], 
     [OrderDetailsView].[product_name] AS [product_name], 
-    [OrderDetailsView].[partial_price] AS [partial_price]
+    [OrderDetailsView].[quantity] AS [quantity], 
+    [OrderDetailsView].[price] AS [price], 
+    [OrderDetailsView].[amount] AS [amount]
     FROM [dbo].[OrderDetailsView] AS [OrderDetailsView]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="OrdersView" EntityType="Self.OrdersView" store:Type="Views" store:Schema="dbo">
@@ -697,26 +698,13 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
             <End Role="Warehouses" EntitySet="Warehouses" />
             <End Role="WarehousesStock" EntitySet="WarehousesStock" />
           </AssociationSet>
-          <EntitySet Name="OrderDetailsView" EntityType="PubDBModel.OrderDetailsView" />
           <EntitySet Name="OrdersView" EntityType="PubDBModel.OrdersView" />
           <EntitySet Name="ProducersView" EntityType="PubDBModel.ProducersView" />
           <EntitySet Name="ProductsView" EntityType="PubDBModel.ProductsView" />
           <EntitySet Name="PubsView" EntityType="PubDBModel.PubsView" />
           <EntitySet Name="WarehousesStockView" EntityType="PubDBModel.WarehousesStockView" />
+          <EntitySet Name="OrderDetailsView" EntityType="PubDBModel.OrderDetailsView" />
         </EntityContainer>
-        <EntityType Name="OrderDetailsView">
-          <Key>
-            <PropertyRef Name="id" />
-            <PropertyRef Name="order_id" />
-            <PropertyRef Name="quantity" />
-            <PropertyRef Name="product_name" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="order_id" Type="Int32" Nullable="false" />
-          <Property Name="quantity" Type="Int32" Nullable="false" />
-          <Property Name="product_name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="partial_price" Type="Decimal" Precision="19" Scale="4" />
-        </EntityType>
         <EntityType Name="OrdersView">
           <Key>
             <PropertyRef Name="id" />
@@ -796,6 +784,21 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
           <Property Name="warehouse_name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="product_name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="quantity" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderDetailsView">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="order_id" />
+            <PropertyRef Name="product_name" />
+            <PropertyRef Name="quantity" />
+            <PropertyRef Name="price" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="order_id" Type="Int32" Nullable="false" />
+          <Property Name="product_name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <Property Name="price" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="amount" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -889,17 +892,6 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="OrderDetailsView">
-            <EntityTypeMapping TypeName="PubDBModel.OrderDetailsView">
-              <MappingFragment StoreEntitySet="OrderDetailsView">
-                <ScalarProperty Name="partial_price" ColumnName="partial_price" />
-                <ScalarProperty Name="product_name" ColumnName="product_name" />
-                <ScalarProperty Name="quantity" ColumnName="quantity" />
-                <ScalarProperty Name="order_id" ColumnName="order_id" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="OrdersView">
             <EntityTypeMapping TypeName="PubDBModel.OrdersView">
               <MappingFragment StoreEntitySet="OrdersView">
@@ -960,6 +952,18 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
                 <ScalarProperty Name="quantity" ColumnName="quantity" />
                 <ScalarProperty Name="product_name" ColumnName="product_name" />
                 <ScalarProperty Name="warehouse_name" ColumnName="warehouse_name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderDetailsView">
+            <EntityTypeMapping TypeName="PubDBModel.OrderDetailsView">
+              <MappingFragment StoreEntitySet="OrderDetailsView">
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

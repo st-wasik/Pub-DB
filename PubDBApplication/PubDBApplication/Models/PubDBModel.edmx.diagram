@@ -23,12 +23,12 @@
         <AssociationConnector Association="PubDBModel.FK__Products__produc__30C33EC3" ManuallyRouted="false" />
         <AssociationConnector Association="PubDBModel.FK__Warehouse__produ__3F115E1A" ManuallyRouted="false" />
         <AssociationConnector Association="PubDBModel.FK__Warehouse__wareh__3E1D39E1" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="PubDBModel.OrderDetailsView" Width="1.5" PointX="0.75" PointY="10.75" />
         <EntityTypeShape EntityType="PubDBModel.OrdersView" Width="1.5" PointX="2.75" PointY="10.75" />
         <EntityTypeShape EntityType="PubDBModel.ProducersView" Width="1.5" PointX="10.75" PointY="3.75" />
         <EntityTypeShape EntityType="PubDBModel.ProductsView" Width="1.5" PointX="10.75" PointY="7.75" />
         <EntityTypeShape EntityType="PubDBModel.PubsView" Width="1.5" PointX="10.75" PointY="10.75" />
         <EntityTypeShape EntityType="PubDBModel.WarehousesStockView" Width="1.5" PointX="4.75" PointY="11.75" />
+        <EntityTypeShape EntityType="PubDBModel.OrderDetailsView" Width="1.5" PointX="10.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

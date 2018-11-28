@@ -5,66 +5,126 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Orders</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New Order", "Create")
 </p>
 <table class="table">
+    <tr><td colspan="8"><h4><b>Warehouse Incoming Orders</b></h4></td></tr>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.warehouse_name)
+            Warehouse Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.pub_name)
+            Pub Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.producer_name)
+            Producer Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Incoming_Outcoming)
+            Incoming/Outcoming
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.status)
+            Order Status
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.date)
+            Date
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.total)
+            Total Price
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+    @foreach (var item in Model.Where(m => m.Incoming_Outcoming.Equals("Incoming")))
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.warehouse_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.pub_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.producer_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Incoming_Outcoming)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.total)
+            </td>
+
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                @Html.ActionLink("Cancel", "Delete", new { id = item.id })
+            </td>
+        </tr>
+    }
+    <tr><td colspan="8"></td></tr>
+    <tr><td colspan="8"><h4><b>Warehouse Outcoming Orders</b></h4></td></tr>
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.warehouse_name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.pub_name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.producer_name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Incoming_Outcoming)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.total)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.id })
-        </td>
+        <th>
+            Warehouse Name
+        </th>
+        <th>
+            Pub Name
+        </th>
+        <th>
+            Producer Name
+        </th>
+        <th>
+            Incoming/Outcoming
+        </th>
+        <th>
+            Order Status
+        </th>
+        <th>
+            Date
+        </th>
+        <th>
+            Total Price
+        </th>
+        <th></th>
     </tr>
-}
+
+    @foreach (var item in Model.Where(m => m.Incoming_Outcoming.Equals("Outcoming")))
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.warehouse_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.pub_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.producer_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Incoming_Outcoming)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.total)
+            </td>
+
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                @Html.ActionLink("Cancel", "Delete", new { id = item.id })
+            </td>
+        </tr>
+    }
 
 </table>

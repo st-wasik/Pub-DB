@@ -5,27 +5,33 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Orders Details</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.order_id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.quantity)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.product_name)
+            ID
         </th>
 
+        <th>
+            Order ID
+        </th>
 
+        <th>
+            Product Name
+        </th>
+
+        <th>
+            Quantity
+        </th>
+
+        <th>
+            Unit Price
+        </th>
+
+        <th>
+            Amount
+        </th>
 
         <th></th>
     </tr>
@@ -39,11 +45,18 @@
             @Html.DisplayFor(modelItem => item.order_id)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.product_name)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.quantity)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.product_name)
+            @Html.DisplayFor(modelItem => item.price
         </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.amount)
+        </td>
+
         <td>
             @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
             @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
