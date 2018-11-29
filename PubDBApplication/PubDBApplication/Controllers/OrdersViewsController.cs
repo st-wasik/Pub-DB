@@ -20,6 +20,8 @@ namespace PubDBApplication.Controllers
         private readonly string OrderInRealization = "In Realization";
         private readonly string OrderInCreation = "In Creation";
         private readonly string OrderCompleted = "Completed";
+        private readonly string OrderIncoming = "Incoming";
+        private readonly string OrderOutcoming = "Outcoming";
 
         // GET: OrdersViews
         public ActionResult Index()
@@ -44,8 +46,15 @@ namespace PubDBApplication.Controllers
         }
 
         // GET: OrdersViews/Create
-        public ActionResult Create()
+        public ActionResult CreateIncoming()
         {
+            ViewBag.warehouse_name = new SelectList(db.Warehouses, "name", "name");
+            ViewBag.pub_name = new SelectList(db.Pubs, "name", "name");
+            ViewBag.Incoming_Outcoming = new SelectList(new List<SelectListItem>
+            {
+                new SelectListItem { Selected = false, Text = "Incoming", Value = "Incoming"},
+                new SelectListItem { Selected = false, Text = "Outcoming", Value = "Outcoming"}
+            }, "Value", "Text", 1);
             return View();
         }
 
@@ -54,15 +63,94 @@ namespace PubDBApplication.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,warehouse_name,pub_name,producer_name,Incoming_Outcoming,status,date")] OrdersView ordersView)
+        public ActionResult CreateIncoming([Bind(Include = "id,warehouse_name,pub_name,producer_name,Incoming_Outcoming,status,date")] OrdersView ordersView)
         {
+            ViewBag.Exception = null;
+            string msg = "";
             if (ModelState.IsValid)
             {
-                db.OrdersView.Add(ordersView);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                Orders order = new Orders
+                {
+                    warehouse_id = (from w in db.Warehouses where w.name == ordersView.warehouse_name select w).Single().id,
+                    pub_id = (from p in db.Pubs where p.name == ordersView.pub_name select p).Single().id,
+                    Incoming_Outcoming = OrderIncoming,
+                    status = OrderInCreation,
+                    date = System.DateTime.Now
+                };
+                db.Orders.Add(order);
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    if (e.InnerException == null)
+                        msg = "Invalid data";
+                    else
+                        msg = e.InnerException.InnerException.Message;
+
+                    ViewBag.Exception = msg;
+                    ViewBag.warehouse_name = new SelectList(db.Warehouses, "name", "name");
+                    ViewBag.pub_name = new SelectList(db.Pubs, "name", "name");
+                    return View(ordersView);
+                }
+                return RedirectToAction("Details", new { id = order.id });
             }
 
+            ViewBag.warehouse_name = new SelectList(db.Warehouses, "id", "name");
+            ViewBag.pub_name = new SelectList(db.Pubs, "id", "name");
+            ViewBag.producer_name = new SelectList(db.Producers, "id", "name");
+            return View(ordersView);
+        }
+
+        public ActionResult CreateOutcoming()
+        {
+            ViewBag.warehouse_name = new SelectList(db.Warehouses, "name", "name");
+            ViewBag.producer_name = new SelectList(db.Producers, "name", "name");
+            return View();
+        }
+
+        // POST: OrdersViews/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateOutcoming([Bind(Include = "id,warehouse_name,pub_name,producer_name,Incoming_Outcoming,status,date")] OrdersView ordersView)
+        {
+            ViewBag.Exception = null;
+            string msg = "";
+            if (ModelState.IsValid)
+            {
+                Orders order = new Orders
+                {
+                    warehouse_id = (from w in db.Warehouses where w.name == ordersView.warehouse_name select w).Single().id,
+                    producer_id = (from p in db.Producers where p.name == ordersView.producer_name select p).Single().id,
+                    Incoming_Outcoming = OrderOutcoming,
+                    status = OrderInCreation,
+                    date = System.DateTime.Now
+                };
+                db.Orders.Add(order);
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    if (e.InnerException == null)
+                        msg = "Invalid data";
+                    else
+                        msg = e.InnerException.InnerException.Message;
+
+                    ViewBag.Exception = msg;
+                    ViewBag.warehouse_name = new SelectList(db.Warehouses, "name", "name");
+                    ViewBag.producer_name = new SelectList(db.Producers, "name", "name");
+                    return View(ordersView);
+                }
+                return RedirectToAction("Details", new { id = order.id});
+            }
+
+            ViewBag.warehouse_name = new SelectList(db.Warehouses, "id", "name");
+            ViewBag.producer_name = new SelectList(db.Producers, "id", "name");
             return View(ordersView);
         }
 

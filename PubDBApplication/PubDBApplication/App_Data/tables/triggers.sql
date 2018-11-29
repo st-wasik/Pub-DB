@@ -55,7 +55,7 @@ end
 create function totalPrice (@id int)
 returns money
 begin
-return (select SUM(od.quantity*p.price) from OrderDetails od join Products p on od.product_id = p.id where od.order_id = @id)
+return (select COALESCE(SUM(od.quantity*p.price),0) from OrderDetails od join Products p on od.product_id = p.id where od.order_id = @id)
 end
 
 create trigger MinPrice on Orders

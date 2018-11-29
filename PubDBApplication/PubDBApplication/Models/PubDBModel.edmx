@@ -106,15 +106,13 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
           <Key>
             <PropertyRef Name="id" />
             <PropertyRef Name="warehouse_name" />
-            <PropertyRef Name="pub_name" />
-            <PropertyRef Name="producer_name" />
             <PropertyRef Name="status" />
             <PropertyRef Name="date" />
           </Key>
           <Property Name="id" Type="int" Nullable="false" />
           <Property Name="warehouse_name" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="pub_name" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="producer_name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="pub_name" Type="varchar" MaxLength="30" />
+          <Property Name="producer_name" Type="varchar" MaxLength="30" />
           <Property Name="Incoming/Outcoming" Type="varchar" MaxLength="15" />
           <Property Name="status" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="date" Type="date" Nullable="false" />
@@ -698,31 +696,13 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
             <End Role="Warehouses" EntitySet="Warehouses" />
             <End Role="WarehousesStock" EntitySet="WarehousesStock" />
           </AssociationSet>
-          <EntitySet Name="OrdersView" EntityType="PubDBModel.OrdersView" />
           <EntitySet Name="ProducersView" EntityType="PubDBModel.ProducersView" />
           <EntitySet Name="ProductsView" EntityType="PubDBModel.ProductsView" />
           <EntitySet Name="PubsView" EntityType="PubDBModel.PubsView" />
           <EntitySet Name="WarehousesStockView" EntityType="PubDBModel.WarehousesStockView" />
           <EntitySet Name="OrderDetailsView" EntityType="PubDBModel.OrderDetailsView" />
+          <EntitySet Name="OrdersView" EntityType="PubDBModel.OrdersView" />
         </EntityContainer>
-        <EntityType Name="OrdersView">
-          <Key>
-            <PropertyRef Name="id" />
-            <PropertyRef Name="warehouse_name" />
-            <PropertyRef Name="pub_name" />
-            <PropertyRef Name="producer_name" />
-            <PropertyRef Name="status" />
-            <PropertyRef Name="date" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="warehouse_name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="pub_name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="producer_name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="Incoming_Outcoming" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="status" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="total" Type="Decimal" Precision="19" Scale="4" />
-        </EntityType>
         <EntityType Name="ProducersView">
           <Key>
             <PropertyRef Name="id" />
@@ -799,6 +779,22 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
           <Property Name="quantity" Type="Int32" Nullable="false" />
           <Property Name="price" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="amount" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="OrdersView">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="warehouse_name" />
+            <PropertyRef Name="status" />
+            <PropertyRef Name="date" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="warehouse_name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="pub_name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="producer_name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Incoming_Outcoming" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="total" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -892,20 +888,6 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="OrdersView">
-            <EntityTypeMapping TypeName="PubDBModel.OrdersView">
-              <MappingFragment StoreEntitySet="OrdersView">
-                <ScalarProperty Name="total" ColumnName="total" />
-                <ScalarProperty Name="date" ColumnName="date" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="Incoming_Outcoming" ColumnName="Incoming/Outcoming" />
-                <ScalarProperty Name="producer_name" ColumnName="producer_name" />
-                <ScalarProperty Name="pub_name" ColumnName="pub_name" />
-                <ScalarProperty Name="warehouse_name" ColumnName="warehouse_name" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ProducersView">
             <EntityTypeMapping TypeName="PubDBModel.ProducersView">
               <MappingFragment StoreEntitySet="ProducersView">
@@ -964,6 +946,20 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
                 <ScalarProperty Name="quantity" ColumnName="quantity" />
                 <ScalarProperty Name="product_name" ColumnName="product_name" />
                 <ScalarProperty Name="order_id" ColumnName="order_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrdersView">
+            <EntityTypeMapping TypeName="PubDBModel.OrdersView">
+              <MappingFragment StoreEntitySet="OrdersView">
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="Incoming_Outcoming" ColumnName="Incoming/Outcoming" />
+                <ScalarProperty Name="producer_name" ColumnName="producer_name" />
+                <ScalarProperty Name="pub_name" ColumnName="pub_name" />
+                <ScalarProperty Name="warehouse_name" ColumnName="warehouse_name" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
