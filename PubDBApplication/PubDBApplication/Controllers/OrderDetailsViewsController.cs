@@ -20,24 +20,13 @@ namespace PubDBApplication.Controllers
             return View(db.OrderDetailsView.ToList());
         }
 
-        // GET: OrderDetailsViews/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            OrderDetailsView orderDetailsView = db.OrderDetailsView.Find(id);
-            if (orderDetailsView == null)
-            {
-                return HttpNotFound();
-            }
-            return View(orderDetailsView);
-        }
-
         // GET: OrderDetailsViews/Create
-        public ActionResult Create()
+        public ActionResult CreateForProduct()
         {
+            if (RouteData.Values["id"] == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            ViewBag.order_id = RouteData.Values["id"];
+            ViewBag.product_name = new SelectList(db.Products, "name", "name");
             return View();
         }
 
@@ -46,73 +35,90 @@ namespace PubDBApplication.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,order_id,quantity,product_name")] OrderDetailsView orderDetailsView)
+        public ActionResult CreateForProduct([Bind(Include = "id,order_id,quantity,product_name")] OrderDetailsView orderDetailsView)
         {
+            ViewBag.Exception = null;
+            string msg = "";
             if (ModelState.IsValid)
             {
-                db.OrderDetailsView.Add(orderDetailsView);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                var order_id = orderDetailsView.order_id;
+                var p_name = orderDetailsView.product_name;
 
+                OrderDetails od = new OrderDetails
+                {
+                    order_id = orderDetailsView.order_id,
+                    quantity = orderDetailsView.quantity,
+                    product_id = (from p in db.Products where p.name == p_name select p).First().id
+                };
+                db.OrderDetails.Add(od);
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    if (e.InnerException == null)
+                        msg = "Invalid data";
+                    else
+                        msg = e.InnerException.InnerException.Message;
+
+                    ViewBag.Exception = msg;
+                    ViewBag.order_id = RouteData.Values["id"];
+
+                    ViewBag.product_name = new SelectList(db.Products, "name", "name");
+                    return View(orderDetailsView);
+                }
+                return RedirectToAction("Details", "OrdersViews", new { id = order_id });
+            }
+            ViewBag.order_id = RouteData.Values["id"];
+
+            ViewBag.product_name = new SelectList(db.Products, "name", "name");
             return View(orderDetailsView);
         }
 
-        // GET: OrderDetailsViews/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            OrderDetailsView orderDetailsView = db.OrderDetailsView.Find(id);
-            if (orderDetailsView == null)
-            {
-                return HttpNotFound();
-            }
-            return View(orderDetailsView);
-        }
-
-        // POST: OrderDetailsViews/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,order_id,quantity,product_name")] OrderDetailsView orderDetailsView)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(orderDetailsView).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(orderDetailsView);
-        }
-
-        // GET: OrderDetailsViews/Delete/5
+        // GET: OrdersViews/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            OrderDetailsView orderDetailsView = db.OrderDetailsView.Find(id);
-            if (orderDetailsView == null)
+            OrderDetailsView ordersView = db.OrderDetailsView.SingleOrDefault(m => m.id == id);
+            if (ordersView == null)
             {
                 return HttpNotFound();
             }
-            return View(orderDetailsView);
+            return View(ordersView);
         }
 
-        // POST: OrderDetailsViews/Delete/5
+        // POST: OrdersViews/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            OrderDetailsView orderDetailsView = db.OrderDetailsView.Find(id);
-            db.OrderDetailsView.Remove(orderDetailsView);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            ViewBag.Exception = null;
+            string msg = null;
+            OrderDetailsView odv = db.OrderDetailsView.SingleOrDefault(m => m.id == id);
+            var entity = (from x in db.OrderDetails where x.id == odv.id select x).First();
+
+            db.OrderDetails.Remove(entity);
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                if (e.InnerException == null)
+                    msg = "Invalid data";
+                else
+                    msg = e.InnerException.InnerException.Message;
+
+                ViewBag.order_id = odv.order_id;
+                ViewBag.Exception = msg;
+                return View(odv);
+            }
+
+            return RedirectToAction("Index", "OrdersViews");
         }
 
         protected override void Dispose(bool disposing)

@@ -6,12 +6,13 @@ delete
 
 WarehousesStock: 
 wyświetlanie
+uzupełnianie magazynu
 
 Products: 
 (v) wyświetlanie, 
-new, 
-edit, 
-delete
+(v) new, 
+(v) edit, 
+(v) delete
 
 Producers: 
 (v) wyświetlanie, 
@@ -29,6 +30,8 @@ new,
 
 OrderDetails: 
 (v) wyświetlanie
+(v) create
+(v) delete
 
 Pubs: 
 (v) wyświetlanie, 
@@ -52,14 +55,14 @@ edit: czy zmiana statusu nastąpiła z 'In Creation' na 'In Realization' LUB z '
 delete: usuń wszystkie OrderDetails należące do danego Orderu
 		nie można usunąć zamówienia jeśli status jest 'Completed'
 
-TRIGGER PRODUCTS: 
+CONSTRAINT CHECK PRODUCTS: 
 insert: volume > 0, alko percentage >= 0, cena > 0
 edit: volume > 0, alko percentage >= 0, cena > 0
 
+TRIGGER ORDERDETAILS:
+delete: usuń tylko, gdy Order ma status In Creation
+
 		
-totalPrice musi zwracać 0 gdy nie ma żadnych OrderDetails bo się sypie trigger który z tego korzysta 
+(v) już zrobiłem -- totalPrice musi zwracać 0 gdy nie ma żadnych OrderDetails bo się sypie trigger który z tego korzysta 
  
 procedura na archiwizację z Orders
-
-
-Regex na kod pocztowy

@@ -38,6 +38,7 @@ namespace PubDBApplication.Controllers
         // GET: ProductsViews/Create
         public ActionResult Create()
         {
+            ViewBag.producer_name = new SelectList(db.Producers, "name", "name");
             return View();
         }
 
@@ -48,13 +49,38 @@ namespace PubDBApplication.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,name,producer_name,price,alcohol_percentage,volume")] ProductsView productsView)
         {
+            ViewBag.Exception = null;
+            string msg = "";
             if (ModelState.IsValid)
             {
-                db.ProductsView.Add(productsView);
-                db.SaveChanges();
+                Products product = new Products
+                {
+                    name = productsView.name,
+                    producer_id = (from p in db.Producers where p.name == productsView.producer_name select p).Single().id,
+                    price = productsView.price,
+                    alcohol_percentage = productsView.alcohol_percentage,
+                    volume = productsView.volume
+                };
+                db.Products.Add(product);
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    if (e.InnerException == null)
+                        msg = "Invalid data";
+                    else
+                        msg = e.InnerException.InnerException.Message;
+
+                    ViewBag.Exception = msg;
+
+                    ViewBag.producer_name = new SelectList(db.Producers, "name", "name");
+                    return View(productsView);
+                }
                 return RedirectToAction("Index");
             }
-
+            ViewBag.producer_name = new SelectList(db.Producers, "name", "name");
             return View(productsView);
         }
 
@@ -70,6 +96,7 @@ namespace PubDBApplication.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.producer_name = new SelectList(db.Producers, "name", "name");
             return View(productsView);
         }
 
@@ -80,12 +107,36 @@ namespace PubDBApplication.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id,name,producer_name,price,alcohol_percentage,volume")] ProductsView productsView)
         {
+            ViewBag.Exception = null;
+            string msg = "";
             if (ModelState.IsValid)
             {
-                db.Entry(productsView).State = EntityState.Modified;
-                db.SaveChanges();
+                Products product = (from p in db.Products where p.id == productsView.id select p).First();
+
+                product.name = productsView.name;
+                product.producer_id = (from p in db.Producers where p.name == productsView.producer_name select p).Single().id;
+                product.price = productsView.price;
+                product.alcohol_percentage = productsView.alcohol_percentage;
+                product.volume = productsView.volume;
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    if (e.InnerException == null)
+                        msg = "Invalid data";
+                    else
+                        msg = e.InnerException.InnerException.Message;
+
+                    ViewBag.Exception = msg;
+
+                    ViewBag.producer_name = new SelectList(db.Producers, "name", "name");
+                    return View(productsView);
+                }
                 return RedirectToAction("Index");
             }
+            ViewBag.producer_name = new SelectList(db.Producers, "name", "name");
             return View(productsView);
         }
 
@@ -109,9 +160,26 @@ namespace PubDBApplication.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            ProductsView productsView = db.ProductsView.Find(id);
-            db.ProductsView.Remove(productsView);
-            db.SaveChanges();
+            ViewBag.Exception = null;
+            string msg = null;
+            Products product = (from p in db.Products where p.id == id select p).First();
+
+            db.Products.Remove(product);
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                if (e.InnerException == null)
+                    msg = "Invalid data";
+                else
+                    msg = e.InnerException.InnerException.Message;
+
+                ViewBag.Exception = msg;
+                return View(id);
+            }
+
             return RedirectToAction("Index");
         }
 

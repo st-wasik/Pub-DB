@@ -27,21 +27,28 @@
         <dd>
             @Html.DisplayFor(model => model.warehouse_name)
         </dd>
-        <dt>
-            Pub Name
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.pub_name)
-        </dd>
+        @if (Model.Incoming_Outcoming.Equals("Incoming"))
+        {
+            <dt>
+                Pub Name
+            </dt>
 
-        <dt>
-            Producer Name
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.pub_name)
+            </dd>
+        }
 
-        <dd>
-            @Html.DisplayFor(model => model.producer_name)
-        </dd>
+        @if (Model.Incoming_Outcoming.Equals("Outcoming"))
+        {
+            <dt>
+                Producer Name
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.producer_name)
+            </dd>
+        }
 
         <dt>
             Incoming/Outcoming
@@ -72,7 +79,7 @@
     {
         <h4>This order is in the creation phase.</h4>
         <p>
-            @Html.ActionLink("Add product to order", "Edit", new { id = Model.id }),
+            @Html.ActionLink("Add product to order", "CreateForProduct", "OrderDetailsViews", new { id = Model.id }, null),
             @Html.ActionLink("Submit order", "Submit", new { id = Model.id }) or
             @Html.ActionLink("Cancel order", "Delete", new { id = Model.id })
         </p>
@@ -136,8 +143,12 @@
                 <td>
                     @item.amount.ToString("0.00")
                 </td>
-
-                <td />
+                <td>
+                    @if (Model.status.Equals("In Creation"))
+                    {
+                        @Html.ActionLink("Delete", "Delete", "OrderDetailsViews", new { id = item.id }, null)
+                    }
+                </td>
             </tr>
         }
 

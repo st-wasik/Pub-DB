@@ -159,13 +159,10 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderDetailsViewsController.cs" />
     <Compile Include="Controllers\OrdersViewsController.cs" />
-    <Compile Include="Controllers\ProducersController.cs" />
     <Compile Include="Controllers\ProducersViewsController.cs" />
-    <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ProductsViewsController.cs" />
     <Compile Include="Controllers\PubsViewsController.cs" />
     <Compile Include="Controllers\WarehousesController.cs" />
-    <Compile Include="Controllers\WarehousesStocksController.cs" />
     <Compile Include="Controllers\WarehousesStockViewsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -310,10 +307,7 @@
     <Content Include="Views\PubsViews\Details.cshtml" />
     <Content Include="Views\PubsViews\Edit.cshtml" />
     <Content Include="Views\PubsViews\Index.cshtml" />
-    <Content Include="Views\OrderDetailsViews\Create.cshtml" />
-    <Content Include="Views\OrderDetailsViews\Delete.cshtml" />
-    <Content Include="Views\OrderDetailsViews\Details.cshtml" />
-    <Content Include="Views\OrderDetailsViews\Edit.cshtml" />
+    <Content Include="Views\OrderDetailsViews\CreateForProduct.cshtml" />
     <Content Include="Views\OrderDetailsViews\Index.cshtml" />
     <Content Include="Views\WarehousesStockViews\Create.cshtml" />
     <Content Include="Views\WarehousesStockViews\Delete.cshtml" />
@@ -337,6 +331,7 @@
     <Content Include="Views\WarehousesStocks\Edit.cshtml" />
     <Content Include="Views\WarehousesStocks\Index.cshtml" />
     <Content Include="Views\OrdersViews\CreateIncoming.cshtml" />
+    <Content Include="Views\OrderDetailsViews\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

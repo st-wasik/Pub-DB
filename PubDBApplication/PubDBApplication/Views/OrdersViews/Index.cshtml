@@ -8,7 +8,7 @@
 <h2>Orders</h2>
 
 <p>
-    @Html.ActionLink("Create new incoming order", "CreateIncoming") | 
+    @Html.ActionLink("Create new incoming order", "CreateIncoming") |
     @Html.ActionLink("Create new outcoming order", "CreateOutcoming")
 </p>
 <table class="table">
@@ -37,41 +37,64 @@
 
     @foreach (var item in Model.Where(m => m.Incoming_Outcoming.Equals("Incoming")))
     {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.warehouse_name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.pub_name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.total)
-        </td>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.warehouse_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.pub_name)
+            </td>
+            <td>
+                @if (item.status.Equals("Completed"))
+                {
+                    <font color="green">
+                        <b>@item.status</b> 
+                    </font>
+                }
+                else if (item.status.Equals("In Creation"))
+                {
+                    <font color="red">
+                        @item.status
+                    </font>
+                }
+                else if (item.status.Equals("In Realization"))
+                {
+                    <font color="blue">
+                        @item.status
+                    </font>
+                }
+                else
+                {
+                    <font color="black">
+                        @item.status
+                    </font>
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.total)
+            </td>
 
-        <td>
-            @Html.ActionLink("Details", "Details", new { id = item.id })
-            @if (!item.status.Equals("Completed"))
-            {
-                <font>|</font>
-                @Html.ActionLink("Cancel", "Delete", new { id = item.id })
-            }
-        </td>
-    </tr>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.id })
+                @if (!item.status.Equals("Completed"))
+                {
+                    <font>|</font>
+                    @Html.ActionLink("Cancel", "Delete", new { id = item.id })
+                }
+            </td>
+        </tr>
     }
     <tr><td colspan="7"></td></tr>
     <tr><td colspan="7"><h4><b>Warehouse Outcoming Orders</b></h4></td></tr>
     <tr>
         <th>
-           ID
+            ID
         </th>
         <th>
             Warehouse Name
@@ -93,31 +116,54 @@
 
     @foreach (var item in Model.Where(m => m.Incoming_Outcoming.Equals("Outcoming")))
     {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.warehouse_name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.producer_name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.total)
-        </td>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.warehouse_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.producer_name)
+            </td>
+            <td>
+                @if (item.status.Equals("Completed"))
+                {
+                    <font color="green">
+                        <b> @item.status</b>
+                    </font>
+                }
+                else if (item.status.Equals("In Creation"))
+                {
+                    <font color="red">
+                        @item.status
+                    </font>
+                }
+                else if (item.status.Equals("In Realization"))
+                {
+                    <font color="blue">
+                        @item.status
+                    </font>
+                }
+                else
+                {
+                    <font color="black">
+                        @item.status
+                    </font>
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.total)
+            </td>
 
-        <td>
-            @Html.ActionLink("Details", "Details", new { id = item.id }) |
-            @Html.ActionLink("Cancel", "Delete", new { id = item.id })
-        </td>
-    </tr>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                @Html.ActionLink("Cancel", "Delete", new { id = item.id })
+            </td>
+        </tr>
     }
 
 </table>

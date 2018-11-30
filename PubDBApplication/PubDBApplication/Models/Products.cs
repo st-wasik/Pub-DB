@@ -11,7 +11,8 @@ namespace PubDBApplication.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Products
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,10 +23,18 @@ namespace PubDBApplication.Models
         }
     
         public int id { get; set; }
+        [Required(ErrorMessage = "Required")]
         public string name { get; set; }
+        [Required(ErrorMessage = "Required")]
         public int producer_id { get; set; }
+        [Required(ErrorMessage = "Required")]
+        [Range(0, int.MaxValue, ErrorMessage = "Price cannot be negative")]
         public decimal price { get; set; }
+        [Required(ErrorMessage = "Required")]
+        [Range(0, 100, ErrorMessage = "Alcohol percentage must be between 0 and 100")]
         public int alcohol_percentage { get; set; }
+        [Required(ErrorMessage = "Required")]
+        [Range(0, int.MaxValue, ErrorMessage = "Volume cannot be negative")]
         public float volume { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
