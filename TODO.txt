@@ -16,13 +16,13 @@ Products:
 
 Producers: 
 (v) wyświetlanie, 
-new, 
-edit, 
-delete
+(v) new, 
+(v) edit, 
+(v) delete
 
 Orders: 
 (v) wyświetlanie, 
-new, 
+(v) new, 
 (v) submit, 
 (v) details -> wyświetlanie wszystkich details dla order
 (v) delete/cancel order
@@ -35,9 +35,9 @@ OrderDetails:
 
 Pubs: 
 (v) wyświetlanie, 
-new, 
-edit, 
-delete
+(v) new, 
+(v) edit, 
+(v) delete
 
 Addresses: 
 (v) wyświetlanie, 
@@ -62,6 +62,7 @@ edit: volume > 0, alko percentage >= 0, cena > 0
 TRIGGER ORDERDETAILS:
 delete: usuń tylko, gdy Order ma status In Creation
 
+TRIGGER PUBS/PRODUCERS: czy tel. i email mogą się powtarzać (??)
 		
 (v) już zrobiłem -- totalPrice musi zwracać 0 gdy nie ma żadnych OrderDetails bo się sypie trigger który z tego korzysta 
  

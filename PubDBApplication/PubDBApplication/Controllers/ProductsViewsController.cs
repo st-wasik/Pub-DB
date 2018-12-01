@@ -163,7 +163,7 @@ namespace PubDBApplication.Controllers
             ViewBag.Exception = null;
             string msg = null;
             Products product = (from p in db.Products where p.id == id select p).First();
-
+            ProductsView productsView = db.ProductsView.SingleOrDefault(m => m.id == id);
             db.Products.Remove(product);
             try
             {
@@ -177,7 +177,7 @@ namespace PubDBApplication.Controllers
                     msg = e.InnerException.InnerException.Message;
 
                 ViewBag.Exception = msg;
-                return View(id);
+                return View(productsView);
             }
 
             return RedirectToAction("Index");

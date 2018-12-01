@@ -1,0 +1,115 @@
+﻿@model PubDBApplication.Models.Producers
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Producers</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            ID
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id)
+        </dd>
+        <dt>
+            Name
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            E-Mail
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.e_mail)
+        </dd>
+
+        <dt>
+            Telephone No
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.telephone_no)
+        </dd>
+
+        <dt>
+            Address
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address.street)
+            @Html.DisplayFor(model => model.Address.building_no),
+            @Html.DisplayFor(model => model.Address.postal_code)
+            @Html.DisplayFor(model => model.Address.city)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Add new product", "Create", "ProductsViews", new { }, null)
+</p>
+<table class="table">
+    <tr>
+        <th>
+            ID
+        </th>
+
+        <th>
+            Product Name
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+            Alcohol Percentage
+        </th>
+
+        <th>
+            Volume in litres
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in ViewBag.products)
+    {
+        <tr>
+            <td>
+                @item.id
+            </td>
+
+            <td>
+                @item.name
+            </td>
+
+            <td>
+                @item.price.ToString("0.00")
+            </td>
+            <td>
+                @item.alcohol_percentage
+            </td>
+            <td>
+                @item.volume
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "Delete", "ProductsViews", new { id = item.id }, null)
+            </td>
+        </tr>
+    }
+
+</table>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -159,8 +159,9 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderDetailsViewsController.cs" />
     <Compile Include="Controllers\OrdersViewsController.cs" />
-    <Compile Include="Controllers\ProducersViewsController.cs" />
+    <Compile Include="Controllers\ProducersController.cs" />
     <Compile Include="Controllers\ProductsViewsController.cs" />
+    <Compile Include="Controllers\PubsController.cs" />
     <Compile Include="Controllers\PubsViewsController.cs" />
     <Compile Include="Controllers\WarehousesController.cs" />
     <Compile Include="Controllers\WarehousesStockViewsController.cs" />
@@ -297,11 +298,6 @@
     <Content Include="Views\ProductsViews\Details.cshtml" />
     <Content Include="Views\ProductsViews\Edit.cshtml" />
     <Content Include="Views\ProductsViews\Index.cshtml" />
-    <Content Include="Views\ProducersViews\Create.cshtml" />
-    <Content Include="Views\ProducersViews\Delete.cshtml" />
-    <Content Include="Views\ProducersViews\Details.cshtml" />
-    <Content Include="Views\ProducersViews\Edit.cshtml" />
-    <Content Include="Views\ProducersViews\Index.cshtml" />
     <Content Include="Views\PubsViews\Create.cshtml" />
     <Content Include="Views\PubsViews\Delete.cshtml" />
     <Content Include="Views\PubsViews\Details.cshtml" />
@@ -332,6 +328,16 @@
     <Content Include="Views\WarehousesStocks\Index.cshtml" />
     <Content Include="Views\OrdersViews\CreateIncoming.cshtml" />
     <Content Include="Views\OrderDetailsViews\Delete.cshtml" />
+    <Content Include="Views\Producers\Create.cshtml" />
+    <Content Include="Views\Producers\Delete.cshtml" />
+    <Content Include="Views\Producers\Details.cshtml" />
+    <Content Include="Views\Producers\Edit.cshtml" />
+    <Content Include="Views\Producers\Index.cshtml" />
+    <Content Include="Views\Pubs\Create.cshtml" />
+    <Content Include="Views\Pubs\Delete.cshtml" />
+    <Content Include="Views\Pubs\Details.cshtml" />
+    <Content Include="Views\Pubs\Edit.cshtml" />
+    <Content Include="Views\Pubs\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

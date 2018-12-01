@@ -39,5 +39,10 @@ namespace PubDBApplication.Models
         public virtual ICollection<Producers> Producers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Pubs> Pubs { get; set; }
+
+        public override string ToString()
+        {
+            return (street + " " + building_no.ToString() + ", " + postal_code + " " + city);
+        }
     }
 }
