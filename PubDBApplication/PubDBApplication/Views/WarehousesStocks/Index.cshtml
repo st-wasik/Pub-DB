@@ -1,0 +1,44 @@
+﻿@model IEnumerable<PubDBApplication.Models.WarehousesStock>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Warehouses Details</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            ID
+        </th>
+        <th>
+            Warehouse Name
+        </th>
+        <th>
+           Product Name
+        </th>
+        <th>
+            Quantity
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Warehouses.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Products.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.quantity)
+
+        </td>
+    </tr>
+}
+
+</table>

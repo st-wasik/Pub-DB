@@ -12,15 +12,53 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.name)
+            ID
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id)
+        </dd>
+        <dt>
+            Warehouse Name
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.name)
         </dd>
-
     </dl>
 </div>
+<table class="table">
+    <tr>
+        <th>
+            ID
+        </th>
+
+        <th>
+            Product Name
+        </th>
+
+        <th>
+            Quantity
+        </th>
+    </tr>
+
+    @foreach (var item in ViewBag.warehouseStock)
+    {
+        <tr>
+            <td>
+                @item.id
+            </td>
+            <td>
+                @item.product_name
+            </td>
+            <td>
+                @item.quantity
+            </td>
+        </tr>
+    }
+
+</table>
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
     @Html.ActionLink("Back to List", "Index")

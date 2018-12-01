@@ -28,6 +28,7 @@ namespace PubDBApplication.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Warehouses warehouses = db.Warehouses.Find(id);
+            ViewBag.warehouseStock = (from ws in db.WarehousesStockView where ws.id == id select ws).ToList();
             if (warehouses == null)
             {
                 return HttpNotFound();
@@ -48,14 +49,23 @@ namespace PubDBApplication.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,name")] Warehouses warehouses)
         {
-            if (ModelState.IsValid)
+            ViewBag.Exception = null;
+            string msg = "";
+            db.Warehouses.Add(warehouses);
+            try
             {
-                db.Warehouses.Add(warehouses);
                 db.SaveChanges();
-                return RedirectToAction("Index");
             }
-
-            return View(warehouses);
+            catch (Exception e)
+            {
+                if (e.InnerException == null)
+                    msg = "Invalid data";
+                else
+                    msg = e.InnerException.InnerException.Message;
+                ViewBag.Exception = msg;
+                return View(warehouses);
+            }
+            return RedirectToAction("Index");
         }
 
         // GET: Warehouses/Edit/5
@@ -80,10 +90,27 @@ namespace PubDBApplication.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id,name")] Warehouses warehouses)
         {
+            ViewBag.Exception = null;
+            string msg = null;
             if (ModelState.IsValid)
             {
+
                 db.Entry(warehouses).State = EntityState.Modified;
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    if (e.InnerException == null)
+                        msg = "Invalid data";
+                    else
+                        msg = e.InnerException.InnerException.Message;
+
+                    ViewBag.Exception = msg;
+                    return View(warehouses);
+                }
+
                 return RedirectToAction("Index");
             }
             return View(warehouses);
@@ -109,9 +136,24 @@ namespace PubDBApplication.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            ViewBag.Exception = null;
+            string msg = null;
             Warehouses warehouses = db.Warehouses.Find(id);
             db.Warehouses.Remove(warehouses);
-            db.SaveChanges();
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                if (e.InnerException == null)
+                    msg = "Invalid data";
+                else
+                    msg = e.InnerException.InnerException.Message;
+
+                ViewBag.Exception = msg;
+                return View(warehouses);
+            }
             return RedirectToAction("Index");
         }
 
