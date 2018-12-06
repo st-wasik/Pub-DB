@@ -10,7 +10,6 @@
 <p>
     @Html.ActionLink("Create new incoming order", "CreateIncoming") |
     @Html.ActionLink("Create new outcoming order", "CreateOutcoming") |
-    @Html.ActionLink("Collect ", "CreateOutcoming") 
 </p>
 <table class="table">
     <tr><td colspan="7"><h4><b>Warehouse Incoming Orders</b></h4></td></tr>
@@ -52,7 +51,7 @@
                 @if (item.status.Equals("Completed"))
                 {
                     <font color="green">
-                        <b>@item.status</b> 
+                        <b>@item.status</b>
                     </font>
                 }
                 else if (item.status.Equals("In Creation"))
@@ -161,8 +160,19 @@
             </td>
 
             <td>
-                @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                @Html.ActionLink("Cancel", "Delete", new { id = item.id })
+                @if (item.status.Equals("In Realization"))
+                {
+                    @Html.ActionLink("Collect", "Home", new { id = item.id })
+                    <font>|</font>
+                }
+
+                @Html.ActionLink("Details", "Details", new { id = item.id })
+
+                @if (!item.status.Equals("Completed"))
+                {
+                    <font>|</font>
+                    @Html.ActionLink("Cancel", "Delete", new { id = item.id })
+                }
             </td>
         </tr>
     }

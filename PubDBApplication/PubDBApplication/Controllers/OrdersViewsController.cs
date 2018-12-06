@@ -200,7 +200,7 @@ namespace PubDBApplication.Controllers
                     return View(ov);
                 }
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "OrdersViews", new { id = ordersView.id });
             }
             return View(ordersView);
         }

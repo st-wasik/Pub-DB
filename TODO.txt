@@ -1,11 +1,11 @@
 Warehouses: 
-wyświetlanie, 
-new, 
-edit, 
-delete
+(v) wyświetlanie, 
+(v) new, 
+(v) edit, 
+(v) delete
 
 WarehousesStock: 
-wyświetlanie
+(v) wyświetlanie
 uzupełnianie magazynu
 
 Products: 
