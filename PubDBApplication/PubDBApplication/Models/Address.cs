@@ -34,7 +34,8 @@ namespace PubDBApplication.Models
         [RegularExpression(@"^[0-9]{2}\-[0-9]{3}$",
         ErrorMessage = "Provide correct postal code (e.g. 45-654)")]
         public string postal_code { get; set; }
-
+        public int RowVersion { get; set; }
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Producers> Producers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

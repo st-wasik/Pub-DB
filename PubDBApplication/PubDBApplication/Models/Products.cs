@@ -21,7 +21,7 @@ namespace PubDBApplication.Models
             this.OrderDetails = new HashSet<OrderDetails>();
             this.WarehousesStock = new HashSet<WarehousesStock>();
         }
-    
+
         public int id { get; set; }
         [Required(ErrorMessage = "Required")]
         public string name { get; set; }
@@ -36,7 +36,7 @@ namespace PubDBApplication.Models
         [Required(ErrorMessage = "Required")]
         [Range(0, int.MaxValue, ErrorMessage = "Volume cannot be negative")]
         public float volume { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetails> OrderDetails { get; set; }
         public virtual Producers Producers { get; set; }

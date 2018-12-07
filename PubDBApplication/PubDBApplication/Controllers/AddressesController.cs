@@ -96,13 +96,30 @@ namespace PubDBApplication.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,building_no,street,city,postal_code")] Address address)
+        public ActionResult Edit([Bind(Include = "id,building_no,street,city,postal_code,RowVersion")] Address address)
         {
             if (ModelState.IsValid)
             {
                 ViewBag.Exception = null;
                 string msg = null;
-                db.Entry(address).State = EntityState.Modified;
+
+                var entity = db.Address.Single(p => p.id == address.id);
+
+                if (entity.RowVersion != address.RowVersion)
+                {
+                    TempData["Exception"] = "Entity was modified by another user. Check values and perform edit action again."; 
+                    entity.street = "adsasdasdasd";
+                    return RedirectToAction("Edit");
+                }
+
+                entity.RowVersion++;
+                entity.postal_code = address.postal_code;
+                entity.building_no = address.building_no;
+                entity.street = address.street;
+                entity.city = address.city;
+
+                db.Entry(entity).State = EntityState.Modified;
+
                 try
                 {
                     db.SaveChanges();
@@ -130,10 +147,7 @@ namespace PubDBApplication.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Address address = db.Address.Find(id);
-            if (address == null)
-            {
-                return HttpNotFound();
-            }
+
             return View(address);
         }
 
@@ -146,6 +160,11 @@ namespace PubDBApplication.Controllers
             string msg = null;
 
             Address address = db.Address.Find(id);
+            if (address == null)
+            {
+                ViewBag.Exception = "Cannot find specified Address. Probably it was deleted by another user.";
+                return View();
+            }
             db.Address.Remove(address);
             try
             {

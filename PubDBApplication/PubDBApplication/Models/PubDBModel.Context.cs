@@ -25,7 +25,6 @@ namespace PubDBApplication.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Address> Address { get; set; }
         public virtual DbSet<OrderDetails> OrderDetails { get; set; }
         public virtual DbSet<Orders> Orders { get; set; }
         public virtual DbSet<Producers> Producers { get; set; }
@@ -39,5 +38,6 @@ namespace PubDBApplication.Models
         public virtual DbSet<WarehousesStockView> WarehousesStockView { get; set; }
         public virtual DbSet<OrderDetailsView> OrderDetailsView { get; set; }
         public virtual DbSet<OrdersView> OrdersView { get; set; }
+        public virtual DbSet<Address> Address { get; set; }
     }
 }

@@ -325,7 +325,9 @@
     <Content Include="Views\Pubs\Index.cshtml" />
     <Content Include="Views\WarehousesStocks\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\addressTest\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

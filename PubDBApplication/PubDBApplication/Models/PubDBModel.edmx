@@ -14,6 +14,7 @@
           <Property Name="street" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="city" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="postal_code" Type="varchar" MaxLength="6" />
+          <Property Name="RowVersion" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="OrderDetails">
           <Key>
@@ -248,7 +249,7 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Producers__adres__2DE6D218">
+        <Association Name="FK__Producers__adres__60C757A0">
           <End Role="Address" Type="Self.Address" Multiplicity="1" />
           <End Role="Producers" Type="Self.Producers" Multiplicity="*" />
           <ReferentialConstraint>
@@ -272,7 +273,7 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Pubs__adress_id__2B0A656D">
+        <Association Name="FK__Pubs__adress_id__5FD33367">
           <End Role="Address" Type="Self.Address" Multiplicity="1" />
           <End Role="Pubs" Type="Self.Pubs" Multiplicity="*" />
           <ReferentialConstraint>
@@ -404,7 +405,7 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
             <End Role="Warehouses" EntitySet="Warehouses" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK__Producers__adres__2DE6D218" Association="Self.FK__Producers__adres__2DE6D218">
+          <AssociationSet Name="FK__Producers__adres__60C757A0" Association="Self.FK__Producers__adres__60C757A0">
             <End Role="Address" EntitySet="Address" />
             <End Role="Producers" EntitySet="Producers" />
           </AssociationSet>
@@ -412,7 +413,7 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
             <End Role="Producers" EntitySet="Producers" />
             <End Role="Products" EntitySet="Products" />
           </AssociationSet>
-          <AssociationSet Name="FK__Pubs__adress_id__2B0A656D" Association="Self.FK__Pubs__adress_id__2B0A656D">
+          <AssociationSet Name="FK__Pubs__adress_id__5FD33367" Association="Self.FK__Pubs__adress_id__5FD33367">
             <End Role="Address" EntitySet="Address" />
             <End Role="Pubs" EntitySet="Pubs" />
           </AssociationSet>
@@ -429,18 +430,6 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PubDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Address">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="building_no" Type="Int32" Nullable="false" />
-          <Property Name="street" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="city" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="postal_code" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Producers" Relationship="Self.FK__Producers__adres__2DE6D218" FromRole="Address" ToRole="Producers" />
-          <NavigationProperty Name="Pubs" Relationship="Self.FK__Pubs__adress_id__2B0A656D" FromRole="Address" ToRole="Pubs" />
-        </EntityType>
         <EntityType Name="OrderDetails">
           <Key>
             <PropertyRef Name="id" />
@@ -475,11 +464,11 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="adress_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Address" Relationship="Self.FK__Producers__adres__2DE6D218" FromRole="Producers" ToRole="Address" />
           <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__producer__37703C52" FromRole="Producers" ToRole="Orders" />
           <NavigationProperty Name="Products" Relationship="Self.FK__Products__produc__30C33EC3" FromRole="Producers" ToRole="Products" />
           <Property Name="e_mail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="telephone_no" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Address" Relationship="PubDBModel.FK__Producers__adres__60C757A0" FromRole="Producers" ToRole="Address" />
         </EntityType>
         <EntityType Name="Products">
           <Key>
@@ -502,10 +491,10 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="adress_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Address" Relationship="Self.FK__Pubs__adress_id__2B0A656D" FromRole="Pubs" ToRole="Address" />
           <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__pub_id__367C1819" FromRole="Pubs" ToRole="Orders" />
           <Property Name="e_mail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="telephone_no" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Address" Relationship="PubDBModel.FK__Pubs__adress_id__5FD33367" FromRole="Pubs" ToRole="Address" />
         </EntityType>
         <EntityType Name="Warehouses">
           <Key>
@@ -527,30 +516,6 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
           <NavigationProperty Name="Products" Relationship="Self.FK__Warehouse__produ__3F115E1A" FromRole="WarehousesStock" ToRole="Products" />
           <NavigationProperty Name="Warehouses" Relationship="Self.FK__Warehouse__wareh__3E1D39E1" FromRole="WarehousesStock" ToRole="Warehouses" />
         </EntityType>
-        <Association Name="FK__Producers__adres__2DE6D218">
-          <End Role="Address" Type="Self.Address" Multiplicity="1" />
-          <End Role="Producers" Type="Self.Producers" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Address">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Producers">
-              <PropertyRef Name="adress_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Pubs__adress_id__2B0A656D">
-          <End Role="Address" Type="Self.Address" Multiplicity="1" />
-          <End Role="Pubs" Type="Self.Pubs" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Address">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Pubs">
-              <PropertyRef Name="adress_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__OrderDeta__order__3A4CA8FD">
           <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
           <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
@@ -648,7 +613,6 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="PubDBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Address" EntityType="Self.Address" />
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" />
           <EntitySet Name="Orders" EntityType="Self.Orders" />
           <EntitySet Name="Producers" EntityType="Self.Producers" />
@@ -656,14 +620,6 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
           <EntitySet Name="Pubs" EntityType="Self.Pubs" />
           <EntitySet Name="Warehouses" EntityType="Self.Warehouses" />
           <EntitySet Name="WarehousesStock" EntityType="Self.WarehousesStock" />
-          <AssociationSet Name="FK__Producers__adres__2DE6D218" Association="Self.FK__Producers__adres__2DE6D218">
-            <End Role="Address" EntitySet="Address" />
-            <End Role="Producers" EntitySet="Producers" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Pubs__adress_id__2B0A656D" Association="Self.FK__Pubs__adress_id__2B0A656D">
-            <End Role="Address" EntitySet="Address" />
-            <End Role="Pubs" EntitySet="Pubs" />
-          </AssociationSet>
           <AssociationSet Name="FK__OrderDeta__order__3A4CA8FD" Association="Self.FK__OrderDeta__order__3A4CA8FD">
             <End Role="Orders" EntitySet="Orders" />
             <End Role="OrderDetails" EntitySet="OrderDetails" />
@@ -702,6 +658,15 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
           <EntitySet Name="WarehousesStockView" EntityType="PubDBModel.WarehousesStockView" />
           <EntitySet Name="OrderDetailsView" EntityType="PubDBModel.OrderDetailsView" />
           <EntitySet Name="OrdersView" EntityType="PubDBModel.OrdersView" />
+          <EntitySet Name="Address" EntityType="PubDBModel.Address" />
+          <AssociationSet Name="FK__Producers__adres__60C757A0" Association="PubDBModel.FK__Producers__adres__60C757A0">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="Producers" EntitySet="Producers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pubs__adress_id__5FD33367" Association="PubDBModel.FK__Pubs__adress_id__5FD33367">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="Pubs" EntitySet="Pubs" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="ProducersView">
           <Key>
@@ -796,23 +761,49 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
           <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="total" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="building_no" Type="Int32" Nullable="false" />
+          <Property Name="street" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="city" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="postal_code" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="RowVersion" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Producers" Relationship="PubDBModel.FK__Producers__adres__60C757A0" FromRole="Address" ToRole="Producers" />
+          <NavigationProperty Name="Pubs" Relationship="PubDBModel.FK__Pubs__adress_id__5FD33367" FromRole="Address" ToRole="Pubs" />
+        </EntityType>
+        <Association Name="FK__Producers__adres__60C757A0">
+          <End Type="PubDBModel.Address" Role="Address" Multiplicity="1" />
+          <End Type="PubDBModel.Producers" Role="Producers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Producers">
+              <PropertyRef Name="adress_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pubs__adress_id__5FD33367">
+          <End Type="PubDBModel.Address" Role="Address" Multiplicity="1" />
+          <End Type="PubDBModel.Pubs" Role="Pubs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Pubs">
+              <PropertyRef Name="adress_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="PubDBModelStoreContainer" CdmEntityContainer="PubDBEntities">
-          <EntitySetMapping Name="Address">
-            <EntityTypeMapping TypeName="PubDBModel.Address">
-              <MappingFragment StoreEntitySet="Address">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="building_no" ColumnName="building_no" />
-                <ScalarProperty Name="street" ColumnName="street" />
-                <ScalarProperty Name="city" ColumnName="city" />
-                <ScalarProperty Name="postal_code" ColumnName="postal_code" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="OrderDetails">
             <EntityTypeMapping TypeName="PubDBModel.OrderDetails">
               <MappingFragment StoreEntitySet="OrderDetails">
@@ -960,6 +951,18 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
                 <ScalarProperty Name="producer_name" ColumnName="producer_name" />
                 <ScalarProperty Name="pub_name" ColumnName="pub_name" />
                 <ScalarProperty Name="warehouse_name" ColumnName="warehouse_name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Address">
+            <EntityTypeMapping TypeName="PubDBModel.Address">
+              <MappingFragment StoreEntitySet="Address">
+                <ScalarProperty Name="RowVersion" ColumnName="RowVersion" />
+                <ScalarProperty Name="postal_code" ColumnName="postal_code" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="street" ColumnName="street" />
+                <ScalarProperty Name="building_no" ColumnName="building_no" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -26,7 +26,24 @@ namespace PubDBApplication.Controllers
             if (RouteData.Values["id"] == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             ViewBag.order_id = RouteData.Values["id"];
-            ViewBag.product_name = new SelectList(db.Products, "name", "name");
+            int orderID = int.Parse(ViewBag.order_id);
+
+            var In_Out = (from o in db.Orders where o.id == orderID select o.Incoming_Outcoming).First();
+
+            if(In_Out.Equals("Incoming"))
+            {
+                ViewBag.product_name = new SelectList((from p in db.Products
+                                                       join s in db.WarehousesStock on p.id equals s.product_id
+                                                       join w in db.Warehouses on s.warehouse_id equals w.id
+                                                       join o in db.Orders on w.id equals o.warehouse_id
+                                                       where o.id == orderID
+                                                       select p.name).ToList());
+            }
+            else
+            {
+                ViewBag.product_name = new SelectList(db.Products, "name", "name");
+            }
+
             return View();
         }
 
@@ -100,7 +117,7 @@ namespace PubDBApplication.Controllers
             string msg = null;
             OrderDetailsView odv = db.OrderDetailsView.SingleOrDefault(m => m.id == id);
             var entity = (from x in db.OrderDetails where x.id == odv.id select x).First();
-            var order_id = entity.order_id;
+
             db.OrderDetails.Remove(entity);
             try
             {
@@ -118,7 +135,7 @@ namespace PubDBApplication.Controllers
                 return View(odv);
             }
 
-            return RedirectToAction("Details", "OrdersViews", new { id = order_id });
+            return RedirectToAction("Index", "OrdersViews");
         }
 
         protected override void Dispose(bool disposing)
