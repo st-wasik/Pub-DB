@@ -324,6 +324,7 @@
     <Content Include="Views\Pubs\Edit.cshtml" />
     <Content Include="Views\Pubs\Index.cshtml" />
     <Content Include="Views\WarehousesStocks\Index.cshtml" />
+    <Content Include="Views\OrdersViews\Collect.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\addressTest\" />
