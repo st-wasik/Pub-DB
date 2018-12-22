@@ -88,6 +88,8 @@
     @if (Model.status.Equals("In Realization"))
     {
         <h4>This order is in the realization phase.</h4>
+        @Html.ActionLink("Send order", "Index", new { id = Model.id })
+        <font>or</font>
         @Html.ActionLink("Cancel order", "Delete", new { id = Model.id })
     }
 

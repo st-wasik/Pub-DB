@@ -9,7 +9,7 @@
 
 <p>
     @Html.ActionLink("Create new incoming order", "CreateIncoming") |
-    @Html.ActionLink("Create new outcoming order", "CreateOutcoming") |
+    @Html.ActionLink("Create new outcoming order", "CreateOutcoming")
 </p>
 <table class="table">
     <tr><td colspan="7"><h4><b>Warehouse Incoming Orders</b></h4><h5><b>Orders received from customers</b></h5></td></tr>
@@ -81,12 +81,20 @@
             </td>
 
             <td>
+                @if (item.status.Equals("In Realization"))
+                {
+
+                    @Html.ActionLink("Send", "Index")
+
+                <font>&nbsp;&nbsp;&nbsp;|</font>
+                }
                 @Html.ActionLink("Details", "Details", new { id = item.id })
                 @if (!item.status.Equals("Completed"))
                 {
                     <font>|</font>
                     @Html.ActionLink("Cancel", "Delete", new { id = item.id })
                 }
+
             </td>
         </tr>
     }
