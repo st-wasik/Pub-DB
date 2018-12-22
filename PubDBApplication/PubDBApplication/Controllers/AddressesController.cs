@@ -98,44 +98,45 @@ namespace PubDBApplication.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id,building_no,street,city,postal_code,RowVersion")] Address address)
         {
-                if (ModelState.IsValid)
+            ViewBag.Exception = null;
+            string msg = null;
+
+            if (ModelState.IsValid)
+            {
+
+                var entity = db.Address.Single(p => p.id == address.id);
+
+                if (entity.RowVersion != address.RowVersion)
                 {
-                    ViewBag.Exception = null;
-                    string msg = null;
-
-                    var entity = db.Address.Single(p => p.id == address.id);
-
-                    if (entity.RowVersion != address.RowVersion)
-                    {
-                        TempData["Exception"] = "Entity was modified by another user. Check values and perform edit action again.";
-                        entity.street = "adsasdasdasd";
-                        return RedirectToAction("Edit");
-                    }
-
-                    entity.RowVersion++;
-                    entity.postal_code = address.postal_code;
-                    entity.building_no = address.building_no;
-                    entity.street = address.street;
-                    entity.city = address.city;
-
-                    db.Entry(entity).State = EntityState.Modified;
-
-                    try
-                    {
-                        db.SaveChanges();
-                    }
-                    catch (Exception e)
-                    {
-                        if (e.InnerException == null)
-                            msg = "Invalid data";
-                        else
-                            msg = e.InnerException.InnerException.Message;
-
-                        ViewBag.Exception = msg;
-                        return View(address);
-                    }
-                    return RedirectToAction("Index");
+                    TempData["Exception"] = "Entity was modified by another user. Check values and perform edit action again.";
+                    entity.street = "adsasdasdasd";
+                    return RedirectToAction("Edit");
                 }
+
+                entity.RowVersion++;
+                entity.postal_code = address.postal_code;
+                entity.building_no = address.building_no;
+                entity.street = address.street;
+                entity.city = address.city;
+
+                db.Entry(entity).State = EntityState.Modified;
+
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    if (e.InnerException == null)
+                        msg = "Invalid data";
+                    else
+                        msg = e.InnerException.InnerException.Message;
+
+                    ViewBag.Exception = msg;
+                    return View(address);
+                }
+                return RedirectToAction("Index");
+            }
             return View(address);
         }
 
