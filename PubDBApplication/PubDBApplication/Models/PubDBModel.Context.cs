@@ -27,7 +27,6 @@ namespace PubDBApplication.Models
     
         public virtual DbSet<OrderDetails> OrderDetails { get; set; }
         public virtual DbSet<Orders> Orders { get; set; }
-        public virtual DbSet<Producers> Producers { get; set; }
         public virtual DbSet<Products> Products { get; set; }
         public virtual DbSet<Pubs> Pubs { get; set; }
         public virtual DbSet<Warehouses> Warehouses { get; set; }
@@ -39,5 +38,6 @@ namespace PubDBApplication.Models
         public virtual DbSet<OrderDetailsView> OrderDetailsView { get; set; }
         public virtual DbSet<OrdersView> OrdersView { get; set; }
         public virtual DbSet<Address> Address { get; set; }
+        public virtual DbSet<Producers> Producers { get; set; }
     }
 }
