@@ -98,16 +98,17 @@ namespace PubDBApplication.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id,building_no,street,city,postal_code,RowVersion")] Address address)
         {
+            ViewBag.Exception = null;
+            string msg = null;
+
             if (ModelState.IsValid)
             {
-                ViewBag.Exception = null;
-                string msg = null;
 
                 var entity = db.Address.Single(p => p.id == address.id);
 
                 if (entity.RowVersion != address.RowVersion)
                 {
-                    TempData["Exception"] = "Entity was modified by another user. Check values and perform edit action again."; 
+                    TempData["Exception"] = "Entity was modified by another user. Check values and perform edit action again.";
                     entity.street = "adsasdasdasd";
                     return RedirectToAction("Edit");
                 }

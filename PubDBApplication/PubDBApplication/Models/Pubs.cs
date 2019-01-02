@@ -25,6 +25,7 @@ namespace PubDBApplication.Models
         public int adress_id { get; set; }
         public string e_mail { get; set; }
         public string telephone_no { get; set; }
+        public int RowVersion { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Orders> Orders { get; set; }

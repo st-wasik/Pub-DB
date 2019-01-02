@@ -1,17 +1,17 @@
 ﻿@model PubDBApplication.Models.OrdersView
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Collect";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>Collect</h2>
 
+<h3>Are you sure you want to collect this order?</h3>
 <div>
-    <h4>Orders</h4>
     <hr />
+    <h4>If you collect this order, stock level in warehouse '@Model.warehouse_name' will be updated with listed products.</h4>
     <dl class="dl-horizontal">
-
         <dt>
             ID
         </dt>
@@ -28,7 +28,7 @@
             @Html.DisplayFor(model => model.warehouse_name)
         </dd>
 
-        @if (Model.Incoming_Outcoming.Equals("Incoming"))
+        @if (Model.pub_name != null)
         {
             <dt>
                 Pub Name
@@ -39,7 +39,7 @@
             </dd>
         }
 
-        @if (Model.Incoming_Outcoming.Equals("Outcoming"))
+        @if (Model.producer_name != null)
         {
             <dt>
                 Producer Name
@@ -73,34 +73,16 @@
         <dd>
             @Html.DisplayFor(model => model.date)
         </dd>
+
+        <dt>
+            Total Price
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.total)
+        </dd>
+
     </dl>
-
-    @if (Model.status.Equals("In Creation"))
-    {
-        <h4>This order is in the creation phase.</h4>
-        <p>
-            @Html.ActionLink("Add product to order", "CreateForProduct", "OrderDetailsViews", new { id = Model.id }, null),
-            @Html.ActionLink("Submit order", "Submit", new { id = Model.id }) or
-            @Html.ActionLink("Cancel order", "Delete", new { id = Model.id })
-        </p>
-    }
-
-    @if (Model.status.Equals("In Realization"))
-    {
-        <h4>This order is in the realization phase.</h4>
-        @Html.ActionLink("Send order", "Index", new { id = Model.id })
-        <font>or</font>
-        @Html.ActionLink("Cancel order", "Delete", new { id = Model.id })
-    }
-
-    @if (Model.status.Equals("Completed"))
-    {
-        <h4>This order is completed.</h4>
-        <p>
-        </p>
-    }
-
-
 
     <table class="table">
         <tr>
@@ -112,7 +94,7 @@
                 Product
             </th>
             <th>
-                Unit Price
+                Price
             </th>
             <th>
                 Quantity
@@ -145,18 +127,18 @@
                 <td>
                     @item.amount.ToString("0.00")
                 </td>
-                <td>
-                    @if (Model.status.Equals("In Creation"))
-                    {
-                        @Html.ActionLink("Delete", "Delete", "OrderDetailsViews", new { id = item.id }, null)
-                    }
-                </td>
             </tr>
         }
 
     </table>
-    <h3> <b> TOTAL PRICE: @Html.DisplayFor(model => model.total) </b></h3>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Collect" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
 </div>
-<p>
-    @Html.ActionLink("Back to List", "Index")
-</p>
