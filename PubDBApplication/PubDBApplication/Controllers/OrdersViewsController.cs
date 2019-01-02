@@ -146,75 +146,13 @@ namespace PubDBApplication.Controllers
                     ViewBag.producer_name = new SelectList(db.Producers, "name", "name");
                     return View(ordersView);
                 }
-                return RedirectToAction("Details", new { id = order.id });
+                return RedirectToAction("Details", new { id = order.id});
             }
 
             ViewBag.warehouse_name = new SelectList(db.Warehouses, "id", "name");
             ViewBag.producer_name = new SelectList(db.Producers, "id", "name");
             return View(ordersView);
         }
-
-        // GET: OrdersViews/Edit/5
-        public ActionResult Collect(int? id)
-        {
-            ViewBag.odView = (from x in db.OrderDetailsView where x.order_id == id select x).ToList();
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            OrdersView ordersView = db.OrdersView.SingleOrDefault(m => m.id == id);
-            if (ordersView == null)
-            {
-                return HttpNotFound();
-            }
-            return View(ordersView);
-        }
-
-        // POST: OrdersViews/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Collect([Bind(Include = "id,warehouse_name,pub_name,producer_name,Incoming_Outcoming,status,date")] OrdersView ordersView)
-        {
-            ViewBag.Exception = null;
-            string msg = null;
-            ViewBag.odView = (from x in db.OrderDetailsView where x.order_id == ordersView.id select x).ToList();
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    var entity = (from c in db.Orders where c.id == ordersView.id select c).First();
-                    entity.status = OrderInRealization;
-                    db.SaveChanges();
-                }
-                catch (Exception e)
-                {
-                    if (e.InnerException == null)
-                        msg = "Invalid data";
-                    else if (e.InnerException.InnerException == null)
-                        msg = e.InnerException.Message;
-                    else
-                        msg = e.InnerException.InnerException.Message;
-
-                    ViewBag.Exception = msg;
-                    OrdersView ov = db.OrdersView.SingleOrDefault(m => m.id == ordersView.id);
-                    return View(ov);
-                }
-
-                return RedirectToAction("Details", "OrdersViews", new { id = ordersView.id });
-            }
-            return View(ordersView);
-        }
-
-
-
-
-
-
-
-
-
 
         // GET: OrdersViews/Edit/5
         public ActionResult Submit(int? id)

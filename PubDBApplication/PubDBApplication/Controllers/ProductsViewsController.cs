@@ -105,29 +105,19 @@ namespace PubDBApplication.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,name,producer_name,price,alcohol_percentage,volume,RowVersion")] ProductsView productsView)
+        public ActionResult Edit([Bind(Include = "id,name,producer_name,price,alcohol_percentage,volume")] ProductsView productsView)
         {
             ViewBag.Exception = null;
             string msg = "";
-
             if (ModelState.IsValid)
             {
-                var entity = db.Products.Single(p => p.id == productsView.id);
+                Products product = (from p in db.Products where p.id == productsView.id select p).First();
 
-                if (entity.RowVersion != productsView.RowVersion)
-                {
-                    TempData["Exception"] = "Entity was modified by another user. Check values and perform edit action again.";
-                    return RedirectToAction("Edit");
-                }
-
-                entity.RowVersion++;
-                entity.name = productsView.name;
-                entity.producer_id = (from p in db.Producers where p.name == productsView.producer_name select p).Single().id;
-                entity.price = productsView.price;
-                entity.alcohol_percentage = productsView.alcohol_percentage;
-                entity.volume = productsView.volume;
-
-                db.Entry(entity).State = EntityState.Modified;
+                product.name = productsView.name;
+                product.producer_id = (from p in db.Producers where p.name == productsView.producer_name select p).Single().id;
+                product.price = productsView.price;
+                product.alcohol_percentage = productsView.alcohol_percentage;
+                product.volume = productsView.volume;
                 try
                 {
                     db.SaveChanges();

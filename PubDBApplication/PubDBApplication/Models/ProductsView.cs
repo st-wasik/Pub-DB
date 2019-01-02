@@ -20,6 +20,5 @@ namespace PubDBApplication.Models
         public decimal price { get; set; }
         public int alcohol_percentage { get; set; }
         public float volume { get; set; }
-        public int RowVersion { get; set; }
     }
 }

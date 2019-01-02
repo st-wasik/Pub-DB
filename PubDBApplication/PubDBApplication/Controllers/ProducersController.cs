@@ -61,7 +61,7 @@ namespace PubDBApplication.Controllers
             string msg = "";
             if (ModelState.IsValid)
             {
-                db.Producers.Add(producers);
+                    db.Producers.Add(producers);
                 try
                 {
                     db.SaveChanges();
@@ -123,51 +123,32 @@ namespace PubDBApplication.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,name,adress_id,e_mail,telephone_no,RowVersion")] Producers producers)
+        public ActionResult Edit([Bind(Include = "id,name,adress_id,e_mail,telephone_no")] Producers producers)
         {
 
             ViewBag.Exception = null;
             string msg = null;
-
-            if (ModelState.IsValid)
+            db.Entry(producers).State = EntityState.Modified;
+            try
             {
-                var entity = db.Producers.Single(p => p.id == producers.id);
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                if (e.InnerException == null)
+                    msg = "Invalid data";
+                else
+                    msg = e.InnerException.InnerException.Message;
 
-                if (entity.RowVersion != producers.RowVersion)
+                ViewBag.Exception = msg;
+                List<SelectListItem> list2 = new List<SelectListItem>();
+                var entities2 = (from a in db.Address orderby a.street, a.building_no, a.postal_code, a.city select a).ToList();
+                foreach (var i in entities2)
                 {
-                    TempData["Exception"] = "Entity was modified by another user. Check values and perform edit action again.";
-                    return RedirectToAction("Edit");
+                    list2.Add(new SelectListItem { Selected = false, Text = i.ToString(), Value = i.id.ToString() });
                 }
-
-                entity.RowVersion++;
-                entity.name = producers.name;
-                entity.adress_id = producers.adress_id;
-                entity.e_mail = producers.e_mail;
-                entity.telephone_no = producers.telephone_no;
-
-                db.Entry(entity).State = EntityState.Modified;
-
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch (Exception e)
-                {
-                    if (e.InnerException == null)
-                        msg = "Invalid data";
-                    else
-                        msg = e.InnerException.InnerException.Message;
-
-                    ViewBag.Exception = msg;
-                    List<SelectListItem> list2 = new List<SelectListItem>();
-                    var entities2 = (from a in db.Address orderby a.street, a.building_no, a.postal_code, a.city select a).ToList();
-                    foreach (var i in entities2)
-                    {
-                        list2.Add(new SelectListItem { Selected = false, Text = i.ToString(), Value = i.id.ToString() });
-                    }
-                    ViewBag.adress_id = new SelectList(list2, "Value", "Text", 1);
-                    return View(producers);
-                }
+                ViewBag.adress_id = new SelectList(list2, "Value", "Text", 1);
+                return View(producers);
             }
             return RedirectToAction("Index");
         }
@@ -185,7 +166,6 @@ namespace PubDBApplication.Controllers
             {
                 return HttpNotFound();
             }
-
             return View(producers);
         }
 

@@ -88,24 +88,14 @@ namespace PubDBApplication.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,name,RowVersion")] Warehouses warehouses)
+        public ActionResult Edit([Bind(Include = "id,name")] Warehouses warehouses)
         {
             ViewBag.Exception = null;
             string msg = null;
             if (ModelState.IsValid)
             {
-                var entity = db.Warehouses.Single(p => p.id == warehouses.id);
 
-                if (entity.RowVersion != warehouses.RowVersion)
-                {
-                    TempData["Exception"] = "Entity was modified by another user. Check values and perform edit action again.";
-                    return RedirectToAction("Edit");
-                }
-
-                entity.RowVersion++;
-                entity.name = warehouses.name;
-               
-                db.Entry(entity).State = EntityState.Modified;
+                db.Entry(warehouses).State = EntityState.Modified;
                 try
                 {
                     db.SaveChanges();

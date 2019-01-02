@@ -34,7 +34,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <LangVersion>7.2</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -44,7 +43,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <LangVersion>7.2</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -155,7 +153,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
-    <Compile Include="App_Start\GlobalVariables.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AddressesController.cs" />
@@ -165,6 +162,7 @@
     <Compile Include="Controllers\ProducersController.cs" />
     <Compile Include="Controllers\ProductsViewsController.cs" />
     <Compile Include="Controllers\PubsController.cs" />
+    <Compile Include="Controllers\PubsViewsController.cs" />
     <Compile Include="Controllers\WarehousesController.cs" />
     <Compile Include="Controllers\WarehousesStocksController.cs" />
     <Compile Include="Global.asax.cs">
@@ -326,9 +324,10 @@
     <Content Include="Views\Pubs\Edit.cshtml" />
     <Content Include="Views\Pubs\Index.cshtml" />
     <Content Include="Views\WarehousesStocks\Index.cshtml" />
-    <Content Include="Views\OrdersViews\Collect.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\addressTest\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
