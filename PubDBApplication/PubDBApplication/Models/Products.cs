@@ -37,6 +37,8 @@ namespace PubDBApplication.Models
         [Range(0, int.MaxValue, ErrorMessage = "Volume cannot be negative")]
         public float volume { get; set; }
 
+        public int RowVersion { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetails> OrderDetails { get; set; }
         public virtual Producers Producers { get; set; }

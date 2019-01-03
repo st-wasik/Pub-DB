@@ -113,32 +113,48 @@ namespace PubDBApplication.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,name,adress_id,e_mail,telephone_no")] Pubs pubs)
+        public ActionResult Edit([Bind(Include = "id,name,adress_id,e_mail,telephone_no,RowVersion")] Pubs pubs)
         {
 
             ViewBag.Exception = null;
             string msg = null;
-            db.Entry(pubs).State = EntityState.Modified;
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (Exception e)
-            {
-                if (e.InnerException == null)
-                    msg = "Invalid data";
-                else
-                    msg = e.InnerException.InnerException.Message;
 
-                ViewBag.Exception = msg;
-                List<SelectListItem> list2 = new List<SelectListItem>();
-                var entities2 = (from a in db.Address orderby a.street, a.building_no, a.postal_code, a.city select a).ToList();
-                foreach (var i in entities2)
+            if (ModelState.IsValid)
+            {
+                var entity = db.Pubs.Single(p => p.id == pubs.id);
+
+                if (entity.RowVersion != pubs.RowVersion)
                 {
-                    list2.Add(new SelectListItem { Selected = false, Text = i.ToString(), Value = i.id.ToString() });
+                    TempData["Exception"] = "Entity was modified by another user. Check values and perform edit action again.";
+                    return RedirectToAction("Edit");
                 }
-                ViewBag.adress_id = new SelectList(list2, "Value", "Text", 1);
-                return View(pubs);
+                entity.RowVersion++;
+                entity.name = pubs.name;
+                entity.adress_id = pubs.adress_id;
+                entity.e_mail = pubs.e_mail;
+                entity.telephone_no = pubs.telephone_no;
+                db.Entry(entity).State = EntityState.Modified;
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    if (e.InnerException == null)
+                        msg = "Invalid data";
+                    else
+                        msg = e.InnerException.InnerException.Message;
+
+                    ViewBag.Exception = msg;
+                    List<SelectListItem> list2 = new List<SelectListItem>();
+                    var entities2 = (from a in db.Address orderby a.street, a.building_no, a.postal_code, a.city select a).ToList();
+                    foreach (var i in entities2)
+                    {
+                        list2.Add(new SelectListItem { Selected = false, Text = i.ToString(), Value = i.id.ToString() });
+                    }
+                    ViewBag.adress_id = new SelectList(list2, "Value", "Text", 1);
+                    return View(pubs);
+                }
             }
             return RedirectToAction("Index");
         }
