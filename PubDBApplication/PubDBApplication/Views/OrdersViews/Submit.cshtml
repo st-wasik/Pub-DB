@@ -78,6 +78,54 @@
 
     </dl>
 
+    <table class="table">
+        <tr>
+            <th>
+                ID
+            </th>
+
+            <th>
+                Product
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Quantity
+            </th>
+
+            <th>
+                Amount
+            </th>
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in ViewBag.odView)
+        {
+            <tr>
+                <td>
+                    @item.id
+                </td>
+
+                <td>
+                    @item.product_name
+                </td>
+
+                <td>
+                    @item.price.ToString("0.00")
+                </td>
+                <td>
+                    @item.quantity
+                </td>
+                <td>
+                    @item.amount.ToString("0.00")
+                </td>
+            </tr>
+        }
+
+    </table>
+
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()

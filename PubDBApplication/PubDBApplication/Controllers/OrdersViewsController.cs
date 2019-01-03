@@ -210,6 +210,7 @@ namespace PubDBApplication.Controllers
         // GET: OrdersViews/Edit/5
         public ActionResult Submit(int? id)
         {
+            ViewBag.odView = (from x in db.OrderDetailsView where x.order_id == id select x).ToList();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -229,6 +230,7 @@ namespace PubDBApplication.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Submit([Bind(Include = "id,warehouse_name,pub_name,producer_name,Incoming_Outcoming,status,date")] OrdersView ordersView)
         {
+            ViewBag.odView = (from x in db.OrderDetailsView where x.order_id == ordersView.id select x).ToList();
             ViewBag.Exception = null;
             string msg = null;
             if (ModelState.IsValid)

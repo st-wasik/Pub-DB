@@ -72,7 +72,7 @@
                             (
                                 from odv in db.OrderDetailsView
                                 join o in db.Orders on odv.order_id equals o.id
-                                where o.status.Equals("Completed")
+                                where o.status.Equals("Completed") && o.pub_id != null
                                 group odv by odv.product_name into g
                                 select new { product_name = g.Key, quantity = g.Sum(x => x.quantity) }
                             ).OrderByDescending(x => x.quantity).ToList();

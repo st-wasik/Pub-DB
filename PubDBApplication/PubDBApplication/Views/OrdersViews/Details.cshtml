@@ -88,7 +88,6 @@
     @if (Model.status.Equals("In Realization"))
     {
         <h4>This order is in the realization phase.</h4>
-<<<<<<< HEAD
         if (Model.pub_name != null)
         {
             @Html.ActionLink("Send order", "Send", new { id = Model.id })
@@ -98,8 +97,6 @@
             @Html.ActionLink("Collect order", "Collect", new { id = Model.id })
         }
         <font>or</font>
-=======
->>>>>>> b91780d929e943775237fddde002965440153156
         @Html.ActionLink("Cancel order", "Delete", new { id = Model.id })
     }
 
