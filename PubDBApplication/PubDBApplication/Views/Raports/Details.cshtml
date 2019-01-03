@@ -1,0 +1,164 @@
+﻿@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Raports</h2>
+
+<p>
+    @Html.ActionLink("The best customers", "Details/0") |
+    @Html.ActionLink("The most popular products", "Details/1") |
+    @Html.ActionLink("The most popular products", "Details/2") |
+    @Html.ActionLink("The most popular products", "Details/3") |
+    @Html.ActionLink("The most popular products", "Details/4")
+</p>
+@{
+    switch (ViewBag.RaportType)
+    {
+        case 0:
+            {
+                using (var db = new PubDBApplication.Models.PubDBEntities())
+                {
+                    var q = (from nt in (
+                            from o in
+                                (
+                                    from opt in db.Orders
+                                    where opt.pub_id != null && opt.status.Equals("Completed")
+                                    select new { id = opt.id, pub_id = opt.pub_id, total = PubDBApplication.Models.SqlFunctions.TotalPrice(opt.id) }
+                                )
+                            group o by o.pub_id into g
+                            select new { pub_id = g.Key, total = g.Sum(x => x.total) })
+                             join p in db.Pubs on nt.pub_id equals p.id
+                             select new { pub_name = p.name, total = nt.total }).OrderByDescending(x => x.total).ToList();
+                    <h3>The best customers</h3>
+                    <h4>Raport based only on completed orders</h4>
+                    <table class="table">
+                        <tr>
+                            <th>
+                                No
+                            </th>
+                            <th>
+                                Pub Name
+                            </th>
+                            <th>
+                                Amount of all orders
+                            </th>
+                        </tr>
+                        @for (int i = 0; i < q.Count(); i++)
+                        {
+                            <tr>
+                                <td>
+                                    @(i + 1)
+                                </td>
+                                <td>
+                                    @q[i].pub_name
+                                </td>
+                                <td>
+                                    @String.Format("{0:0.00}",q[i].total)
+                                </td>
+                            </tr>
+
+                        }
+                    </table>
+                }
+            }
+            break;
+        case 1:
+            {
+                using (var db = new PubDBApplication.Models.PubDBEntities())
+                {
+                    ViewBag.RaportTitle = "Best Customers";
+                    var q =
+                            (
+                                from odv in db.OrderDetailsView
+                                join o in db.Orders on odv.order_id equals o.id
+                                where o.status.Equals("Completed")
+                                group odv by odv.product_name into g
+                                select new { product_name = g.Key, quantity = g.Sum(x => x.quantity) }
+                            ).OrderByDescending(x => x.quantity).ToList();
+                    <h3>The most popular products</h3>
+                    <h4>Raport based only on completed orders</h4>
+                    <table class="table">
+                        <tr>
+                            <th>
+                                No
+                            </th>
+                            <th>
+                                Product Name
+                            </th>
+                            <th>
+                                Total Sold Quantity
+                            </th>
+                        </tr>
+                        @for (int i = 0; i < q.Count(); i++)
+                        {
+                            <tr>
+                                <td>
+                                    @(i + 1)
+                                </td>
+                                <td>
+                                    @q[i].product_name
+                                </td>
+                                <td>
+                                    @q[i].quantity
+                                </td>
+                            </tr>
+
+                        }
+                    </table>
+                }
+            }
+            break;
+    }
+}
+
+
+@{
+    /*
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.building_no)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.street)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.city)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.postal_code)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RowVersion)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.building_no)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.street)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.city)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.postal_code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RowVersion)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+            </td>
+        </tr>
+    }
+    */
+}
+

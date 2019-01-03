@@ -1,0 +1,138 @@
+﻿@model PubDBApplication.Models.OrdersView
+
+@{
+    ViewBag.Title = "Submit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Submit</h2>
+
+<h3>Are you sure you want to send this order?</h3>
+<div>
+    <hr />
+    <h4>If you send this order, it will be marked as sent to the customer.</h4>
+    <dl class="dl-horizontal">
+        <dt>
+            ID
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id)
+        </dd>
+
+        <dt>
+            Warehouse Name
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.warehouse_name)
+        </dd>
+
+        <dt>
+            Pub Name
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pub_name)
+        </dd>
+
+        <dt>
+            Producer Name
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.producer_name)
+        </dd>
+
+        <dt>
+            Incoming/Outcoming
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Incoming_Outcoming)
+        </dd>
+
+        <dt>
+            Order Status
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.status)
+        </dd>
+
+        <dt>
+            Date
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date)
+        </dd>
+
+        <dt>
+            Total Price
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.total)
+        </dd>
+
+    </dl>
+
+    <table class="table">
+        <tr>
+            <th>
+                ID
+            </th>
+
+            <th>
+                Product
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Quantity
+            </th>
+
+            <th>
+                Amount
+            </th>
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in ViewBag.odView)
+        {
+            <tr>
+                <td>
+                    @item.id
+                </td>
+
+                <td>
+                    @item.product_name
+                </td>
+
+                <td>
+                    @item.price.ToString("0.00")
+                </td>
+                <td>
+                    @item.quantity
+                </td>
+                <td>
+                    @item.amount.ToString("0.00")
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Send" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

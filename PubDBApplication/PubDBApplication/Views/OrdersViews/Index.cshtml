@@ -9,10 +9,10 @@
 
 <p>
     @Html.ActionLink("Create new incoming order", "CreateIncoming") |
-    @Html.ActionLink("Create new outcoming order", "CreateOutcoming")
+    @Html.ActionLink("Create new outcoming order", "CreateOutcoming") |
 </p>
 <table class="table">
-    <tr><td colspan="7"><h4><b>Warehouse Incoming Orders</b></h4><h5><b>Orders received from customers</b></h5></td></tr>
+    <tr><td colspan="7"><h4><b>Warehouse Incoming Orders</b></h4></td></tr>
     <tr>
         <th>
             ID
@@ -81,25 +81,34 @@
             </td>
 
             <td>
+<<<<<<< HEAD
+                @if (item.status.Equals("In Creation"))
+                {
+
+                   // @Html.ActionLink("Submit", "Submit", new { id = item.id })
+
+                  //  <font>|</font>
+                }
                 @if (item.status.Equals("In Realization"))
                 {
 
-                    @Html.ActionLink("Send", "Index")
+                    //@Html.ActionLink("Send", "Send", new { id = item.id })
 
-                <font>&nbsp;&nbsp;&nbsp;|</font>
+                   // <font>&nbsp;&nbsp;&nbsp;|</font>
                 }
+=======
+>>>>>>> b91780d929e943775237fddde002965440153156
                 @Html.ActionLink("Details", "Details", new { id = item.id })
                 @if (!item.status.Equals("Completed"))
                 {
                     <font>|</font>
                     @Html.ActionLink("Cancel", "Delete", new { id = item.id })
                 }
-
             </td>
         </tr>
     }
     <tr><td colspan="7"></td></tr>
-    <tr><td colspan="7"><h4><b>Warehouse Outcoming Orders</b></h4><h5><b>Orders sent to producers</b></h5></td></tr>
+    <tr><td colspan="7"><h4><b>Warehouse Outcoming Orders</b></h4></td></tr>
     <tr>
         <th>
             ID
@@ -170,8 +179,13 @@
             <td>
                 @if (item.status.Equals("In Realization"))
                 {
-                    @Html.ActionLink("Collect", "Collect", new { id = item.id })
+<<<<<<< HEAD
+                  //  @Html.ActionLink("Collect", "Collect", new { id = item.id })
+                    //<font>|</font>
+=======
+                    @Html.ActionLink("Collect", "Home", new { id = item.id })
                     <font>|</font>
+>>>>>>> b91780d929e943775237fddde002965440153156
                 }
 
                 @Html.ActionLink("Details", "Details", new { id = item.id })
