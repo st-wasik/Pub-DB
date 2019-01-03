@@ -28,21 +28,27 @@
             @Html.DisplayFor(model => model.warehouse_name)
         </dd>
 
-        <dt>
-            Pub Name
-        </dt>
+        @if (Model.Incoming_Outcoming.Equals("Incoming"))
+        {
+            <dt>
+                Pub Name
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.pub_name)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.pub_name)
+            </dd>
+        }
 
-        <dt>
-            Producer Name
-        </dt>
+        @if (Model.Incoming_Outcoming.Equals("Outcoming"))
+        {
+            <dt>
+                Producer Name
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.producer_name)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.producer_name)
+            </dd>
+        }
 
         <dt>
             Incoming/Outcoming

@@ -104,9 +104,9 @@
     {
         <h4>This order is completed.</h4>
         <p>
+            @Html.ActionLink("Archive order", "Archive" , "OrdersArchive", new { id = Model.id }, null)
         </p>
     }
-
 
 
     <table class="table">

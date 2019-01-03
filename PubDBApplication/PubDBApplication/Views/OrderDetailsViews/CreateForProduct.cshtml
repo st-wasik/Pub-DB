@@ -23,7 +23,10 @@
         <div class="col-md-10">
             @Html.DropDownList("product_name", null, htmlAttributes: new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.product_name, "", new { @class = "text-danger" })
-            <p>Only products available in warehouse are displayed</p>
+            @if (ViewBag.In_Out.Equals("Incoming"))
+            {<p>Only products available in warehouse are displayed</p>}
+            @if (ViewBag.In_Out.Equals("Outcoming"))
+            {<p>Only products available in producer's offer are displayed</p>}
         </div>
         
     </div>

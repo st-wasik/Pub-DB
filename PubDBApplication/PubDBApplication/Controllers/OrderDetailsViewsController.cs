@@ -29,8 +29,8 @@ namespace PubDBApplication.Controllers
             int orderID = int.Parse(ViewBag.order_id);
 
             var In_Out = (from o in db.Orders where o.id == orderID select o.Incoming_Outcoming).First();
-
-            if(In_Out.Equals("Incoming"))
+            ViewBag.In_Out = In_Out;
+            if (In_Out.Equals("Incoming"))
             {
                 ViewBag.product_name = new SelectList((from p in db.Products
                                                        join s in db.WarehousesStock on p.id equals s.product_id
@@ -41,7 +41,13 @@ namespace PubDBApplication.Controllers
             }
             else
             {
-                ViewBag.product_name = new SelectList(db.Products, "name", "name");
+               // ViewBag.product_name = new SelectList(db.Products, "name", "name");
+
+                ViewBag.product_name = new SelectList((from p in db.Products
+                                                       join pr in db.Producers on p.producer_id equals pr.id
+                                                       join o in db.Orders on pr.id equals o.producer_id
+                                                       where o.id == orderID
+                                                       select p.name).ToList());
             }
 
             return View();
@@ -83,6 +89,7 @@ namespace PubDBApplication.Controllers
                     ViewBag.order_id = RouteData.Values["id"];
 
                     ViewBag.product_name = new SelectList(db.Products, "name", "name");
+
                     return View(orderDetailsView);
                 }
                 return RedirectToAction("Details", "OrdersViews", new { id = order_id });
