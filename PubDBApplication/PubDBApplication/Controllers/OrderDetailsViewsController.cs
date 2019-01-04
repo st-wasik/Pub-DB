@@ -124,7 +124,7 @@ namespace PubDBApplication.Controllers
             string msg = null;
             OrderDetailsView odv = db.OrderDetailsView.SingleOrDefault(m => m.id == id);
             var entity = (from x in db.OrderDetails where x.id == odv.id select x).First();
-
+            var orderid = entity.order_id;
             db.OrderDetails.Remove(entity);
             try
             {
@@ -142,7 +142,7 @@ namespace PubDBApplication.Controllers
                 return View(odv);
             }
 
-            return RedirectToAction("Index", "OrdersViews");
+            return RedirectToAction("Details", "OrdersViews", new { id = orderid });
         }
 
         protected override void Dispose(bool disposing)
