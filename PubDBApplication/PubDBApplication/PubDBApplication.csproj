@@ -195,6 +195,12 @@
     <Compile Include="Models\Address.cs">
       <DependentUpon>PubDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\customerStats_Result.cs">
+      <DependentUpon>PubDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\getSaleStatistics_Result.cs">
+      <DependentUpon>PubDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\MongoAccess.cs" />
     <Compile Include="Models\MongoOrder.cs" />
     <Compile Include="Models\OrderDetails.cs">

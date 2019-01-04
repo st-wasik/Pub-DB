@@ -30,32 +30,83 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.e_mail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.telephone_no)
+            </td>
+            <td>
+                @item.Address.street
+                @item.Address.building_no,
+                @item.Address.postal_code
+                @item.Address.city
+            </td>
+
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+            </td>
+        </tr>
+    }
+</table>
+
+<table class="table">
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.e_mail)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.telephone_no)
-        </td>
-        <td>
-            @item.Address.street
-            @item.Address.building_no,
-            @item.Address.postal_code
-            @item.Address.city
-        </td>
-
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.id })
-        </td>
+        <th>
+            No
+        </th>
+        <th>
+            Pub Name
+        </th>
+        <th>
+            Amount of all orders
+        </th>
     </tr>
-}
+    @{
+        using (var db = new PubDBApplication.Models.PubDBEntities())
+        {
+            var q = (from nt in (
+            from o in
+            (
+            from opt in db.Orders
+            where opt.pub_id != null && opt.status.Equals("Completed")
+            select new { id = opt.id, pub_id = opt.pub_id, total = PubDBApplication.Models.SqlFunctions.TotalPrice(opt.id) }
+            )
+            group o by o.pub_id into g
+            select new { pub_id = g.Key, total = g.Sum(x => x.total) })
+                     join p in db.Pubs on nt.pub_id equals p.id
+                     select new { pub_name = p.name, total = nt.total }).OrderByDescending(x => x.total).ToList();
+            <h3>The best customers</h3>
+            <h4>Raport based only on completed orders</h4>
 
+            for (int i = 0; i < q.Count(); i++)
+            {
+                <tr>
+                    <td>
+                        @(i + 1)
+                    </td>
+                    <td>
+                        @q[i].pub_name
+                    </td>
+                    <td>
+                        @String.Format("{0:0.00}", q[i].total)
+                    </td>
+                </tr>
+
+            }
+
+        }
+
+    }
 </table>

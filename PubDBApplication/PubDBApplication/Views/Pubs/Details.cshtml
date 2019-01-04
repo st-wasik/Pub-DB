@@ -58,6 +58,88 @@
 
     </dl>
 </div>
+
+
+@{
+    <h3>Customer purchase statistics</h3>
+    <h4>Raport based only on completed orders</h4>
+
+
+    using (var db = new PubDBApplication.Models.PubDBEntities())
+    {
+        decimal totalA = 0;
+        int totalQ = 0;
+
+    <table class="table">
+        <tr>
+            <th>
+                No
+            </th>
+            <th>
+                Product name
+            </th>
+            <th>
+                Quantity
+            </th>
+            <th>
+                Amount
+            </th>
+        </tr>
+
+        @{
+            var q = (from x in db.customerStats(Model.id) select x).ToList();
+
+            if (q.Count() == 0)
+            {
+                <tr><td colspan='4'><b>This customer didn't purchase anything for the last month.</b></td></tr>
+            }
+            else
+            {
+
+                for (int i = 0; i < q.Count(); i++)
+                {
+
+
+                    <tr>
+                        <td>
+                            @(i + 1)
+                        </td>
+                        <td>
+                            @q[i].ProductName
+                        </td>
+                        <td>
+                            @q[i].Quantity
+                        </td>
+                        <td>
+                            @q[i].Amount.ToString("0.00")
+                        </td>
+                    </tr>
+                }
+                for (int i = 0; i < q.Count(); i++)
+                {
+                    totalA = totalA + (int)q[i].Amount;
+                    totalQ = totalQ + (int)q[i].Quantity;
+                }
+            }
+        }
+        <tr>
+            <td>
+               
+            </td>
+            <td>
+               <b>Total:</b>
+            </td>
+            <td>
+                <b>@totalQ</b>
+            </td>
+            <td>
+                <b>@totalA.ToString("0.00")</b>
+            </td>
+        </tr>
+    </table>
+    }
+
+}
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
     @Html.ActionLink("Back to List", "Index")

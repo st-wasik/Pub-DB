@@ -315,6 +315,34 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="customerStats" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="customerId" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="ProductName" Type="varchar" MaxLength="30" />
+                <Property Name="Quantity" Type="int" />
+                <Property Name="Amount" Type="money" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="getSaleStatistics" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="days" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="minOrderAmount" Type="money" />
+                <Property Name="maxOrderAmount" Type="money" />
+                <Property Name="avgOrderAmount" Type="money" />
+                <Property Name="sumOrderAmount" Type="money" />
+                <Property Name="totalSoldQuantity" Type="int" />
+                <Property Name="servedCustomers" Type="int" />
+                <Property Name="mostPopularProduct" Type="varchar" MaxLength="30" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
         <Function Name="totalPrice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="money">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -640,6 +668,12 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
             <End Role="Producers" EntitySet="Producers" />
             <End Role="Products" EntitySet="Products" />
           </AssociationSet>
+          <FunctionImport Name="customerStats" IsComposable="true" ReturnType="Collection(PubDBModel.customerStats_Result)">
+          <Parameter Name="customerId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="getSaleStatistics" IsComposable="true" ReturnType="Collection(PubDBModel.getSaleStatistics_Result)">
+          <Parameter Name="days" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="ProducersView">
           <Key>
@@ -811,6 +845,20 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="customerStats_Result">
+          <Property Type="String" Name="ProductName" Nullable="true" MaxLength="30" />
+          <Property Type="Int32" Name="Quantity" Nullable="true" />
+          <Property Type="Decimal" Name="Amount" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="getSaleStatistics_Result">
+          <Property Type="Decimal" Name="minOrderAmount" Nullable="true" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="maxOrderAmount" Nullable="true" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="avgOrderAmount" Nullable="true" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="sumOrderAmount" Nullable="true" Precision="19" Scale="4" />
+          <Property Type="Int32" Name="totalSoldQuantity" Nullable="true" />
+          <Property Type="Int32" Name="servedCustomers" Nullable="true" />
+          <Property Type="String" Name="mostPopularProduct" Nullable="true" MaxLength="30" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -985,6 +1033,28 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="customerStats" FunctionName="PubDBModel.Store.customerStats">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PubDBModel.customerStats_Result">
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getSaleStatistics" FunctionName="PubDBModel.Store.getSaleStatistics">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PubDBModel.getSaleStatistics_Result">
+                <ScalarProperty Name="minOrderAmount" ColumnName="minOrderAmount" />
+                <ScalarProperty Name="maxOrderAmount" ColumnName="maxOrderAmount" />
+                <ScalarProperty Name="avgOrderAmount" ColumnName="avgOrderAmount" />
+                <ScalarProperty Name="sumOrderAmount" ColumnName="sumOrderAmount" />
+                <ScalarProperty Name="totalSoldQuantity" ColumnName="totalSoldQuantity" />
+                <ScalarProperty Name="servedCustomers" ColumnName="servedCustomers" />
+                <ScalarProperty Name="mostPopularProduct" ColumnName="mostPopularProduct" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

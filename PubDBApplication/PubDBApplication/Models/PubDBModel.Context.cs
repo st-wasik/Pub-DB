@@ -12,6 +12,8 @@ namespace PubDBApplication.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class PubDBEntities : DbContext
     {
@@ -39,5 +41,25 @@ namespace PubDBApplication.Models
         public virtual DbSet<OrdersView> OrdersView { get; set; }
         public virtual DbSet<Address> Address { get; set; }
         public virtual DbSet<Producers> Producers { get; set; }
+    
+        [DbFunction("PubDBEntities", "customerStats")]
+        public virtual IQueryable<customerStats_Result> customerStats(Nullable<int> customerId)
+        {
+            var customerIdParameter = customerId.HasValue ?
+                new ObjectParameter("customerId", customerId) :
+                new ObjectParameter("customerId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<customerStats_Result>("[PubDBEntities].[customerStats](@customerId)", customerIdParameter);
+        }
+    
+        [DbFunction("PubDBEntities", "getSaleStatistics")]
+        public virtual IQueryable<getSaleStatistics_Result> getSaleStatistics(Nullable<int> days)
+        {
+            var daysParameter = days.HasValue ?
+                new ObjectParameter("days", days) :
+                new ObjectParameter("days", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<getSaleStatistics_Result>("[PubDBEntities].[getSaleStatistics](@days)", daysParameter);
+        }
     }
 }
