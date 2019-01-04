@@ -120,22 +120,22 @@
                     totalA = totalA + (int)q[i].Amount;
                     totalQ = totalQ + (int)q[i].Quantity;
                 }
+                <tr>
+                    <td></td>
+                    <td>
+                        <b>Total:</b>
+                    </td>
+                    <td>
+                        <b>@totalQ</b>
+                    </td>
+                    <td>
+                        <b>@totalA.ToString("0.00")</b>
+                    </td>
+                </tr>
             }
         }
-        <tr>
-            <td>
-               
-            </td>
-            <td>
-               <b>Total:</b>
-            </td>
-            <td>
-                <b>@totalQ</b>
-            </td>
-            <td>
-                <b>@totalA.ToString("0.00")</b>
-            </td>
-        </tr>
+
+
     </table>
     }
 
