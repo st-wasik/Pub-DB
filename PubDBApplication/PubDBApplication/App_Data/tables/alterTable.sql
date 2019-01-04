@@ -26,6 +26,7 @@ add unique(name),
 add column [RowVersion]  INT DEFAULT 1 NOT NULL;
 
 alter table Orders
+alter column [date] datetime,
 alter column [Incoming/Outcoming] varchar(15);
 
 alter table OrderDetails
