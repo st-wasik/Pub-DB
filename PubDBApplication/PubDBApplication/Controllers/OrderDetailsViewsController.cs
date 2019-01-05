@@ -62,10 +62,14 @@ namespace PubDBApplication.Controllers
         {
             ViewBag.Exception = null;
             string msg = "";
+            var In_Out = (from o in db.Orders where o.id == orderDetailsView.order_id select o.Incoming_Outcoming).First();
+            ViewBag.In_Out = In_Out;
             if (ModelState.IsValid)
             {
                 var order_id = orderDetailsView.order_id;
                 var p_name = orderDetailsView.product_name;
+               
+
 
                 OrderDetails od = new OrderDetails
                 {
@@ -81,12 +85,33 @@ namespace PubDBApplication.Controllers
                 catch (Exception e)
                 {
                     if (e.InnerException == null)
-                        msg = "Invalid data";
+                        msg = e.Message;
                     else
                         msg = e.InnerException.InnerException.Message;
 
                     ViewBag.Exception = msg;
                     ViewBag.order_id = RouteData.Values["id"];
+
+
+                    if (In_Out.Equals("Incoming"))
+                    {
+                        ViewBag.product_name = new SelectList((from p in db.Products
+                                                               join s in db.WarehousesStock on p.id equals s.product_id
+                                                               join w in db.Warehouses on s.warehouse_id equals w.id
+                                                               join o in db.Orders on w.id equals o.warehouse_id
+                                                               where o.id == orderDetailsView.order_id
+                                                               select p.name).ToList());
+                    }
+                    else
+                    {
+                        ViewBag.product_name = new SelectList((from p in db.Products
+                                                               join pr in db.Producers on p.producer_id equals pr.id
+                                                               join o in db.Orders on pr.id equals o.producer_id
+                                                               where o.id == orderDetailsView.order_id
+                                                               select p.name).ToList());
+                    }
+
+                    ViewBag.In_Out = In_Out;
 
                     ViewBag.product_name = new SelectList(db.Products, "name", "name");
 
@@ -133,7 +158,7 @@ namespace PubDBApplication.Controllers
             catch (Exception e)
             {
                 if (e.InnerException == null)
-                    msg = "Invalid data";
+                    msg = e.Message;
                 else
                     msg = e.InnerException.InnerException.Message;
 

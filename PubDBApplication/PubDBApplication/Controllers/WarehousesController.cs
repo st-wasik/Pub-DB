@@ -60,7 +60,7 @@ namespace PubDBApplication.Controllers
             catch (Exception e)
             {
                 if (e.InnerException == null)
-                    msg = "Invalid data";
+                    msg = e.Message;
                 else
                     msg = e.InnerException.InnerException.Message;
                 ViewBag.Exception = msg;
@@ -114,7 +114,7 @@ namespace PubDBApplication.Controllers
                 catch (Exception e)
                 {
                     if (e.InnerException == null)
-                        msg = "Invalid data";
+                        msg = e.Message;
                     else
                         msg = e.InnerException.InnerException.Message;
 
@@ -158,7 +158,7 @@ namespace PubDBApplication.Controllers
             catch (Exception e)
             {
                 if (e.InnerException == null)
-                    msg = "Invalid data";
+                    msg = e.Message;
                 else
                     msg = e.InnerException.InnerException.Message;
 

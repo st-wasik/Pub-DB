@@ -27,6 +27,8 @@
         </dd>
     </dl>
 </div>
+@{
+    int i = 0;
 <table class="table">
     <tr>
         <th>
@@ -55,9 +57,23 @@
                 @item.quantity
             </td>
         </tr>
+        i++;
     }
 
+    @if (i == 0)
+    {
+    <tr>
+        <td colspan='3'>
+            <b>This warehouse is empty.</b>
+        </td>
+    </tr>
+    }
+
+
 </table>
+
+
+}
 
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |

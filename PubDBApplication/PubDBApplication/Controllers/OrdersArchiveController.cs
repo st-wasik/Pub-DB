@@ -51,8 +51,8 @@ namespace Mongo.Controllers
             Mongo.Models.Order orderToArchive = new Mongo.Models.Order();
 
             orderToArchive.OrderID = orderView.id;
-            orderToArchive.From = (orderView.pub_name != null ? orderView.pub_name : orderView.warehouse_name);
-            orderToArchive.To = (orderView.producer_name != null ? orderView.producer_name : orderView.warehouse_name);
+            orderToArchive.From = (orderView.pub_name != null ? "Customer: " + orderView.pub_name : "Warehouse: " + orderView.warehouse_name);
+            orderToArchive.To = (orderView.producer_name != null ? "Producer: " + orderView.producer_name : "Warehouse: " + orderView.warehouse_name);
             orderToArchive.Date = orderView.date.ToString();
             orderToArchive.TotalPrice = orderView.total.ToString("0.00");
 

@@ -25,12 +25,12 @@ namespace PubDBApplication.Models
         [Required(ErrorMessage = "Required")]
         public string name { get; set; }
         public int adress_id { get; set; }
-        [Required(ErrorMessage = "Required")]
-        [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$",
+        //[Required(ErrorMessage = "Required")]
+        [RegularExpression(@"(^$|^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$)",
         ErrorMessage = "Provide correct email address (e.g. jan.kowalski@wp.pl)")]
         public string e_mail { get; set; }
-        [Required(ErrorMessage = "Required")]
-        [RegularExpression(@"^[0-9]{3}\-[0-9]{3}\-[0-9]{3}$",
+        //[Required(ErrorMessage = "Required")]
+        [RegularExpression(@"(^$|^[0-9]{3}\-[0-9]{3}\-[0-9]{3}$)",
         ErrorMessage = "Provide correct telephone number (e.g. 545-039-231)")]
         public string telephone_no { get; set; }
         public int RowVersion { get; set; }

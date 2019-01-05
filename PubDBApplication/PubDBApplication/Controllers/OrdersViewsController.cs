@@ -85,7 +85,7 @@ namespace PubDBApplication.Controllers
                 catch (Exception e)
                 {
                     if (e.InnerException == null)
-                        msg = "Invalid data";
+                        msg = e.Message;
                     else
                         msg = e.InnerException.InnerException.Message;
 
@@ -137,7 +137,7 @@ namespace PubDBApplication.Controllers
                 catch (Exception e)
                 {
                     if (e.InnerException == null)
-                        msg = "Invalid data";
+                        msg = e.Message;
                     else
                         msg = e.InnerException.InnerException.Message;
 
@@ -191,7 +191,7 @@ namespace PubDBApplication.Controllers
                 catch (Exception e)
                 {
                     if (e.InnerException == null)
-                        msg = "Invalid data";
+                        msg = e.Message;
                     else if (e.InnerException.InnerException == null)
                         msg = e.InnerException.Message;
                     else
@@ -244,7 +244,7 @@ namespace PubDBApplication.Controllers
                 catch (Exception e)
                 {
                     if (e.InnerException == null)
-                        msg = "Invalid data";
+                        msg = e.Message;
                     else if (e.InnerException.InnerException == null)
                         msg = e.InnerException.Message;
                     else
@@ -297,7 +297,7 @@ namespace PubDBApplication.Controllers
                 catch (Exception e)
                 {
                     if (e.InnerException == null)
-                        msg = "Invalid data";
+                        msg = e.Message;
                     else if (e.InnerException.InnerException == null)
                         msg = e.InnerException.Message;
                     else
@@ -346,7 +346,7 @@ namespace PubDBApplication.Controllers
             catch (Exception e)
             {
                 if (e.InnerException == null)
-                    msg = "Invalid data";
+                    msg = e.Message;
                 else
                     msg = e.InnerException.InnerException.Message;
 
