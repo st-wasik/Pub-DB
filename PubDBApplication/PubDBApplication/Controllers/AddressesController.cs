@@ -109,7 +109,6 @@ namespace PubDBApplication.Controllers
                 if (entity.RowVersion != address.RowVersion)
                 {
                     TempData["Exception"] = "Entity was modified by another user. Check values and perform edit action again.";
-                    entity.street = "adsasdasdasd";
                     return RedirectToAction("Edit");
                 }
 
