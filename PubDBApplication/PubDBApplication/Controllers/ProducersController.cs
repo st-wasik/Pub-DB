@@ -18,6 +18,7 @@ namespace PubDBApplication.Controllers
         public ActionResult Index()
         {
             var producers = db.Producers.Include(p => p.Address);
+            ViewBag.mostPopular = (from x in db.mostPopularProducers select x).ToList();
             return View(producers.ToList());
         }
 

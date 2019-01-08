@@ -65,4 +65,16 @@ VALUES
     'Sikorskiego', -- street - varchar(30)
     'Wrocław', -- city - varchar(30)
     '38-515'  -- postal_code - varchar(6)
+),
+(	--10
+	97,  -- building_no - int
+    'Sikorskiego', -- street - varchar(30)
+    'Wrocław', -- city - varchar(30)
+    '38-515'  -- postal_code - varchar(6)
 );
+
+
+
+
+
+

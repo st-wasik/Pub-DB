@@ -17,6 +17,7 @@ namespace PubDBApplication.Models
     {
         public int id { get; set; }
         public int order_id { get; set; }
+        [Required(ErrorMessage = "Required")]
         public string product_name { get; set; }
         [Required(ErrorMessage = "Required")]
         [Range(1, int.MaxValue, ErrorMessage = "Quantity cannot be negative or zero")]

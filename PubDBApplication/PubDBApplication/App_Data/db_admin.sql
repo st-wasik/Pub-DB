@@ -16,6 +16,8 @@
 
 :r C:\Users\St.Wasik\source\repos\Pub-DB\PubDBApplication\PubDBApplication\App_Data\inserts\SQL_insert_warehouses.sql
 
+drop view ProducersView
+
 insert into Address values (-1,' ', ' ', ' ', ' ')
 
 
@@ -181,3 +183,13 @@ DEALLOCATE orderProducts
 END
 
 END
+
+
+create view mostPopularProducers as
+	select p.name, placedOrdersCount from (
+		select producer_id, COUNT(*) placedOrdersCount from Orders o
+		where producer_id is not null AND status = 'Completed'
+		group by o.producer_id
+		order by count(*) desc offset 0 rows
+	) subq join Producers p on subq.producer_id = p.id
+

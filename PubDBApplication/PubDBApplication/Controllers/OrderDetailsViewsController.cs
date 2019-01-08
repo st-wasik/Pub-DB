@@ -121,7 +121,25 @@ namespace PubDBApplication.Controllers
             }
             ViewBag.order_id = RouteData.Values["id"];
 
-            ViewBag.product_name = new SelectList(db.Products, "name", "name");
+            if (In_Out.Equals("Incoming"))
+            {
+                ViewBag.product_name = new SelectList((from p in db.Products
+                                                       join s in db.WarehousesStock on p.id equals s.product_id
+                                                       join w in db.Warehouses on s.warehouse_id equals w.id
+                                                       join o in db.Orders on w.id equals o.warehouse_id
+                                                       where o.id == orderDetailsView.order_id
+                                                       select p.name).ToList());
+            }
+            else
+            {
+                // ViewBag.product_name = new SelectList(db.Products, "name", "name");
+
+                ViewBag.product_name = new SelectList((from p in db.Products
+                                                       join pr in db.Producers on p.producer_id equals pr.id
+                                                       join o in db.Orders on pr.id equals o.producer_id
+                                                       where o.id == orderDetailsView.order_id
+                                                       select p.name).ToList());
+            }
             return View(orderDetailsView);
         }
 

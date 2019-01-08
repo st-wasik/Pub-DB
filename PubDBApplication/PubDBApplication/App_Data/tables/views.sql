@@ -1,13 +1,5 @@
-create view ProducersView as
-select p.id, p.name, p.[e-mail], p.telephone_no, a.street, a.building_no, a.postal_code, a.city 
-from Producers p join Address a on p.adress_id = a.id
-
-create view PubsView as
-select p.id, p.name, p.[e-mail], p.telephone_no, a.street, a.building_no, a.postal_code, a.city 
-from Pubs p join Address a on p.adress_id = a.id
-
 create view ProductsView as
-select p.id, p.name, pr.name as producer_name, p.price, p.alcohol_percentage, p.volume 
+select p.id, p.name, pr.name as producer_name, p.price, p.alcohol_percentage, p.volume, p.RowVersion
 from Products p join Producers pr on p.producer_id = pr.id
 
 create view OrdersView as
@@ -24,7 +16,12 @@ create view WarehousesStockView as
 select ws.id, w.name as warehouse_name, p.name as product_name, ws.quantity
 from WarehousesStock ws join Warehouses w on ws.warehouse_id=w.id join
 	Products p on ws.product_id = p.id
+	
+create view mostPopularProducers as
+	select p.name, placedOrdersCount from (
+		select producer_id, COUNT(*) placedOrdersCount from Orders o
+		where producer_id is not null AND status = 'Completed'
+		group by o.producer_id
+		order by count(*) desc offset 0 rows
+	) subq join Producers p on subq.producer_id = p.id
 
-alter view ProductsView as
-select p.id, p.name, pr.name as producer_name, p.price, p.alcohol_percentage, p.volume, p.RowVersion
-from Products p join Producers pr on p.producer_id = pr.id

@@ -198,11 +198,11 @@
     <Compile Include="Models\customerStats_Result.cs">
       <DependentUpon>PubDBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\getSaleStatistics_Result.cs">
-      <DependentUpon>PubDBModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\MongoAccess.cs" />
     <Compile Include="Models\MongoOrder.cs" />
+    <Compile Include="Models\mostPopularProducers.cs">
+      <DependentUpon>PubDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\OrderDetails.cs">
       <DependentUpon>PubDBModel.tt</DependentUpon>
     </Compile>
@@ -216,9 +216,6 @@
       <DependentUpon>PubDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Producers.cs">
-      <DependentUpon>PubDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ProducersView.cs">
       <DependentUpon>PubDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Products.cs">
@@ -245,7 +242,7 @@
     <Compile Include="Models\Pubs.cs">
       <DependentUpon>PubDBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PubsView.cs">
+    <Compile Include="Models\saleStats_Result.cs">
       <DependentUpon>PubDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SqlFunctions.cs" />

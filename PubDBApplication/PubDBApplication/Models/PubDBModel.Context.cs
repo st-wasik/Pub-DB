@@ -33,14 +33,13 @@ namespace PubDBApplication.Models
         public virtual DbSet<Pubs> Pubs { get; set; }
         public virtual DbSet<Warehouses> Warehouses { get; set; }
         public virtual DbSet<WarehousesStock> WarehousesStock { get; set; }
-        public virtual DbSet<ProducersView> ProducersView { get; set; }
-        public virtual DbSet<ProductsView> ProductsView { get; set; }
-        public virtual DbSet<PubsView> PubsView { get; set; }
         public virtual DbSet<WarehousesStockView> WarehousesStockView { get; set; }
         public virtual DbSet<OrderDetailsView> OrderDetailsView { get; set; }
         public virtual DbSet<OrdersView> OrdersView { get; set; }
         public virtual DbSet<Address> Address { get; set; }
         public virtual DbSet<Producers> Producers { get; set; }
+        public virtual DbSet<mostPopularProducers> mostPopularProducers { get; set; }
+        public virtual DbSet<ProductsView> ProductsView { get; set; }
     
         [DbFunction("PubDBEntities", "customerStats")]
         public virtual IQueryable<customerStats_Result> customerStats(Nullable<int> customerId)
