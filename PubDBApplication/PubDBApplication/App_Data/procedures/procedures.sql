@@ -1,15 +1,4 @@
-create procedure createRaport @Id int
-AS
-if(@Id<1)
-begin
-RAISERROR('NIE MOZNA PODAC ID MNIEJSZEGO NIZ 1',16,1)
-return
-end
-SELECT * FROM OrderDetails od JOIN Orders o on od.order_id = o.id WHERE o.pub_id=@Id;
-
-
-
-CREATE FUNCTION getSaleStatistics (@days INT)
+CREATE FUNCTION saleStats (@days INT)
 returns @stats TABLE
 (minOrderAmount MONEY, maxOrderAmount MONEY, avgOrderAmount MONEY, sumOrderAmount MONEY,
 	totalSoldQuantity INT, servedCustomers INT, mostPopularProduct VARCHAR(30))
@@ -79,3 +68,11 @@ INSERT INTO @productsList
 		where order_id in (select id from @orders) group by product_name 
 RETURN 
 END
+
+
+create function totalPrice (@id int)
+returns money
+begin
+return (select COALESCE(SUM(od.quantity*p.price),0) from OrderDetails od join Products p on od.product_id = p.id where od.order_id = @id)
+end
+

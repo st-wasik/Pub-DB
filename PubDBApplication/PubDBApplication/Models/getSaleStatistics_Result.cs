@@ -11,7 +11,7 @@ namespace PubDBApplication.Models
 {
     using System;
     
-    public partial class getSaleStatistics_Result
+    public partial class saleStats_Result
     {
         public Decimal minOrderAmount { get; set; }
         public Decimal maxOrderAmount { get; set; }

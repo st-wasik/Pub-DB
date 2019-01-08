@@ -52,14 +52,14 @@ namespace PubDBApplication.Models
             return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<customerStats_Result>("[PubDBEntities].[customerStats](@customerId)", customerIdParameter);
         }
     
-        [DbFunction("PubDBEntities", "getSaleStatistics")]
-        public virtual IQueryable<getSaleStatistics_Result> getSaleStatistics(Nullable<int> days)
+        [DbFunction("PubDBEntities", "saleStats")]
+        public virtual IQueryable<saleStats_Result> saleStats(Nullable<int> days)
         {
             var daysParameter = days.HasValue ?
                 new ObjectParameter("days", days) :
                 new ObjectParameter("days", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<getSaleStatistics_Result>("[PubDBEntities].[getSaleStatistics](@days)", daysParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<saleStats_Result>("[PubDBEntities].[saleStats](@days)", daysParameter);
         }
     }
 }

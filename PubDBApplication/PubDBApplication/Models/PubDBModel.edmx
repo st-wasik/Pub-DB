@@ -327,7 +327,7 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
             </CollectionType>
           </ReturnType>
         </Function>
-        <Function Name="getSaleStatistics" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+        <Function Name="saleStats" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="days" Type="int" Mode="In" />
           <ReturnType>
             <CollectionType>
@@ -671,7 +671,7 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
           <FunctionImport Name="customerStats" IsComposable="true" ReturnType="Collection(PubDBModel.customerStats_Result)">
           <Parameter Name="customerId" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="getSaleStatistics" IsComposable="true" ReturnType="Collection(PubDBModel.getSaleStatistics_Result)">
+          <FunctionImport Name="saleStats" IsComposable="true" ReturnType="Collection(PubDBModel.saleStats_Result)">
           <Parameter Name="days" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
@@ -850,7 +850,7 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
           <Property Type="Int32" Name="Quantity" Nullable="true" />
           <Property Type="Decimal" Name="Amount" Nullable="true" />
         </ComplexType>
-        <ComplexType Name="getSaleStatistics_Result">
+        <ComplexType Name="saleStats_Result">
           <Property Type="Decimal" Name="minOrderAmount" Nullable="true" Precision="19" Scale="4" />
           <Property Type="Decimal" Name="maxOrderAmount" Nullable="true" Precision="19" Scale="4" />
           <Property Type="Decimal" Name="avgOrderAmount" Nullable="true" Precision="19" Scale="4" />
@@ -1042,9 +1042,9 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="getSaleStatistics" FunctionName="PubDBModel.Store.getSaleStatistics">
+          <FunctionImportMapping FunctionImportName="saleStats" FunctionName="PubDBModel.Store.saleStats">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="PubDBModel.getSaleStatistics_Result">
+              <ComplexTypeMapping TypeName="PubDBModel.saleStats_Result">
                 <ScalarProperty Name="minOrderAmount" ColumnName="minOrderAmount" />
                 <ScalarProperty Name="maxOrderAmount" ColumnName="maxOrderAmount" />
                 <ScalarProperty Name="avgOrderAmount" ColumnName="avgOrderAmount" />

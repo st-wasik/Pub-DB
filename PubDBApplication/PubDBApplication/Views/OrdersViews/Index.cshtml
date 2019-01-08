@@ -232,7 +232,7 @@
         @using (var db = new PubDBApplication.Models.PubDBEntities())
         {
 
-            var q = (from x in db.getSaleStatistics(1) select x).ToList();
+            var q = (from x in db.saleStats(1) select x).ToList();
 
             for (int i = 0; i < q.Count(); i++)
             {
@@ -262,7 +262,7 @@
                 </tr>
             }
 
-             q = (from x in db.getSaleStatistics(7) select x).ToList();
+             q = (from x in db.saleStats(7) select x).ToList();
 
 
             for (int i = 0; i < q.Count(); i++)
@@ -295,7 +295,7 @@
             }
 
 
-             q = (from x in db.getSaleStatistics(30) select x).ToList();
+             q = (from x in db.saleStats(30) select x).ToList();
 
 
             for (int i = 0; i < q.Count(); i++)
@@ -326,7 +326,7 @@
                 </tr>
             }
 
-            q = (from x in db.getSaleStatistics(90) select x).ToList();
+            q = (from x in db.saleStats(90) select x).ToList();
 
             for (int i = 0; i < q.Count(); i++)
             {
