@@ -21,7 +21,7 @@ after update
 as
 begin
 declare @id INT
-select @id=id from updated
+select into @id=id from inserted
 if((dbo.totalPrice(@id))<1000)
 begin
 RAISERROR('Order''s value cannot be less than 1000.',16,1);
@@ -56,10 +56,11 @@ SELECT @stockQuantity = quantity FROM WarehousesStock WHERE warehouse_id = @warI
 
 IF(@stockQuantity- @quantity >0)
 BEGIN
+BEGIN TRANSACTION Tran1;
 UPDATE WarehousesStock
 SET quantity = quantity - @quantity
 WHERE warehouse_id = @warId AND product_id = @prodId;
-COMMIT;
+COMMIT TRANSACTION Tran1;
 END
 
 ELSE
@@ -82,16 +83,18 @@ BEGIN
 
 IF((SELECT 1 FROM WarehousesStock WHERE warehouse_id = @warId AND product_id = @prodId) > 0) -- jesli istnieje wpis
 BEGIN
+BEGIN TRANSACTION Tran2;
 UPDATE WarehousesStock
 SET quantity = quantity + @quantity
 WHERE warehouse_id = @warId AND product_id = @prodId;
-COMMIT;
+COMMIT TRANSACTION Tran2;
 END
 
 ELSE --jesli nowy produkt
 BEGIN
+BEGIN TRANSACTION Tran3;
 INSERT INTO WarehousesStock VALUES (@warId,@prodId,@quantity);
-COMMIT;
+COMMIT TRANSACTION Tran3;
 END
 FETCH NEXT FROM orderProducts INTO @prodId,@quantity;
 END
