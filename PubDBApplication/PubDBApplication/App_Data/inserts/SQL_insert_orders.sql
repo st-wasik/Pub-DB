@@ -1,80 +1,13 @@
-﻿INSERT INTO dbo.Orders
-(
-    warehouse_id,
-    pub_id,
-    producer_id,
-    [Incoming/Outcoming],
-    status,
-    date
-)
-VALUES
-(   (SELECT id FROM dbo.Warehouses WHERE id=10),        -- warehouse_id - int
-    (SELECT id FROM dbo.Pubs WHERE id=1),        -- pub_id - int
-    (SELECT id FROM dbo.Producers WHERE id=7),        -- producer_id - int
-    'Incoming',       -- Incoming/Outcoming - varchar(15)
-    'x',       -- status - varchar(30)
-    GETDATE() -- date - date
-),
-(   (SELECT id FROM dbo.Warehouses WHERE id=9),        -- warehouse_id - int
-    (SELECT id FROM dbo.Pubs WHERE id=2),        -- pub_id - int
-    (SELECT id FROM dbo.Producers WHERE id=18),        -- producer_id - int
-    'Incoming',       -- Incoming/Outcoming - varchar(15)
-    'x',       -- status - varchar(30)
-    GETDATE() -- date - date
-),
-(   (SELECT id FROM dbo.Warehouses WHERE id=8),        -- warehouse_id - int
-    (SELECT id FROM dbo.Pubs WHERE id=3),        -- pub_id - int
-    (SELECT id FROM dbo.Producers WHERE id=19),        -- producer_id - int
-    'Incoming',       -- Incoming/Outcoming - varchar(15)
-    'x',       -- status - varchar(30)
-    GETDATE() -- date - date
-),
-(   (SELECT id FROM dbo.Warehouses WHERE id=8),        -- warehouse_id - int
-    (SELECT id FROM dbo.Pubs WHERE id=4),        -- pub_id - int
-    (SELECT id FROM dbo.Producers WHERE id=20),        -- producer_id - int
-    'Incoming',       -- Incoming/Outcoming - varchar(15)
-    'x',       -- status - varchar(30)
-    GETDATE() -- date - date
-),
-(   (SELECT id FROM dbo.Warehouses WHERE id=9),        -- warehouse_id - int
-    (SELECT id FROM dbo.Pubs WHERE id=5),        -- pub_id - int
-    (SELECT id FROM dbo.Producers WHERE id=21),        -- producer_id - int
-    'Outcoming',       -- Incoming/Outcoming - varchar(15)
-    'x',       -- status - varchar(30)
-    GETDATE() -- date - date
-),
-(   (SELECT id FROM dbo.Warehouses WHERE id=3),        -- warehouse_id - int
-    (SELECT id FROM dbo.Pubs WHERE id=6),        -- pub_id - int
-    (SELECT id FROM dbo.Producers WHERE id=22),        -- producer_id - int
-    'Incoming',       -- Incoming/Outcoming - varchar(15)
-    'x',       -- status - varchar(30)
-    GETDATE() -- date - date
-),
-(   (SELECT id FROM dbo.Warehouses WHERE id=3),        -- warehouse_id - int
-    (SELECT id FROM dbo.Pubs WHERE id=7),        -- pub_id - int
-    (SELECT id FROM dbo.Producers WHERE id=23),        -- producer_id - int
-    'Outcoming',       -- Incoming/Outcoming - varchar(15)
-    'x',       -- status - varchar(30)
-    GETDATE() -- date - date
-),
-(   (SELECT id FROM dbo.Warehouses WHERE id=1),        -- warehouse_id - int
-    (SELECT id FROM dbo.Pubs WHERE id=8),        -- pub_id - int
-    (SELECT id FROM dbo.Producers WHERE id=24),        -- producer_id - int
-    'Incoming',       -- Incoming/Outcoming - varchar(15)
-    'x',       -- status - varchar(30)
-    GETDATE() -- date - date
-),
-(   (SELECT id FROM dbo.Warehouses WHERE id=4),        -- warehouse_id - int
-    (SELECT id FROM dbo.Pubs WHERE id=9),        -- pub_id - int
-    (SELECT id FROM dbo.Producers WHERE id=25),        -- producer_id - int
-    'Outcoming',       -- Incoming/Outcoming - varchar(15)
-    'x',       -- status - varchar(30)
-    GETDATE() -- date - date
-),
-(   (SELECT id FROM dbo.Warehouses WHERE id=1),        -- warehouse_id - int
-    (SELECT id FROM dbo.Pubs WHERE id=10),        -- pub_id - int
-    (SELECT id FROM dbo.Producers WHERE id=26),        -- producer_id - int
-    'Outcoming',       -- Incoming/Outcoming - varchar(15)
-    'x',       -- status - varchar(30)
-    GETDATE() -- date - date
-);
+﻿SET IDENTITY_INSERT [dbo].[Orders] ON
+INSERT INTO [dbo].[Orders] ([id], [warehouse_id], [pub_id], [producer_id], [Incoming/Outcoming], [status], [date]) VALUES (5, 2, 3, NULL, N'Incoming', N'In Creation', N'2018-07-08 21:12:54')
+INSERT INTO [dbo].[Orders] ([id], [warehouse_id], [pub_id], [producer_id], [Incoming/Outcoming], [status], [date]) VALUES (6, 1, 1, NULL, N'Incoming', N'Completed', N'2019-09-03 21:17:00')
+INSERT INTO [dbo].[Orders] ([id], [warehouse_id], [pub_id], [producer_id], [Incoming/Outcoming], [status], [date]) VALUES (7, 2, NULL, 4, N'Outcoming', N'Completed', N'2018-07-14 12:22:30')
+INSERT INTO [dbo].[Orders] ([id], [warehouse_id], [pub_id], [producer_id], [Incoming/Outcoming], [status], [date]) VALUES (8, 1, NULL, 4, N'Outcoming', N'Completed', N'2018-10-25 21:23:10')
+INSERT INTO [dbo].[Orders] ([id], [warehouse_id], [pub_id], [producer_id], [Incoming/Outcoming], [status], [date]) VALUES (9, 1, NULL, 5, N'Outcoming', N'Completed', N'2018-11-13 09:23:39')
+INSERT INTO [dbo].[Orders] ([id], [warehouse_id], [pub_id], [producer_id], [Incoming/Outcoming], [status], [date]) VALUES (10, 3, NULL, 5, N'Outcoming', N'Completed', N'2018-12-15 10:23:57')
+INSERT INTO [dbo].[Orders] ([id], [warehouse_id], [pub_id], [producer_id], [Incoming/Outcoming], [status], [date]) VALUES (11, 2, NULL, 2, N'Outcoming', N'Completed', N'2018-08-05:50:15')
+INSERT INTO [dbo].[Orders] ([id], [warehouse_id], [pub_id], [producer_id], [Incoming/Outcoming], [status], [date]) VALUES (12, 2, NULL, 4, N'Outcoming', N'Completed', N'2018-09-14 04:24:59')
+INSERT INTO [dbo].[Orders] ([id], [warehouse_id], [pub_id], [producer_id], [Incoming/Outcoming], [status], [date]) VALUES (13, 3, NULL, 4, N'Outcoming', N'Completed', N'2018-10-28 06:50:15')
+INSERT INTO [dbo].[Orders] ([id], [warehouse_id], [pub_id], [producer_id], [Incoming/Outcoming], [status], [date]) VALUES (14, 2, NULL, 4, N'Outcoming', N'In Realization', N'2019-01-05 22:32:49')
+INSERT INTO [dbo].[Orders] ([id], [warehouse_id], [pub_id], [producer_id], [Incoming/Outcoming], [status], [date]) VALUES (15, 3, 3, NULL, N'Incoming', N'In Realization', N'2019-01-02 13:38:11')
+SET IDENTITY_INSERT [dbo].[Orders] OFF

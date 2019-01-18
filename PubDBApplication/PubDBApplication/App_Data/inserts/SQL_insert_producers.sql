@@ -1,34 +1,7 @@
-﻿INSERT INTO dbo.Producers
-(
-	id,
-    name,
-    adress_id,
-    [e-mail],
-    telephone_no
-)
-VALUES
-(   1, 'Wyborowa S.A.', -- name - varchar(30)
-    10,  -- adress_id - int
-    'wyborowa@gmail.com', -- e-mail - varchar(50)
-    '923-092-943'  -- telephone_no - varchar(12)
-),
-(   2, 'Alkopol Sp. z o.o.', -- name - varchar(30)
-    8,  -- adress_id - int
-    'alkopol@wp.pl', -- e-mail - varchar(50)
-    '939-485-029'  -- telephone_no - varchar(12)
-),
-(   3, 'Drink-pol Sp. z o.o.', -- name - varchar(30)
-    6,  -- adress_id - int
-    'drink-pol@gmial.com', -- e-mail - varchar(50)
-    '928-394-201'  -- telephone_no - varchar(12)
-),
-(   4, 'Le grande Sp. z o.o.', -- name - varchar(30)
-    9,  -- adress_id - int
-    'le_grande@wp.pl', -- e-mail - varchar(50)
-    '273-847-205'  -- telephone_no - varchar(12)
-),
-(   5,'Solanum Sp. z o.o.', -- name - varchar(30)
-    7,  -- adress_id - int
-    'solanum@op.pl', -- e-mail - varchar(50)
-    '929-384-964'  -- telephone_no - varchar(12)
-);
+﻿SET IDENTITY_INSERT [dbo].[Producers] ON
+INSERT INTO [dbo].[Producers] ([id], [name], [adress_id], [e-mail], [telephone_no], [RowVersion]) VALUES (1, N'Wyborowa S.A.', 10, N'wyborowa@gmail.com', N'923-092-943', 1)
+INSERT INTO [dbo].[Producers] ([id], [name], [adress_id], [e-mail], [telephone_no], [RowVersion]) VALUES (2, N'Alkopol Sp. z o.o.', 8, N'alkopol@wp.pl', N'939-485-029', 1)
+INSERT INTO [dbo].[Producers] ([id], [name], [adress_id], [e-mail], [telephone_no], [RowVersion]) VALUES (3, N'Drink-pol Sp. z o.o.', 6, N'drink-pol@gmial.com', N'928-394-201', 1)
+INSERT INTO [dbo].[Producers] ([id], [name], [adress_id], [e-mail], [telephone_no], [RowVersion]) VALUES (4, N'Le grande Sp. z o.o.', 9, N'le_grande@wp.pl', N'273-847-205', 1)
+INSERT INTO [dbo].[Producers] ([id], [name], [adress_id], [e-mail], [telephone_no], [RowVersion]) VALUES (5, N'Solanum Sp. z o.o.', 7, N'solanum@op.pl', N'929-384-964', 1)
+SET IDENTITY_INSERT [dbo].[Producers] OFF

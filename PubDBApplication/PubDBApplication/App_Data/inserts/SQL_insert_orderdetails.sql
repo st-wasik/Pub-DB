@@ -1,47 +1,14 @@
-﻿INSERT INTO dbo.OrderDetails
-(
-    order_id,
-    quantity,
-    product_id
-)
-VALUES
-(   (SELECT id FROM dbo.Orders WHERE id=1), -- order_id - int
-    3, -- quantity - int
-    (SELECT id FROM dbo.Products WHERE id=2)  -- product_id - int
-),
-(   (SELECT id FROM dbo.Orders WHERE id=2), -- order_id - int
-    1, -- quantity - int
-    (SELECT id FROM dbo.Products WHERE id=3)  -- product_id - int
-),
-(   (SELECT id FROM dbo.Orders WHERE id=3), -- order_id - int
-    8, -- quantity - int
-    (SELECT id FROM dbo.Products WHERE id=4)  -- product_id - int
-),
-(   (SELECT id FROM dbo.Orders WHERE id=4), -- order_id - int
-    5, -- quantity - int
-    (SELECT id FROM dbo.Products WHERE id=5)  -- product_id - int
-),
-(   (SELECT id FROM dbo.Orders WHERE id=5), -- order_id - int
-    3, -- quantity - int
-    (SELECT id FROM dbo.Products WHERE id=6)  -- product_id - int
-),
-(   (SELECT id FROM dbo.Orders WHERE id=6), -- order_id - int
-    8, -- quantity - int
-    (SELECT id FROM dbo.Products WHERE id=7)  -- product_id - int
-),
-(   (SELECT id FROM dbo.Orders WHERE id=7), -- order_id - int
-    4, -- quantity - int
-    (SELECT id FROM dbo.Products WHERE id=8)  -- product_id - int
-),
-(   (SELECT id FROM dbo.Orders WHERE id=8), -- order_id - int
-    1, -- quantity - int
-    (SELECT id FROM dbo.Products WHERE id=9)  -- product_id - int
-),
-(   (SELECT id FROM dbo.Orders WHERE id=9), -- order_id - int
-    5, -- quantity - int
-    (SELECT id FROM dbo.Products WHERE id=10)  -- product_id - int
-),
-(   (SELECT id FROM dbo.Orders WHERE id=10), -- order_id - int
-    4, -- quantity - int
-    (SELECT id FROM dbo.Products WHERE id=11)  -- product_id - int
-);
+﻿SET IDENTITY_INSERT [dbo].[OrderDetails] ON
+INSERT INTO [dbo].[OrderDetails] ([id], [order_id], [quantity], [product_id]) VALUES (10, 6, 50, 1)
+INSERT INTO [dbo].[OrderDetails] ([id], [order_id], [quantity], [product_id]) VALUES (11, 6, 50, 2)
+INSERT INTO [dbo].[OrderDetails] ([id], [order_id], [quantity], [product_id]) VALUES (13, 7, 10, 8)
+INSERT INTO [dbo].[OrderDetails] ([id], [order_id], [quantity], [product_id]) VALUES (14, 8, 10, 7)
+INSERT INTO [dbo].[OrderDetails] ([id], [order_id], [quantity], [product_id]) VALUES (15, 8, 10, 8)
+INSERT INTO [dbo].[OrderDetails] ([id], [order_id], [quantity], [product_id]) VALUES (16, 9, 50, 9)
+INSERT INTO [dbo].[OrderDetails] ([id], [order_id], [quantity], [product_id]) VALUES (17, 10, 50, 10)
+INSERT INTO [dbo].[OrderDetails] ([id], [order_id], [quantity], [product_id]) VALUES (18, 11, 50, 4)
+INSERT INTO [dbo].[OrderDetails] ([id], [order_id], [quantity], [product_id]) VALUES (19, 12, 40, 7)
+INSERT INTO [dbo].[OrderDetails] ([id], [order_id], [quantity], [product_id]) VALUES (20, 13, 30, 7)
+INSERT INTO [dbo].[OrderDetails] ([id], [order_id], [quantity], [product_id]) VALUES (21, 14, 10, 8)
+INSERT INTO [dbo].[OrderDetails] ([id], [order_id], [quantity], [product_id]) VALUES (22, 15, 50, 10)
+SET IDENTITY_INSERT [dbo].[OrderDetails] OFF

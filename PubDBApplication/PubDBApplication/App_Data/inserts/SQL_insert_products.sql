@@ -1,70 +1,12 @@
-﻿INSERT INTO dbo.Products
-(
-	id,
-    name,
-    producer_id,
-    price,
-    alcohol_percentage,
-    volume
-)
-VALUES
-(   1, 'Wyborowa',   -- name - varchar(30)
-    1,    -- producer_id - int
-    39, -- price - money
-    40,    -- alcohol_percentage - int
-    0.7   -- volume - real
-),
-(   2, 'Jack Daniels',   -- name - varchar(30)
-    1,    -- producer_id - int
-    159, -- price - money
-    45,    -- alcohol_percentage - int
-    1.0   -- volume - real
-),
-(   3, 'Żubrówka',   -- name - varchar(30)
-    2,    -- producer_id - int
-    29, -- price - money
-    40,    -- alcohol_percentage - int
-    0.7   -- volume - real
-),
-(   4, 'Soplica',   -- name - varchar(30)
-    2,    -- producer_id - int
-    39, -- price - money
-    40,    -- alcohol_percentage - int
-    0.7   -- volume - real
-),
-(   5, 'Finlandia',   -- name - varchar(30)
-    3,    -- producer_id - int
-    49, -- price - money
-    40,    -- alcohol_percentage - int
-    1.0   -- volume - real
-),
-(   6, 'Jim Beam',   -- name - varchar(30)
-    3,    -- producer_id - int
-    65, -- price - money
-    40,    -- alcohol_percentage - int
-    0.7   -- volume - real
-),
-(   7, 'Ballantines',   -- name - varchar(30)
-    4,    -- producer_id - int
-    59, -- price - money
-    40,    -- alcohol_percentage - int
-    0.5   -- volume - real
-),
-(   8, 'Don Julio Blanco',   -- name - varchar(30)
-    4,    -- producer_id - int
-    169, -- price - money
-    35,    -- alcohol_percentage - int
-    0.7   -- volume - real
-),
-(   9,'Lubelska',   -- name - varchar(30)
-    5,    -- producer_id - int
-    25, -- price - money
-    30,    -- alcohol_percentage - int
-    0.5   -- volume - real
-),
-(   10,'Stock',   -- name - varchar(30)
-    5,    -- producer_id - int
-    29, -- price - money
-    37,    -- alcohol_percentage - int
-    0.5   -- volume - real
-);
+﻿SET IDENTITY_INSERT [dbo].[Products] ON
+INSERT INTO [dbo].[Products] ([id], [name], [producer_id], [price], [alcohol_percentage], [volume], [RowVersion]) VALUES (1, N'Wyborowa', 1, CAST(39.0000 AS Money), 40, 0.7, 1)
+INSERT INTO [dbo].[Products] ([id], [name], [producer_id], [price], [alcohol_percentage], [volume], [RowVersion]) VALUES (2, N'Jack Daniels', 1, CAST(159.0000 AS Money), 45, 1, 1)
+INSERT INTO [dbo].[Products] ([id], [name], [producer_id], [price], [alcohol_percentage], [volume], [RowVersion]) VALUES (3, N'Zubrówka', 2, CAST(29.0000 AS Money), 40, 0.7, 1)
+INSERT INTO [dbo].[Products] ([id], [name], [producer_id], [price], [alcohol_percentage], [volume], [RowVersion]) VALUES (4, N'Soplica', 2, CAST(39.0000 AS Money), 40, 0.7, 1)
+INSERT INTO [dbo].[Products] ([id], [name], [producer_id], [price], [alcohol_percentage], [volume], [RowVersion]) VALUES (5, N'Finlandia', 3, CAST(49.0000 AS Money), 40, 1, 1)
+INSERT INTO [dbo].[Products] ([id], [name], [producer_id], [price], [alcohol_percentage], [volume], [RowVersion]) VALUES (6, N'Jim Beam', 3, CAST(65.0000 AS Money), 40, 0.7, 1)
+INSERT INTO [dbo].[Products] ([id], [name], [producer_id], [price], [alcohol_percentage], [volume], [RowVersion]) VALUES (7, N'Ballantines', 4, CAST(59.0000 AS Money), 40, 0.5, 1)
+INSERT INTO [dbo].[Products] ([id], [name], [producer_id], [price], [alcohol_percentage], [volume], [RowVersion]) VALUES (8, N'Don Julio Blanco', 4, CAST(169.0000 AS Money), 35, 0.7, 1)
+INSERT INTO [dbo].[Products] ([id], [name], [producer_id], [price], [alcohol_percentage], [volume], [RowVersion]) VALUES (9, N'Lubelska', 5, CAST(25.0000 AS Money), 30, 0.5, 1)
+INSERT INTO [dbo].[Products] ([id], [name], [producer_id], [price], [alcohol_percentage], [volume], [RowVersion]) VALUES (10, N'Stock', 5, CAST(29.0000 AS Money), 37, 0.5, 1)
+SET IDENTITY_INSERT [dbo].[Products] OFF
