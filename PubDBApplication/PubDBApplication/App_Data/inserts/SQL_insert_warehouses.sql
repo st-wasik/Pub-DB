@@ -1,25 +1,5 @@
-﻿INSERT INTO dbo.Warehouses
-(
-    name
-)
-VALUES
-('Czerwony' -- name - varchar(30)
-),
-('Nad Stawem' -- name - varchar(30)
-),
-('Ośmiornica' -- name - varchar(30)
-),
-('Wschodni' -- name - varchar(30)
-),
-('Zachodni' -- name - varchar(30)
-),
-('Amazon' -- name - varchar(30)
-),
-('Wielki' -- name - varchar(30)
-),
-('Zielony' -- name - varchar(30)
-),
-('Mały' -- name - varchar(30)
-),
-('Papuga' -- name - varchar(30)
-);
+﻿SET IDENTITY_INSERT [dbo].[Warehouses] ON
+INSERT INTO [dbo].[Warehouses] ([id], [name], [RowVersion]) VALUES (1, N'Wschodni', 1)
+INSERT INTO [dbo].[Warehouses] ([id], [name], [RowVersion]) VALUES (2, N'Magazyn Centralny', 4)
+INSERT INTO [dbo].[Warehouses] ([id], [name], [RowVersion]) VALUES (3, N'Pomniejszy', 1)
+SET IDENTITY_INSERT [dbo].[Warehouses] OFF

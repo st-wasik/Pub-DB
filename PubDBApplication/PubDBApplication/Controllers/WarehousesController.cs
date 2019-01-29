@@ -28,7 +28,8 @@ namespace PubDBApplication.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Warehouses warehouses = db.Warehouses.Find(id);
-            ViewBag.warehouseStock = (from ws in db.WarehousesStockView where ws.id == id select ws).ToList();
+            
+            ViewBag.warehouseStock = (from ws in db.WarehousesStockView where ws.warehouse_name == warehouses.name select ws).ToList();
             if (warehouses == null)
             {
                 return HttpNotFound();
@@ -59,7 +60,7 @@ namespace PubDBApplication.Controllers
             catch (Exception e)
             {
                 if (e.InnerException == null)
-                    msg = "Invalid data";
+                    msg = e.Message;
                 else
                     msg = e.InnerException.InnerException.Message;
                 ViewBag.Exception = msg;
@@ -113,7 +114,7 @@ namespace PubDBApplication.Controllers
                 catch (Exception e)
                 {
                     if (e.InnerException == null)
-                        msg = "Invalid data";
+                        msg = e.Message;
                     else
                         msg = e.InnerException.InnerException.Message;
 
@@ -157,7 +158,7 @@ namespace PubDBApplication.Controllers
             catch (Exception e)
             {
                 if (e.InnerException == null)
-                    msg = "Invalid data";
+                    msg = e.Message;
                 else
                     msg = e.InnerException.InnerException.Message;
 

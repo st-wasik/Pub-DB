@@ -88,7 +88,14 @@
     @if (Model.status.Equals("In Realization"))
     {
         <h4>This order is in the realization phase.</h4>
-        @Html.ActionLink("Send order", "Index", new { id = Model.id })
+        if (Model.pub_name != null)
+        {
+            @Html.ActionLink("Send order", "Send", new { id = Model.id })
+        }
+        else if (Model.producer_name != null)
+        {
+            @Html.ActionLink("Collect order", "Collect", new { id = Model.id })
+        }
         <font>or</font>
         @Html.ActionLink("Cancel order", "Delete", new { id = Model.id })
     }
@@ -97,9 +104,9 @@
     {
         <h4>This order is completed.</h4>
         <p>
+            @Html.ActionLink("Archive order", "Archive" , "OrdersArchive", new { id = Model.id }, null)
         </p>
     }
-
 
 
     <table class="table">
@@ -112,7 +119,7 @@
                 Product
             </th>
             <th>
-                Unit Price
+                Price
             </th>
             <th>
                 Quantity

@@ -62,7 +62,7 @@ namespace PubDBApplication.Controllers
                 catch (Exception e)
                 {
                     if (e.InnerException == null)
-                        msg = "Invalid data";
+                        msg = e.Message;
                     else
                         msg = e.InnerException.InnerException.Message;
 
@@ -109,7 +109,6 @@ namespace PubDBApplication.Controllers
                 if (entity.RowVersion != address.RowVersion)
                 {
                     TempData["Exception"] = "Entity was modified by another user. Check values and perform edit action again.";
-                    entity.street = "adsasdasdasd";
                     return RedirectToAction("Edit");
                 }
 
@@ -128,7 +127,7 @@ namespace PubDBApplication.Controllers
                 catch (Exception e)
                 {
                     if (e.InnerException == null)
-                        msg = "Invalid data";
+                        msg = e.Message;
                     else
                         msg = e.InnerException.InnerException.Message;
 
@@ -174,7 +173,7 @@ namespace PubDBApplication.Controllers
             catch (Exception e)
             {
                 if (e.InnerException == null)
-                    msg = "Invalid data";
+                    msg = e.Message;
                 else
                     msg = e.InnerException.InnerException.Message;
 

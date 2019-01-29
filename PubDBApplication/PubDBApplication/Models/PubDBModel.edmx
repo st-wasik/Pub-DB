@@ -33,9 +33,9 @@
           <Property Name="warehouse_id" Type="int" Nullable="false" />
           <Property Name="pub_id" Type="int" />
           <Property Name="producer_id" Type="int" />
-          <Property Name="Incoming/Outcoming" Type="varchar" MaxLength="15" />
+          <Property Name="Incoming/Outcoming" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="status" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Producers">
           <Key>
@@ -89,6 +89,15 @@
           <Property Name="quantity" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICATION\PUBDBAPPLICATION\APP_DATA\PUBDB.MDF.dbo.mostPopularProducers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="mostPopularProducers">
+          <Key>
+            <PropertyRef Name="name" />
+          </Key>
+          <Property Name="name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="placedOrdersCount" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICATION\PUBDBAPPLICATION\APP_DATA\PUBDB.MDF.dbo.OrderDetailsView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="OrderDetailsView">
           <Key>
@@ -124,25 +133,6 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
           <Property Name="total" Type="money" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICATION\PUBDBAPPLICATION\APP_DATA\PUBDB.MDF.dbo.ProducersView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="ProducersView">
-          <Key>
-            <PropertyRef Name="id" />
-            <PropertyRef Name="name" />
-            <PropertyRef Name="street" />
-            <PropertyRef Name="building_no" />
-            <PropertyRef Name="city" />
-          </Key>
-          <Property Name="id" Type="int" Nullable="false" />
-          <Property Name="name" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="e-mail" Type="varchar" MaxLength="50" />
-          <Property Name="telephone_no" Type="varchar" MaxLength="12" />
-          <Property Name="street" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="building_no" Type="int" Nullable="false" />
-          <Property Name="postal_code" Type="varchar" MaxLength="6" />
-          <Property Name="city" Type="varchar" MaxLength="30" Nullable="false" />
-        </EntityType>
-        <!--Errors Found During Generation:
 warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICATION\PUBDBAPPLICATION\APP_DATA\PUBDB.MDF.dbo.ProductsView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ProductsView">
           <Key>
@@ -163,25 +153,6 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
           <Property Name="RowVersion" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICATION\PUBDBAPPLICATION\APP_DATA\PUBDB.MDF.dbo.PubsView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="PubsView">
-          <Key>
-            <PropertyRef Name="id" />
-            <PropertyRef Name="name" />
-            <PropertyRef Name="street" />
-            <PropertyRef Name="building_no" />
-            <PropertyRef Name="city" />
-          </Key>
-          <Property Name="id" Type="int" Nullable="false" />
-          <Property Name="name" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="e-mail" Type="varchar" MaxLength="50" />
-          <Property Name="telephone_no" Type="varchar" MaxLength="12" />
-          <Property Name="street" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="building_no" Type="int" Nullable="false" />
-          <Property Name="postal_code" Type="varchar" MaxLength="6" />
-          <Property Name="city" Type="varchar" MaxLength="30" Nullable="false" />
-        </EntityType>
-        <!--Errors Found During Generation:
 warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICATION\PUBDBAPPLICATION\APP_DATA\PUBDB.MDF.dbo.WarehousesStockView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="WarehousesStockView">
           <Key>
@@ -195,19 +166,7 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
           <Property Name="product_name" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="quantity" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK__OrderDeta__order__3A4CA8FD">
-          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
-          <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Orders">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="OrderDetails">
-              <PropertyRef Name="order_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__OrderDeta__produ__3B40CD36">
+        <Association Name="FKODProducts">
           <End Role="Products" Type="Self.Products" Multiplicity="1" />
           <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
           <ReferentialConstraint>
@@ -219,7 +178,21 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Orders__producer__37703C52">
+        <Association Name="FKOrders">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="OrderDetails">
+              <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKOrdersProducers">
           <End Role="Producers" Type="Self.Producers" Multiplicity="0..1" />
           <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
           <ReferentialConstraint>
@@ -231,7 +204,7 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Orders__pub_id__367C1819">
+        <Association Name="FKOrdersPubs">
           <End Role="Pubs" Type="Self.Pubs" Multiplicity="0..1" />
           <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
           <ReferentialConstraint>
@@ -243,7 +216,7 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Orders__warehous__3587F3E0">
+        <Association Name="FKOrdersWarehouses">
           <End Role="Warehouses" Type="Self.Warehouses" Multiplicity="1" />
           <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
           <ReferentialConstraint>
@@ -255,19 +228,7 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Producers__adres__60C757A0">
-          <End Role="Address" Type="Self.Address" Multiplicity="1" />
-          <End Role="Producers" Type="Self.Producers" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Address">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Producers">
-              <PropertyRef Name="adress_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Products__produc__30C33EC3">
+        <Association Name="FKProducer">
           <End Role="Producers" Type="Self.Producers" Multiplicity="1" />
           <End Role="Products" Type="Self.Products" Multiplicity="*" />
           <ReferentialConstraint>
@@ -279,7 +240,19 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Pubs__adress_id__5FD33367">
+        <Association Name="FKProducersAddress">
+          <End Role="Address" Type="Self.Address" Multiplicity="1" />
+          <End Role="Producers" Type="Self.Producers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Producers">
+              <PropertyRef Name="adress_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKPubsAddress">
           <End Role="Address" Type="Self.Address" Multiplicity="1" />
           <End Role="Pubs" Type="Self.Pubs" Multiplicity="*" />
           <ReferentialConstraint>
@@ -291,7 +264,7 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Warehouse__produ__3F115E1A">
+        <Association Name="FKWSProducts">
           <End Role="Products" Type="Self.Products" Multiplicity="1" />
           <End Role="WarehousesStock" Type="Self.WarehousesStock" Multiplicity="*" />
           <ReferentialConstraint>
@@ -303,7 +276,7 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Warehouse__wareh__3E1D39E1">
+        <Association Name="FKWSWarehouses">
           <End Role="Warehouses" Type="Self.Warehouses" Multiplicity="1" />
           <End Role="WarehousesStock" Type="Self.WarehousesStock" Multiplicity="*" />
           <ReferentialConstraint>
@@ -315,6 +288,34 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="customerStats" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="customerId" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="ProductName" Type="varchar" MaxLength="30" />
+                <Property Name="Quantity" Type="int" />
+                <Property Name="Amount" Type="money" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="saleStats" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="days" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="minOrderAmount" Type="money" />
+                <Property Name="maxOrderAmount" Type="money" />
+                <Property Name="avgOrderAmount" Type="money" />
+                <Property Name="sumOrderAmount" Type="money" />
+                <Property Name="totalSoldQuantity" Type="int" />
+                <Property Name="servedCustomers" Type="int" />
+                <Property Name="mostPopularProduct" Type="varchar" MaxLength="30" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
         <Function Name="totalPrice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="money">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -327,6 +328,12 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
           <EntitySet Name="Pubs" EntityType="Self.Pubs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Warehouses" EntityType="Self.Warehouses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WarehousesStock" EntityType="Self.WarehousesStock" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mostPopularProducers" EntityType="Self.mostPopularProducers" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [mostPopularProducers].[name] AS [name], 
+    [mostPopularProducers].[placedOrdersCount] AS [placedOrdersCount]
+    FROM [dbo].[mostPopularProducers] AS [mostPopularProducers]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="OrderDetailsView" EntityType="Self.OrderDetailsView" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [OrderDetailsView].[id] AS [id], 
@@ -349,18 +356,6 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
     [OrdersView].[total] AS [total]
     FROM [dbo].[OrdersView] AS [OrdersView]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="ProducersView" EntityType="Self.ProducersView" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [ProducersView].[id] AS [id], 
-    [ProducersView].[name] AS [name], 
-    [ProducersView].[e-mail] AS [e-mail], 
-    [ProducersView].[telephone_no] AS [telephone_no], 
-    [ProducersView].[street] AS [street], 
-    [ProducersView].[building_no] AS [building_no], 
-    [ProducersView].[postal_code] AS [postal_code], 
-    [ProducersView].[city] AS [city]
-    FROM [dbo].[ProducersView] AS [ProducersView]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="ProductsView" EntityType="Self.ProductsView" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [ProductsView].[id] AS [id], 
@@ -372,18 +367,6 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
     [ProductsView].[RowVersion] AS [RowVersion]
     FROM [dbo].[ProductsView] AS [ProductsView]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="PubsView" EntityType="Self.PubsView" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [PubsView].[id] AS [id], 
-    [PubsView].[name] AS [name], 
-    [PubsView].[e-mail] AS [e-mail], 
-    [PubsView].[telephone_no] AS [telephone_no], 
-    [PubsView].[street] AS [street], 
-    [PubsView].[building_no] AS [building_no], 
-    [PubsView].[postal_code] AS [postal_code], 
-    [PubsView].[city] AS [city]
-    FROM [dbo].[PubsView] AS [PubsView]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="WarehousesStockView" EntityType="Self.WarehousesStockView" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [WarehousesStockView].[id] AS [id], 
@@ -392,43 +375,43 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
     [WarehousesStockView].[quantity] AS [quantity]
     FROM [dbo].[WarehousesStockView] AS [WarehousesStockView]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK__OrderDeta__order__3A4CA8FD" Association="Self.FK__OrderDeta__order__3A4CA8FD">
-            <End Role="Orders" EntitySet="Orders" />
-            <End Role="OrderDetails" EntitySet="OrderDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK__OrderDeta__produ__3B40CD36" Association="Self.FK__OrderDeta__produ__3B40CD36">
+          <AssociationSet Name="FKODProducts" Association="Self.FKODProducts">
             <End Role="Products" EntitySet="Products" />
             <End Role="OrderDetails" EntitySet="OrderDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK__Orders__producer__37703C52" Association="Self.FK__Orders__producer__37703C52">
+          <AssociationSet Name="FKOrders" Association="Self.FKOrders">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FKOrdersProducers" Association="Self.FKOrdersProducers">
             <End Role="Producers" EntitySet="Producers" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK__Orders__pub_id__367C1819" Association="Self.FK__Orders__pub_id__367C1819">
+          <AssociationSet Name="FKOrdersPubs" Association="Self.FKOrdersPubs">
             <End Role="Pubs" EntitySet="Pubs" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK__Orders__warehous__3587F3E0" Association="Self.FK__Orders__warehous__3587F3E0">
+          <AssociationSet Name="FKOrdersWarehouses" Association="Self.FKOrdersWarehouses">
             <End Role="Warehouses" EntitySet="Warehouses" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK__Producers__adres__60C757A0" Association="Self.FK__Producers__adres__60C757A0">
-            <End Role="Address" EntitySet="Address" />
-            <End Role="Producers" EntitySet="Producers" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Products__produc__30C33EC3" Association="Self.FK__Products__produc__30C33EC3">
+          <AssociationSet Name="FKProducer" Association="Self.FKProducer">
             <End Role="Producers" EntitySet="Producers" />
             <End Role="Products" EntitySet="Products" />
           </AssociationSet>
-          <AssociationSet Name="FK__Pubs__adress_id__5FD33367" Association="Self.FK__Pubs__adress_id__5FD33367">
+          <AssociationSet Name="FKProducersAddress" Association="Self.FKProducersAddress">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="Producers" EntitySet="Producers" />
+          </AssociationSet>
+          <AssociationSet Name="FKPubsAddress" Association="Self.FKPubsAddress">
             <End Role="Address" EntitySet="Address" />
             <End Role="Pubs" EntitySet="Pubs" />
           </AssociationSet>
-          <AssociationSet Name="FK__Warehouse__produ__3F115E1A" Association="Self.FK__Warehouse__produ__3F115E1A">
+          <AssociationSet Name="FKWSProducts" Association="Self.FKWSProducts">
             <End Role="Products" EntitySet="Products" />
             <End Role="WarehousesStock" EntitySet="WarehousesStock" />
           </AssociationSet>
-          <AssociationSet Name="FK__Warehouse__wareh__3E1D39E1" Association="Self.FK__Warehouse__wareh__3E1D39E1">
+          <AssociationSet Name="FKWSWarehouses" Association="Self.FKWSWarehouses">
             <End Role="Warehouses" EntitySet="Warehouses" />
             <End Role="WarehousesStock" EntitySet="WarehousesStock" />
           </AssociationSet>
@@ -456,9 +439,9 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
           <Property Name="warehouse_id" Type="Int32" Nullable="false" />
           <Property Name="pub_id" Type="Int32" />
           <Property Name="producer_id" Type="Int32" />
-          <Property Name="Incoming_Outcoming" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
+          <Property Name="Incoming_Outcoming" Type="String" MaxLength="15" Unicode="false" FixedLength="false" Nullable="false" />
           <Property Name="status" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="OrderDetails" Relationship="Self.FK__OrderDeta__order__3A4CA8FD" FromRole="Orders" ToRole="OrderDetails" />
           <NavigationProperty Name="Pubs" Relationship="Self.FK__Orders__pub_id__367C1819" FromRole="Orders" ToRole="Pubs" />
           <NavigationProperty Name="Warehouses" Relationship="Self.FK__Orders__warehous__3587F3E0" FromRole="Orders" ToRole="Warehouses" />
@@ -616,9 +599,6 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
             <End Role="Warehouses" EntitySet="Warehouses" />
             <End Role="WarehousesStock" EntitySet="WarehousesStock" />
           </AssociationSet>
-          <EntitySet Name="ProducersView" EntityType="PubDBModel.ProducersView" />
-          <EntitySet Name="ProductsView" EntityType="PubDBModel.ProductsView" />
-          <EntitySet Name="PubsView" EntityType="PubDBModel.PubsView" />
           <EntitySet Name="WarehousesStockView" EntityType="PubDBModel.WarehousesStockView" />
           <EntitySet Name="OrderDetailsView" EntityType="PubDBModel.OrderDetailsView" />
           <EntitySet Name="OrdersView" EntityType="PubDBModel.OrdersView" />
@@ -640,59 +620,15 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
             <End Role="Producers" EntitySet="Producers" />
             <End Role="Products" EntitySet="Products" />
           </AssociationSet>
+          <FunctionImport Name="customerStats" IsComposable="true" ReturnType="Collection(PubDBModel.customerStats_Result)">
+          <Parameter Name="customerId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="saleStats" IsComposable="true" ReturnType="Collection(PubDBModel.saleStats_Result)">
+          <Parameter Name="days" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="mostPopularProducers" EntityType="PubDBModel.mostPopularProducers" />
+          <EntitySet Name="ProductsView" EntityType="PubDBModel.ProductsView" />
         </EntityContainer>
-        <EntityType Name="ProducersView">
-          <Key>
-            <PropertyRef Name="id" />
-            <PropertyRef Name="name" />
-            <PropertyRef Name="street" />
-            <PropertyRef Name="building_no" />
-            <PropertyRef Name="city" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="e_mail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="telephone_no" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
-          <Property Name="street" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="building_no" Type="Int32" Nullable="false" />
-          <Property Name="postal_code" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
-          <Property Name="city" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="ProductsView">
-          <Key>
-            <PropertyRef Name="id" />
-            <PropertyRef Name="name" />
-            <PropertyRef Name="producer_name" />
-            <PropertyRef Name="price" />
-            <PropertyRef Name="alcohol_percentage" />
-            <PropertyRef Name="volume" />
-            <PropertyRef Name="RowVersion" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="producer_name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="price" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="alcohol_percentage" Type="Int32" Nullable="false" />
-          <Property Name="volume" Type="Single" Nullable="false" />
-          <Property Name="RowVersion" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="PubsView">
-          <Key>
-            <PropertyRef Name="id" />
-            <PropertyRef Name="name" />
-            <PropertyRef Name="street" />
-            <PropertyRef Name="building_no" />
-            <PropertyRef Name="city" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="e_mail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="telephone_no" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
-          <Property Name="street" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="building_no" Type="Int32" Nullable="false" />
-          <Property Name="postal_code" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
-          <Property Name="city" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="WarehousesStockView">
           <Key>
             <PropertyRef Name="id" />
@@ -811,6 +747,45 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="customerStats_Result">
+          <Property Type="String" Name="ProductName" Nullable="true" MaxLength="30" />
+          <Property Type="Int32" Name="Quantity" Nullable="true" />
+          <Property Type="Decimal" Name="Amount" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="saleStats_Result">
+          <Property Type="Decimal" Name="minOrderAmount" Nullable="true" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="maxOrderAmount" Nullable="true" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="avgOrderAmount" Nullable="true" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="sumOrderAmount" Nullable="true" Precision="19" Scale="4" />
+          <Property Type="Int32" Name="totalSoldQuantity" Nullable="true" />
+          <Property Type="Int32" Name="servedCustomers" Nullable="true" />
+          <Property Type="String" Name="mostPopularProduct" Nullable="true" MaxLength="30" />
+        </ComplexType>
+        <EntityType Name="mostPopularProducers">
+          <Key>
+            <PropertyRef Name="name" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="placedOrdersCount" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ProductsView">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="producer_name" />
+            <PropertyRef Name="price" />
+            <PropertyRef Name="alcohol_percentage" />
+            <PropertyRef Name="volume" />
+            <PropertyRef Name="RowVersion" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="producer_name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="price" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="alcohol_percentage" Type="Int32" Nullable="false" />
+          <Property Name="volume" Type="Single" Nullable="false" />
+          <Property Name="RowVersion" Type="Int32" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -884,47 +859,6 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ProducersView">
-            <EntityTypeMapping TypeName="PubDBModel.ProducersView">
-              <MappingFragment StoreEntitySet="ProducersView">
-                <ScalarProperty Name="city" ColumnName="city" />
-                <ScalarProperty Name="postal_code" ColumnName="postal_code" />
-                <ScalarProperty Name="building_no" ColumnName="building_no" />
-                <ScalarProperty Name="street" ColumnName="street" />
-                <ScalarProperty Name="telephone_no" ColumnName="telephone_no" />
-                <ScalarProperty Name="e_mail" ColumnName="e-mail" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ProductsView">
-            <EntityTypeMapping TypeName="PubDBModel.ProductsView">
-              <MappingFragment StoreEntitySet="ProductsView">
-                <ScalarProperty Name="RowVersion" ColumnName="RowVersion" />
-                <ScalarProperty Name="volume" ColumnName="volume" />
-                <ScalarProperty Name="alcohol_percentage" ColumnName="alcohol_percentage" />
-                <ScalarProperty Name="price" ColumnName="price" />
-                <ScalarProperty Name="producer_name" ColumnName="producer_name" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PubsView">
-            <EntityTypeMapping TypeName="PubDBModel.PubsView">
-              <MappingFragment StoreEntitySet="PubsView">
-                <ScalarProperty Name="city" ColumnName="city" />
-                <ScalarProperty Name="postal_code" ColumnName="postal_code" />
-                <ScalarProperty Name="building_no" ColumnName="building_no" />
-                <ScalarProperty Name="street" ColumnName="street" />
-                <ScalarProperty Name="telephone_no" ColumnName="telephone_no" />
-                <ScalarProperty Name="e_mail" ColumnName="e-mail" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="WarehousesStockView">
             <EntityTypeMapping TypeName="PubDBModel.WarehousesStockView">
               <MappingFragment StoreEntitySet="WarehousesStockView">
@@ -980,6 +914,49 @@ warning 6002: The table/view 'C:\USERS\ST.WASIK\SOURCE\REPOS\PUB-DB\PUBDBAPPLICA
                 <ScalarProperty Name="telephone_no" ColumnName="telephone_no" />
                 <ScalarProperty Name="e_mail" ColumnName="e-mail" />
                 <ScalarProperty Name="adress_id" ColumnName="adress_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="customerStats" FunctionName="PubDBModel.Store.customerStats">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PubDBModel.customerStats_Result">
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="saleStats" FunctionName="PubDBModel.Store.saleStats">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PubDBModel.saleStats_Result">
+                <ScalarProperty Name="minOrderAmount" ColumnName="minOrderAmount" />
+                <ScalarProperty Name="maxOrderAmount" ColumnName="maxOrderAmount" />
+                <ScalarProperty Name="avgOrderAmount" ColumnName="avgOrderAmount" />
+                <ScalarProperty Name="sumOrderAmount" ColumnName="sumOrderAmount" />
+                <ScalarProperty Name="totalSoldQuantity" ColumnName="totalSoldQuantity" />
+                <ScalarProperty Name="servedCustomers" ColumnName="servedCustomers" />
+                <ScalarProperty Name="mostPopularProduct" ColumnName="mostPopularProduct" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="mostPopularProducers">
+            <EntityTypeMapping TypeName="PubDBModel.mostPopularProducers">
+              <MappingFragment StoreEntitySet="mostPopularProducers">
+                <ScalarProperty Name="placedOrdersCount" ColumnName="placedOrdersCount" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductsView">
+            <EntityTypeMapping TypeName="PubDBModel.ProductsView">
+              <MappingFragment StoreEntitySet="ProductsView">
+                <ScalarProperty Name="RowVersion" ColumnName="RowVersion" />
+                <ScalarProperty Name="volume" ColumnName="volume" />
+                <ScalarProperty Name="alcohol_percentage" ColumnName="alcohol_percentage" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="producer_name" ColumnName="producer_name" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>

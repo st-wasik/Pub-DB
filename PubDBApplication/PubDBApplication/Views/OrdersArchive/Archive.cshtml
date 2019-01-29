@@ -1,0 +1,138 @@
+﻿@{
+    ViewBag.Title = "Archive";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Archive Order</h2>
+
+<div>
+    <h4>This order will be transferred to archive.</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            ID
+        </dt>
+
+        <dd>
+            @ViewBag.toArchive.id
+        </dd>
+
+        <dt>
+            Warehouse Name
+        </dt>
+
+        <dd>
+            @ViewBag.toArchive.warehouse_name
+        </dd>
+        @if (ViewBag.toArchive.pub_name != null)
+        {
+            <dt>
+                Pub Name
+            </dt>
+
+            <dd>
+                @ViewBag.toArchive.pub_name
+            </dd>
+        }
+
+        @if (ViewBag.toArchive.producer_name != null)
+        {
+            <dt>
+                Producer Name
+            </dt>
+
+            <dd>
+                @ViewBag.toArchive.producer_name
+
+            </dd>
+        }
+
+        <dt>
+            Incoming/Outcoming
+        </dt>
+
+        <dd>
+            @ViewBag.toArchive.Incoming_Outcoming
+        </dd>
+
+        <dt>
+            Order Status
+        </dt>
+
+        <dd>
+            @ViewBag.toArchive.status
+        </dd>
+
+        <dt>
+            Date
+        </dt>
+
+        <dd>
+            @ViewBag.toArchive.date
+        </dd>
+
+        <dt>
+            Total Price
+        </dt>
+
+        <dd>
+            @ViewBag.toArchive.total.ToString("0.00")
+        </dd>
+    </dl>
+    <table class="table">
+        <tr>
+            <th>
+                ID
+            </th>
+
+            <th>
+                Product
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Quantity
+            </th>
+
+            <th>
+                Amount
+            </th>
+        </tr>
+
+        @foreach (var item in ViewBag.products)
+        {
+            <tr>
+                <td>
+                    @item.id
+                </td>
+
+                <td>
+                    @item.product_name
+                </td>
+
+                <td>
+                    @item.price.ToString("0.00")
+                </td>
+                <td>
+                    @item.quantity
+                </td>
+                <td>
+                    @item.amount.ToString("0.00")
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Archive" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+
+</div>

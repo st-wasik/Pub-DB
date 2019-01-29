@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Orders Archive</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            Order ID
+        </th>
+        <th>
+            From
+        </th>
+        <th>
+            To
+        </th>
+        <th>
+            Date
+        </th>
+        <th>
+            Total Price
+        </th>
+        <th>
+            Products Info
+        </th>
+    </tr>
+
+@foreach (var item in ViewBag.archiveContent) {
+    <tr>
+        <td>
+            @item.OrderID
+        </td>
+        <td>
+            @item.From
+        </td>
+        <td>
+            @item.To
+        </td>
+        <td>
+            @item.Date
+        </td>
+        <td>
+            @item.TotalPrice
+        </td>
+        <td>
+            @item.ProductsInfo
+        </td>
+    </tr>
+}
+
+</table>

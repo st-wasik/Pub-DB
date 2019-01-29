@@ -68,22 +68,34 @@ namespace PubDBApplication.Controllers
                 catch (Exception e)
                 {
                     if (e.InnerException == null)
-                        msg = "Invalid data";
+                        msg = e.Message;
                     else
                         msg = e.InnerException.InnerException.Message;
 
                     ViewBag.Exception = msg;
-                    List<SelectListItem> list2 = new List<SelectListItem>();
-                    var entities2 = (from a in db.Address orderby a.street, a.building_no, a.postal_code, a.city select a).ToList();
-                    foreach (var i in entities2)
+                    List<SelectListItem> list = new List<SelectListItem>();
+                    var entities = (from a in db.Address orderby a.street, a.building_no, a.postal_code, a.city select a).ToList();
+                    foreach (var i in entities)
                     {
-                        list2.Add(new SelectListItem { Selected = false, Text = i.ToString(), Value = i.id.ToString() });
+                        list.Add(new SelectListItem { Selected = false, Text = i.ToString(), Value = i.id.ToString() });
                     }
-                    ViewBag.adress_id = new SelectList(list2, "Value", "Text", 1);
+                    ViewBag.adress_id = new SelectList(list, "Value", "Text", 1);
                     return View(pubs);
                 }
+
+                return RedirectToAction("Index");
+
             }
-            return RedirectToAction("Index");
+
+            List<SelectListItem> list2 = new List<SelectListItem>();
+            var entities2 = (from a in db.Address orderby a.street, a.building_no, a.postal_code, a.city select a).ToList();
+            foreach (var i in entities2)
+            {
+                list2.Add(new SelectListItem { Selected = false, Text = i.ToString(), Value = i.id.ToString() });
+            }
+            ViewBag.adress_id = new SelectList(list2, "Value", "Text", 1);
+            return View(pubs);
+
         }
 
         // GET: Pubs/Edit/5
@@ -141,22 +153,30 @@ namespace PubDBApplication.Controllers
                 catch (Exception e)
                 {
                     if (e.InnerException == null)
-                        msg = "Invalid data";
+                        msg = e.Message;
                     else
                         msg = e.InnerException.InnerException.Message;
 
                     ViewBag.Exception = msg;
-                    List<SelectListItem> list2 = new List<SelectListItem>();
-                    var entities2 = (from a in db.Address orderby a.street, a.building_no, a.postal_code, a.city select a).ToList();
-                    foreach (var i in entities2)
+                    List<SelectListItem> list = new List<SelectListItem>();
+                    var entities = (from a in db.Address orderby a.street, a.building_no, a.postal_code, a.city select a).ToList();
+                    foreach (var i in entities)
                     {
-                        list2.Add(new SelectListItem { Selected = false, Text = i.ToString(), Value = i.id.ToString() });
+                        list.Add(new SelectListItem { Selected = false, Text = i.ToString(), Value = i.id.ToString() });
                     }
-                    ViewBag.adress_id = new SelectList(list2, "Value", "Text", 1);
+                    ViewBag.adress_id = new SelectList(list, "Value", "Text", 1);
                     return View(pubs);
                 }
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            List<SelectListItem> list2 = new List<SelectListItem>();
+            var entities2 = (from a in db.Address orderby a.street, a.building_no, a.postal_code, a.city select a).ToList();
+            foreach (var i in entities2)
+            {
+                list2.Add(new SelectListItem { Selected = false, Text = i.ToString(), Value = i.id.ToString() });
+            }
+            ViewBag.adress_id = new SelectList(list2, "Value", "Text", 1);
+            return View(pubs);
         }
 
         // GET: Pubs/Delete/5
@@ -191,7 +211,7 @@ namespace PubDBApplication.Controllers
             catch (Exception e)
             {
                 if (e.InnerException == null)
-                    msg = "Invalid data";
+                    msg = e.Message;
                 else
                     msg = e.InnerException.InnerException.Message;
 

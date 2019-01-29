@@ -1,0 +1,79 @@
+﻿@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Raports</h2>
+
+<p>
+    @Html.ActionLink("The best customers", "Details/0") |
+    @Html.ActionLink("The most popular products", "Details/1") |
+    @Html.ActionLink("The most popular products", "Details/2") |
+    @Html.ActionLink("The most popular products", "Details/3") |
+    @Html.ActionLink("The most popular products", "Details/4")
+</p>
+@{
+    switch (ViewBag.RaportType)
+    {
+        case 0:
+            {
+                
+            }
+            break;
+        case 1:
+            {
+            }
+            break;
+    }
+}
+
+
+@{
+    /*
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.building_no)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.street)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.city)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.postal_code)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RowVersion)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.building_no)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.street)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.city)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.postal_code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RowVersion)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+            </td>
+        </tr>
+    }
+    */
+}
+

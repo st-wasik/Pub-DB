@@ -30,32 +30,67 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.e_mail)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.telephone_no)
-        </td>
-        <td>
-            @item.Address.street
-            @item.Address.building_no,
-            @item.Address.postal_code
-            @item.Address.city
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.e_mail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.telephone_no)
+            </td>
+            <td>
+                @item.Address.street
+                @item.Address.building_no,
+                @item.Address.postal_code
+                @item.Address.city
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+            </td>
+        </tr>
+    }
 
 </table>
+
+@{
+    <h3>Most popular producers</h3>
+    <h4>Raport based only on completed orders</h4>
+    <table class="table">
+        <tr>
+            <th>
+                No
+            </th>
+            <th>
+                Producer Name
+            </th>
+            <th>
+                Placed Orders
+            </th>
+        </tr>
+        @{
+            for (int i = 0; i < ViewBag.mostPopular.Count; i++)
+            {
+                <tr>
+                    <td>
+                        @(i + 1)
+                    </td>
+                    <td>
+                        @ViewBag.mostPopular[i].name
+                    </td>
+                    <td>
+                        @ViewBag.mostPopular[i].placedOrdersCount
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+}

@@ -12,6 +12,8 @@ namespace PubDBApplication.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class PubDBEntities : DbContext
     {
@@ -31,13 +33,32 @@ namespace PubDBApplication.Models
         public virtual DbSet<Pubs> Pubs { get; set; }
         public virtual DbSet<Warehouses> Warehouses { get; set; }
         public virtual DbSet<WarehousesStock> WarehousesStock { get; set; }
-        public virtual DbSet<ProducersView> ProducersView { get; set; }
-        public virtual DbSet<ProductsView> ProductsView { get; set; }
-        public virtual DbSet<PubsView> PubsView { get; set; }
         public virtual DbSet<WarehousesStockView> WarehousesStockView { get; set; }
         public virtual DbSet<OrderDetailsView> OrderDetailsView { get; set; }
         public virtual DbSet<OrdersView> OrdersView { get; set; }
         public virtual DbSet<Address> Address { get; set; }
         public virtual DbSet<Producers> Producers { get; set; }
+        public virtual DbSet<mostPopularProducers> mostPopularProducers { get; set; }
+        public virtual DbSet<ProductsView> ProductsView { get; set; }
+    
+        [DbFunction("PubDBEntities", "customerStats")]
+        public virtual IQueryable<customerStats_Result> customerStats(Nullable<int> customerId)
+        {
+            var customerIdParameter = customerId.HasValue ?
+                new ObjectParameter("customerId", customerId) :
+                new ObjectParameter("customerId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<customerStats_Result>("[PubDBEntities].[customerStats](@customerId)", customerIdParameter);
+        }
+    
+        [DbFunction("PubDBEntities", "saleStats")]
+        public virtual IQueryable<saleStats_Result> saleStats(Nullable<int> days)
+        {
+            var daysParameter = days.HasValue ?
+                new ObjectParameter("days", days) :
+                new ObjectParameter("days", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<saleStats_Result>("[PubDBEntities].[saleStats](@days)", daysParameter);
+        }
     }
 }

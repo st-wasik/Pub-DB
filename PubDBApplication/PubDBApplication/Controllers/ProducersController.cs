@@ -18,6 +18,7 @@ namespace PubDBApplication.Controllers
         public ActionResult Index()
         {
             var producers = db.Producers.Include(p => p.Address);
+            ViewBag.mostPopular = (from x in db.mostPopularProducers select x).ToList();
             return View(producers.ToList());
         }
 
@@ -69,7 +70,7 @@ namespace PubDBApplication.Controllers
                 catch (Exception e)
                 {
                     if (e.InnerException == null)
-                        msg = "Invalid data";
+                        msg = e.Message;
                     else
                         msg = e.InnerException.InnerException.Message;
 
@@ -85,6 +86,7 @@ namespace PubDBApplication.Controllers
                 }
                 return RedirectToAction("Index");
             }
+
 
             List<SelectListItem> list = new List<SelectListItem>();
             var entities = (from a in db.Address orderby a.street, a.building_no, a.postal_code, a.city select a).ToList();
@@ -128,7 +130,6 @@ namespace PubDBApplication.Controllers
 
             ViewBag.Exception = null;
             string msg = null;
-
             if (ModelState.IsValid)
             {
                 var entity = db.Producers.Single(p => p.id == producers.id);
@@ -154,22 +155,32 @@ namespace PubDBApplication.Controllers
                 catch (Exception e)
                 {
                     if (e.InnerException == null)
-                        msg = "Invalid data";
+                        msg = e.Message;
                     else
                         msg = e.InnerException.InnerException.Message;
 
                     ViewBag.Exception = msg;
-                    List<SelectListItem> list2 = new List<SelectListItem>();
-                    var entities2 = (from a in db.Address orderby a.street, a.building_no, a.postal_code, a.city select a).ToList();
-                    foreach (var i in entities2)
+                    List<SelectListItem> list = new List<SelectListItem>();
+                    var entities = (from a in db.Address orderby a.street, a.building_no, a.postal_code, a.city select a).ToList();
+                    foreach (var i in entities)
                     {
-                        list2.Add(new SelectListItem { Selected = false, Text = i.ToString(), Value = i.id.ToString() });
+                        list.Add(new SelectListItem { Selected = false, Text = i.ToString(), Value = i.id.ToString() });
                     }
-                    ViewBag.adress_id = new SelectList(list2, "Value", "Text", 1);
+                    ViewBag.adress_id = new SelectList(list, "Value", "Text", 1);
                     return View(producers);
                 }
+
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+
+            List<SelectListItem> list2 = new List<SelectListItem>();
+            var entities2 = (from a in db.Address orderby a.street, a.building_no, a.postal_code, a.city select a).ToList();
+            foreach (var i in entities2)
+            {
+                list2.Add(new SelectListItem { Selected = false, Text = i.ToString(), Value = i.id.ToString() });
+            }
+            ViewBag.adress_id = new SelectList(list2, "Value", "Text", 1);
+            return View(producers);
         }
 
         // GET: Producers/Delete/5
@@ -205,7 +216,7 @@ namespace PubDBApplication.Controllers
             catch (Exception e)
             {
                 if (e.InnerException == null)
-                    msg = "Invalid data";
+                    msg = e.Message;
                 else
                     msg = e.InnerException.InnerException.Message;
 

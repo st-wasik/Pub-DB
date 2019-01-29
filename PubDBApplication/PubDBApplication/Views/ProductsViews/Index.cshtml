@@ -13,7 +13,7 @@
 <table class="table">
     <tr>
         <th>
-           ID
+            ID
         </th>
         <th>
             Product Name
@@ -35,30 +35,75 @@
 
     @foreach (var item in Model)
     {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.producer_name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.alcohol_percentage)%
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.volume)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.id })
-        </td>
-    </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.producer_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.alcohol_percentage)%
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.volume)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+            </td>
+        </tr>
     }
 
 </table>
+@{
+
+    using (var db = new PubDBApplication.Models.PubDBEntities())
+    {
+        ViewBag.RaportTitle = "Best Customers";
+        var q =
+                (
+                    from odv in db.OrderDetailsView
+                    join o in db.Orders on odv.order_id equals o.id
+                    where o.status.Equals("Completed") && o.pub_id != null
+                    group odv by odv.product_name into g
+                    select new { product_name = g.Key, quantity = g.Sum(x => x.quantity) }
+                ).OrderByDescending(x => x.quantity).ToList();
+        <h3>The most popular products</h3>
+        <h4>Raport based only on completed orders</h4>
+        <table class="table">
+            <tr>
+                <th>
+                    No
+                </th>
+                <th>
+                    Product Name
+                </th>
+                <th>
+                    Total Sold Quantity
+                </th>
+            </tr>
+            @for (int i = 0; i < q.Count(); i++)
+            {
+                <tr>
+                    <td>
+                        @(i + 1)
+                    </td>
+                    <td>
+                        @q[i].product_name
+                    </td>
+                    <td>
+                        @q[i].quantity
+                    </td>
+                </tr>
+
+            }
+        </table>
+    }
+}

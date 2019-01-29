@@ -1,0 +1,91 @@
+SET IDENTITY_INSERT [dbo].[Address] ON
+INSERT INTO [dbo].[Address] ([id], [building_no], [street], [city], [postal_code], [RowVersion]) VALUES (1, 1, N'Topolowa', N'Buk', N'64-320', 1)
+INSERT INTO [dbo].[Address] ([id], [building_no], [street], [city], [postal_code], [RowVersion]) VALUES (2, 2, N'Kwiatowa', N'Dopiewo', N'64-385', 1)
+INSERT INTO [dbo].[Address] ([id], [building_no], [street], [city], [postal_code], [RowVersion]) VALUES (3, 14, N'Orzechowa', N'Poznan', N'64-385', 1)
+INSERT INTO [dbo].[Address] ([id], [building_no], [street], [city], [postal_code], [RowVersion]) VALUES (4, 134, N'Powstanców Wielkopolskich', N'Poznan', N'62-380', 1)
+INSERT INTO [dbo].[Address] ([id], [building_no], [street], [city], [postal_code], [RowVersion]) VALUES (5, 9, N'Alberta Einsteina', N'Wroclaw', N'37-515', 1)
+INSERT INTO [dbo].[Address] ([id], [building_no], [street], [city], [postal_code], [RowVersion]) VALUES (6, 56, N'Nad Miedza Poznan', N'Warszawa', N'85-420', 1)
+INSERT INTO [dbo].[Address] ([id], [building_no], [street], [city], [postal_code], [RowVersion]) VALUES (7, 25, N'Sopocka', N'Gdansk', N'72-600', 1)
+INSERT INTO [dbo].[Address] ([id], [building_no], [street], [city], [postal_code], [RowVersion]) VALUES (8, 48, N'Rolna', N'Poznan', N'64-385', 1)
+INSERT INTO [dbo].[Address] ([id], [building_no], [street], [city], [postal_code], [RowVersion]) VALUES (9, 13, N'Gronowa', N'Zielona Góra', N'22-750', 1)
+INSERT INTO [dbo].[Address] ([id], [building_no], [street], [city], [postal_code], [RowVersion]) VALUES (10, 97, N'Sikorskiego', N'Wroclaw', N'38-515', 1)
+SET IDENTITY_INSERT [dbo].[Address] OFF
+
+SET IDENTITY_INSERT [dbo].[OrderDetails] ON
+INSERT INTO [dbo].[OrderDetails] ([id], [order_id], [quantity], [product_id]) VALUES (10, 6, 50, 1)
+INSERT INTO [dbo].[OrderDetails] ([id], [order_id], [quantity], [product_id]) VALUES (11, 6, 50, 2)
+INSERT INTO [dbo].[OrderDetails] ([id], [order_id], [quantity], [product_id]) VALUES (13, 7, 10, 8)
+INSERT INTO [dbo].[OrderDetails] ([id], [order_id], [quantity], [product_id]) VALUES (14, 8, 10, 7)
+INSERT INTO [dbo].[OrderDetails] ([id], [order_id], [quantity], [product_id]) VALUES (15, 8, 10, 8)
+INSERT INTO [dbo].[OrderDetails] ([id], [order_id], [quantity], [product_id]) VALUES (16, 9, 50, 9)
+INSERT INTO [dbo].[OrderDetails] ([id], [order_id], [quantity], [product_id]) VALUES (17, 10, 50, 10)
+INSERT INTO [dbo].[OrderDetails] ([id], [order_id], [quantity], [product_id]) VALUES (18, 11, 50, 4)
+INSERT INTO [dbo].[OrderDetails] ([id], [order_id], [quantity], [product_id]) VALUES (19, 12, 40, 7)
+INSERT INTO [dbo].[OrderDetails] ([id], [order_id], [quantity], [product_id]) VALUES (20, 13, 30, 7)
+INSERT INTO [dbo].[OrderDetails] ([id], [order_id], [quantity], [product_id]) VALUES (21, 14, 10, 8)
+INSERT INTO [dbo].[OrderDetails] ([id], [order_id], [quantity], [product_id]) VALUES (22, 15, 50, 10)
+SET IDENTITY_INSERT [dbo].[OrderDetails] OFF
+
+SET IDENTITY_INSERT [dbo].[Orders] ON
+INSERT INTO [dbo].[Orders] ([id], [warehouse_id], [pub_id], [producer_id], [Incoming/Outcoming], [status], [date]) VALUES (5, 2, 3, NULL, N'Incoming', N'In Creation', N'2018-07-08 21:12:54')
+INSERT INTO [dbo].[Orders] ([id], [warehouse_id], [pub_id], [producer_id], [Incoming/Outcoming], [status], [date]) VALUES (6, 1, 1, NULL, N'Incoming', N'Completed', N'2019-09-03 21:17:00')
+INSERT INTO [dbo].[Orders] ([id], [warehouse_id], [pub_id], [producer_id], [Incoming/Outcoming], [status], [date]) VALUES (7, 2, NULL, 4, N'Outcoming', N'Completed', N'2018-07-14 12:22:30')
+INSERT INTO [dbo].[Orders] ([id], [warehouse_id], [pub_id], [producer_id], [Incoming/Outcoming], [status], [date]) VALUES (8, 1, NULL, 4, N'Outcoming', N'Completed', N'2018-10-25 21:23:10')
+INSERT INTO [dbo].[Orders] ([id], [warehouse_id], [pub_id], [producer_id], [Incoming/Outcoming], [status], [date]) VALUES (9, 1, NULL, 5, N'Outcoming', N'Completed', N'2018-11-13 09:23:39')
+INSERT INTO [dbo].[Orders] ([id], [warehouse_id], [pub_id], [producer_id], [Incoming/Outcoming], [status], [date]) VALUES (10, 3, NULL, 5, N'Outcoming', N'Completed', N'2018-12-15 10:23:57')
+INSERT INTO [dbo].[Orders] ([id], [warehouse_id], [pub_id], [producer_id], [Incoming/Outcoming], [status], [date]) VALUES (11, 2, NULL, 2, N'Outcoming', N'Completed', N'2018-08-05:50:15')
+INSERT INTO [dbo].[Orders] ([id], [warehouse_id], [pub_id], [producer_id], [Incoming/Outcoming], [status], [date]) VALUES (12, 2, NULL, 4, N'Outcoming', N'Completed', N'2018-09-14 04:24:59')
+INSERT INTO [dbo].[Orders] ([id], [warehouse_id], [pub_id], [producer_id], [Incoming/Outcoming], [status], [date]) VALUES (13, 3, NULL, 4, N'Outcoming', N'Completed', N'2018-10-28 06:50:15')
+INSERT INTO [dbo].[Orders] ([id], [warehouse_id], [pub_id], [producer_id], [Incoming/Outcoming], [status], [date]) VALUES (14, 2, NULL, 4, N'Outcoming', N'In Realization', N'2019-01-05 22:32:49')
+INSERT INTO [dbo].[Orders] ([id], [warehouse_id], [pub_id], [producer_id], [Incoming/Outcoming], [status], [date]) VALUES (15, 3, 3, NULL, N'Incoming', N'In Realization', N'2019-01-02 13:38:11')
+SET IDENTITY_INSERT [dbo].[Orders] OFF
+
+SET IDENTITY_INSERT [dbo].[Producers] ON
+INSERT INTO [dbo].[Producers] ([id], [name], [adress_id], [e-mail], [telephone_no], [RowVersion]) VALUES (1, N'Wyborowa S.A.', 10, N'wyborowa@gmail.com', N'923-092-943', 1)
+INSERT INTO [dbo].[Producers] ([id], [name], [adress_id], [e-mail], [telephone_no], [RowVersion]) VALUES (2, N'Alkopol Sp. z o.o.', 8, N'alkopol@wp.pl', N'939-485-029', 1)
+INSERT INTO [dbo].[Producers] ([id], [name], [adress_id], [e-mail], [telephone_no], [RowVersion]) VALUES (3, N'Drink-pol Sp. z o.o.', 6, N'drink-pol@gmial.com', N'928-394-201', 1)
+INSERT INTO [dbo].[Producers] ([id], [name], [adress_id], [e-mail], [telephone_no], [RowVersion]) VALUES (4, N'Le grande Sp. z o.o.', 9, N'le_grande@wp.pl', N'273-847-205', 1)
+INSERT INTO [dbo].[Producers] ([id], [name], [adress_id], [e-mail], [telephone_no], [RowVersion]) VALUES (5, N'Solanum Sp. z o.o.', 7, N'solanum@op.pl', N'929-384-964', 1)
+SET IDENTITY_INSERT [dbo].[Producers] OFF
+
+SET IDENTITY_INSERT [dbo].[Products] ON
+INSERT INTO [dbo].[Products] ([id], [name], [producer_id], [price], [alcohol_percentage], [volume], [RowVersion]) VALUES (1, N'Wyborowa', 1, CAST(39.0000 AS Money), 40, 0.7, 1)
+INSERT INTO [dbo].[Products] ([id], [name], [producer_id], [price], [alcohol_percentage], [volume], [RowVersion]) VALUES (2, N'Jack Daniels', 1, CAST(159.0000 AS Money), 45, 1, 1)
+INSERT INTO [dbo].[Products] ([id], [name], [producer_id], [price], [alcohol_percentage], [volume], [RowVersion]) VALUES (3, N'Zubrówka', 2, CAST(29.0000 AS Money), 40, 0.7, 1)
+INSERT INTO [dbo].[Products] ([id], [name], [producer_id], [price], [alcohol_percentage], [volume], [RowVersion]) VALUES (4, N'Soplica', 2, CAST(39.0000 AS Money), 40, 0.7, 1)
+INSERT INTO [dbo].[Products] ([id], [name], [producer_id], [price], [alcohol_percentage], [volume], [RowVersion]) VALUES (5, N'Finlandia', 3, CAST(49.0000 AS Money), 40, 1, 1)
+INSERT INTO [dbo].[Products] ([id], [name], [producer_id], [price], [alcohol_percentage], [volume], [RowVersion]) VALUES (6, N'Jim Beam', 3, CAST(65.0000 AS Money), 40, 0.7, 1)
+INSERT INTO [dbo].[Products] ([id], [name], [producer_id], [price], [alcohol_percentage], [volume], [RowVersion]) VALUES (7, N'Ballantines', 4, CAST(59.0000 AS Money), 40, 0.5, 1)
+INSERT INTO [dbo].[Products] ([id], [name], [producer_id], [price], [alcohol_percentage], [volume], [RowVersion]) VALUES (8, N'Don Julio Blanco', 4, CAST(169.0000 AS Money), 35, 0.7, 1)
+INSERT INTO [dbo].[Products] ([id], [name], [producer_id], [price], [alcohol_percentage], [volume], [RowVersion]) VALUES (9, N'Lubelska', 5, CAST(25.0000 AS Money), 30, 0.5, 1)
+INSERT INTO [dbo].[Products] ([id], [name], [producer_id], [price], [alcohol_percentage], [volume], [RowVersion]) VALUES (10, N'Stock', 5, CAST(29.0000 AS Money), 37, 0.5, 1)
+SET IDENTITY_INSERT [dbo].[Products] OFF
+
+SET IDENTITY_INSERT [dbo].[Pubs] ON
+INSERT INTO [dbo].[Pubs] ([id], [name], [adress_id], [e-mail], [telephone_no], [RowVersion]) VALUES (1, N'Pod Strzecha', 3, N'pod_strzecha@gmail.com', N'929-847-374', 1)
+INSERT INTO [dbo].[Pubs] ([id], [name], [adress_id], [e-mail], [telephone_no], [RowVersion]) VALUES (2, N'Smakowity Pub', 2, N'smakowity@gmail.com', N'928-374-628', 1)
+INSERT INTO [dbo].[Pubs] ([id], [name], [adress_id], [e-mail], [telephone_no], [RowVersion]) VALUES (3, N'Pijalnia', 1, N'pijalnia@wp.pl', N'828-475-738', 1)
+INSERT INTO [dbo].[Pubs] ([id], [name], [adress_id], [e-mail], [telephone_no], [RowVersion]) VALUES (4, N'Kolorowa', 5, N'kolorowa@op.pl', N'929-384-723', 1)
+INSERT INTO [dbo].[Pubs] ([id], [name], [adress_id], [e-mail], [telephone_no], [RowVersion]) VALUES (5, N'Ice Pub', 4, N'ice_pub@gmail.com', N'626-374-728', 1)
+SET IDENTITY_INSERT [dbo].[Pubs] OFF
+
+SET IDENTITY_INSERT [dbo].[Warehouses] ON
+INSERT INTO [dbo].[Warehouses] ([id], [name], [RowVersion]) VALUES (1, N'Wschodni', 1)
+INSERT INTO [dbo].[Warehouses] ([id], [name], [RowVersion]) VALUES (2, N'Magazyn Centralny', 4)
+INSERT INTO [dbo].[Warehouses] ([id], [name], [RowVersion]) VALUES (3, N'Pomniejszy', 1)
+SET IDENTITY_INSERT [dbo].[Warehouses] OFF
+
+SET IDENTITY_INSERT [dbo].[WarehousesStock] ON
+INSERT INTO [dbo].[WarehousesStock] ([id], [warehouse_id], [product_id], [quantity]) VALUES (1, 1, 1, 945)
+INSERT INTO [dbo].[WarehousesStock] ([id], [warehouse_id], [product_id], [quantity]) VALUES (2, 1, 2, 800)
+INSERT INTO [dbo].[WarehousesStock] ([id], [warehouse_id], [product_id], [quantity]) VALUES (3, 3, 8, 100)
+INSERT INTO [dbo].[WarehousesStock] ([id], [warehouse_id], [product_id], [quantity]) VALUES (4, 3, 7, 480)
+INSERT INTO [dbo].[WarehousesStock] ([id], [warehouse_id], [product_id], [quantity]) VALUES (5, 2, 8, 10)
+INSERT INTO [dbo].[WarehousesStock] ([id], [warehouse_id], [product_id], [quantity]) VALUES (6, 1, 7, 10)
+INSERT INTO [dbo].[WarehousesStock] ([id], [warehouse_id], [product_id], [quantity]) VALUES (7, 1, 8, 10)
+INSERT INTO [dbo].[WarehousesStock] ([id], [warehouse_id], [product_id], [quantity]) VALUES (8, 1, 9, 50)
+INSERT INTO [dbo].[WarehousesStock] ([id], [warehouse_id], [product_id], [quantity]) VALUES (9, 3, 10, 50)
+INSERT INTO [dbo].[WarehousesStock] ([id], [warehouse_id], [product_id], [quantity]) VALUES (10, 2, 4, 50)
+INSERT INTO [dbo].[WarehousesStock] ([id], [warehouse_id], [product_id], [quantity]) VALUES (11, 2, 7, 40)
+SET IDENTITY_INSERT [dbo].[WarehousesStock] OFF
+

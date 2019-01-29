@@ -11,7 +11,8 @@ namespace PubDBApplication.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Warehouses
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,6 +23,7 @@ namespace PubDBApplication.Models
         }
     
         public int id { get; set; }
+        [Required(ErrorMessage = "Required")]
         public string name { get; set; }
         public int RowVersion { get; set; }
     

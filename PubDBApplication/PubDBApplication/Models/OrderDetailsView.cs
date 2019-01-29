@@ -11,14 +11,23 @@ namespace PubDBApplication.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class OrderDetailsView
     {
         public int id { get; set; }
         public int order_id { get; set; }
+        [Required(ErrorMessage = "Required")]
         public string product_name { get; set; }
+        [Required(ErrorMessage = "Required")]
+        [Range(1, int.MaxValue, ErrorMessage = "Quantity cannot be negative or zero")]
         public int quantity { get; set; }
         public decimal price { get; set; }
-        public Nullable<decimal> amount { get; set; }
+        public decimal amount { get; set; }
+
+        public string toMongoString()
+        {
+            return "[P:" + product_name + " Pc:" + price.ToString("0.00") + " Qty:" + quantity.ToString() + " Amt:" + amount.ToString("0.00") + "]";
+        }
     }
 }

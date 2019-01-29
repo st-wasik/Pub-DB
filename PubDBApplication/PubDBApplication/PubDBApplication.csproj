@@ -47,6 +47,9 @@
     <LangVersion>7.2</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DnsClient, Version=1.0.7.0, Culture=neutral, PublicKeyToken=4574bb5573c51424, processorArchitecture=MSIL">
+      <HintPath>..\packages\DnsClient.1.0.7\lib\net45\DnsClient.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -54,9 +57,27 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MongoDB.Bson, Version=2.7.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Bson.2.7.2\lib\net45\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver, Version=2.7.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.2.7.2\lib\net45\MongoDB.Driver.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Core, Version=2.7.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.Core.2.7.2\lib\net45\MongoDB.Driver.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Legacy, Version=2.7.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\mongocsharpdriver.2.7.2\lib\net45\MongoDB.Driver.Legacy.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.3.0\lib\netstandard1.1\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.0.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -155,22 +176,31 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
-    <Compile Include="App_Start\GlobalVariables.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AddressesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderDetailsViewsController.cs" />
+    <Compile Include="Controllers\OrdersArchiveController.cs" />
     <Compile Include="Controllers\OrdersViewsController.cs" />
     <Compile Include="Controllers\ProducersController.cs" />
     <Compile Include="Controllers\ProductsViewsController.cs" />
     <Compile Include="Controllers\PubsController.cs" />
+    <Compile Include="Controllers\RaportsController.cs" />
     <Compile Include="Controllers\WarehousesController.cs" />
     <Compile Include="Controllers\WarehousesStocksController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Address.cs">
+      <DependentUpon>PubDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\customerStats_Result.cs">
+      <DependentUpon>PubDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MongoAccess.cs" />
+    <Compile Include="Models\MongoOrder.cs" />
+    <Compile Include="Models\mostPopularProducers.cs">
       <DependentUpon>PubDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\OrderDetails.cs">
@@ -186,9 +216,6 @@
       <DependentUpon>PubDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Producers.cs">
-      <DependentUpon>PubDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ProducersView.cs">
       <DependentUpon>PubDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Products.cs">
@@ -215,9 +242,10 @@
     <Compile Include="Models\Pubs.cs">
       <DependentUpon>PubDBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PubsView.cs">
+    <Compile Include="Models\saleStats_Result.cs">
       <DependentUpon>PubDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SqlFunctions.cs" />
     <Compile Include="Models\Warehouses.cs">
       <DependentUpon>PubDBModel.tt</DependentUpon>
     </Compile>
@@ -327,8 +355,14 @@
     <Content Include="Views\Pubs\Index.cshtml" />
     <Content Include="Views\WarehousesStocks\Index.cshtml" />
     <Content Include="Views\OrdersViews\Collect.cshtml" />
+    <Content Include="Views\Raports\Details.cshtml" />
+    <Content Include="Views\OrdersViews\Send.cshtml" />
+    <Content Include="Views\OrdersArchive\Archive.cshtml" />
+    <Content Include="Views\OrdersArchive\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\addressTest\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

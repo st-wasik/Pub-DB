@@ -28,21 +28,27 @@
             @Html.DisplayFor(model => model.warehouse_name)
         </dd>
 
-        <dt>
-            Pub Name
-        </dt>
+        @if (Model.Incoming_Outcoming.Equals("Incoming"))
+        {
+            <dt>
+                Pub Name
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.pub_name)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.pub_name)
+            </dd>
+        }
 
-        <dt>
-            Producer Name
-        </dt>
+        @if (Model.Incoming_Outcoming.Equals("Outcoming"))
+        {
+            <dt>
+                Producer Name
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.producer_name)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.producer_name)
+            </dd>
+        }
 
         <dt>
             Incoming/Outcoming
@@ -77,6 +83,54 @@
         </dd>
 
     </dl>
+
+    <table class="table">
+        <tr>
+            <th>
+                ID
+            </th>
+
+            <th>
+                Product
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Quantity
+            </th>
+
+            <th>
+                Amount
+            </th>
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in ViewBag.odView)
+        {
+            <tr>
+                <td>
+                    @item.id
+                </td>
+
+                <td>
+                    @item.product_name
+                </td>
+
+                <td>
+                    @item.price.ToString("0.00")
+                </td>
+                <td>
+                    @item.quantity
+                </td>
+                <td>
+                    @item.amount.ToString("0.00")
+                </td>
+            </tr>
+        }
+
+    </table>
 
     @using (Html.BeginForm())
     {
